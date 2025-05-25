@@ -1,0 +1,26 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Environment variables
+.env
+.env.*
+
+# Build directories
+dist/
+build/
+
+# Coverage directory
+coverage/
+
+# Cache directories
+.cache/
+
+# Editor directories and files
+.vscode/
+*.swp
+*.swo
