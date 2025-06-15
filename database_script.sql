@@ -35,24 +35,9 @@ CREATE TABLE ficheqs_has_field (
     CHECK (description IS NULL OR valeur = false) -- Contrainte : description seulement si valeur = false
 );
 
--- Trigger pour insérer automatiquement une entrée pour chaque champ dans ficheqs_has_field
-CREATE OR REPLACE FUNCTION insert_ficheqs_has_field()
-RETURNS TRIGGER AS $$
-BEGIN
-    -- Insère une entrée dans ficheqs_has_field pour chaque id_field de Fields
-    INSERT INTO ficheqs_has_field (id_fiche, id_field, valeur, description)
-    SELECT NEW.id_fiche, id_field, NULL, NULL
-    FROM Fields;
-    
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
--- Associe le trigger à l'insertion dans Ficheqs
-CREATE TRIGGER trigger_ficheqs_has_field
-AFTER INSERT ON Ficheqs
-FOR EACH ROW
-EXECUTE FUNCTION insert_ficheqs_has_field();
+-- Insertion d'un utilisateur de test
+INSERT INTO Users (email, password, firstname, lastname)
+VALUES ('test@gmail.com', 'test', 'Jean', 'Dupont');
 
 -- Insertion des champs prédéfinis dans Fields
 INSERT INTO Fields (name) VALUES

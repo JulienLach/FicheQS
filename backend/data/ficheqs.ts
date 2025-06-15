@@ -1,4 +1,5 @@
 import pool from "../config/db.config";
+import FicheqsHasField from "./ficheqs_has_field";
 
 export default class Ficheqs {
     constructor(
@@ -28,13 +29,21 @@ export default class Ficheqs {
         const values = [idFiche];
         const result = await pool.query(query, values);
         const row = result.rows[0];
-        return new Ficheqs(
-            row.id_fiche,
-            row.status,
-            row.visite_date,
-            row.logement,
-            row.id_user
-        );
+
+        // Récupère les champs associés
+        const fields = await FicheqsHasField.getFieldsByFicheId(idFiche);
+
+        // Retourne un objet avec la fiche et ses champs
+        return {
+            fiche: new Ficheqs(
+                row.id_fiche,
+                row.status,
+                row.visite_date,
+                row.logement,
+                row.id_user
+            ),
+            fields: fields,
+        };
     }
 
     public static async createFicheQS(
@@ -42,7 +51,12 @@ export default class Ficheqs {
         status: string,
         visiteDate: Date,
         logement: string,
-        idUser: number
+        idUser: number,
+        fields: {
+            idField: number;
+            valeur: boolean | null;
+            description?: string;
+        }[]
     ) {
         const query = `
             INSERT INTO ficheqs (id_fiche, status, visite_date, logement, id_user) 
@@ -52,6 +66,20 @@ export default class Ficheqs {
         const values = [idFiche, status, visiteDate, logement, idUser];
         const result = await pool.query(query, values);
         const row = result.rows[0];
+
+        // 2. Insérer tous les champs renseignés par l'utilisateur
+        for (const field of fields) {
+            await pool.query(
+                "INSERT INTO ficheqs_has_field (id_fiche, id_field, valeur, description) VALUES ($1, $2, $3, $4)",
+                [
+                    row.id_fiche,
+                    field.idField,
+                    field.valeur,
+                    field.description || null,
+                ]
+            );
+        }
+
         return new Ficheqs(
             row.id_fiche,
             row.status,
