@@ -58,6 +58,7 @@ export default class Ficheqs {
             description?: string;
         }[]
     ) {
+        // 1. Insérer la fiche dans la table ficheqs
         const query = `
             INSERT INTO ficheqs (id_fiche, status, visite_date, logement, id_user) 
             VALUES ($1, $2, $3, $4, $5) 
