@@ -15,4 +15,4 @@
 -   Use the latest React v19 functionnal component syntax
 -   Use async/await class syntax to avoid callback hell
 -   Use TypeScript for type safety
--   Use import/export syntax form ES6
+-   Use import/export syntax form ES2020

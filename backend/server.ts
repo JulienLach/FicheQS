@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
+import authRoutes from "./routes/auth.routes";
+import { authenticateToken } from "./middleware/auth.middleware";
 import ficheqsRoutes from "./routes/ficheqs.routes";
 
 dotenv.config();
@@ -22,8 +24,11 @@ app.get("/", (req, res) => {
     res.send("Test!");
 });
 
+// Route d'authentification
+app.use("/login", authRoutes);
+
 // Routes ficheqs
-app.use("/ficheqs", ficheqsRoutes);
+app.use("/ficheqs", authenticateToken, ficheqsRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${SERVER_URL}`);
