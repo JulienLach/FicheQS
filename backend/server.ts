@@ -13,11 +13,14 @@ const SERVER_URL = process.env.SERVER_URL;
 
 const app = express();
 
-const allowedOrigins = [
-    ORIGIN_URL, // http://localhost:3000
-];
+const allowedOrigins = ["http://localhost:3002"];
 
-app.use(cors());
+app.use(
+    cors({
+        origin: allowedOrigins,
+        credentials: true,
+    })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {

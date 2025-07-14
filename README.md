@@ -2,17 +2,18 @@
 
 ### Objectives
 
--   Use React v19 latest function syntax to train
--   Deploy as a PWA for only mobile devices
--   Use npm and Node.js
--   Use Express
--   Use typescript to train
--   Use PostgreSQL
--   Use Docker
+-   Use **React v19** with the latest functional component syntax to benefit from improved performance, hooks, and modern React features.
+-   Use **Vite** as the frontend build tool and development server, replacing the deprecated Create React App, for faster builds and a better developer experience.
+-   Deploy the frontend as a **Progressive Web App (PWA)**, optimised for mobile devices, to provide an app-like experience.
+-   Use **npm** as the package manager and **Node.js** as the JavaScript runtime environment for both frontend and backend.
+-   Use **Express** as the backend web framework for building robust REST APIs.
+-   Use **TypeScript** throughout the project to ensure type safety, better code quality, and easier maintenance.
+-   Use **PostgreSQL** as the relational database for reliable and scalable data storage.
+-   Use **Docker** to containerise the application, ensuring consistency across development, testing, and production environments.
 
-### Syntaxes to train
+### Syntaxes and paradigms to practice
 
--   Use the latest React v19 functionnal component syntax
--   Use async/await class syntax to avoid callback hell
--   Use TypeScript for type safety
--   Use import/export syntax form ES2020
+-   Use the latest **React v19 functional component syntax** (with hooks and ES2020 features).
+-   Use **async/await** for asynchronous code to avoid callback hell and improve readability.
+-   Use **TypeScript** for static type checking and safer code.
+-   Use **ES2020 import/export** syntax for modular and maintainable code.

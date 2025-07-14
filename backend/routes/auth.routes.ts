@@ -3,7 +3,7 @@ import { authenticateUser } from "../services/auth.services";
 
 const router = express.Router();
 
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const { email, password } = req.body;
         const { userId, token } = await authenticateUser(email, password);

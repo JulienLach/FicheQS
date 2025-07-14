@@ -2,7 +2,7 @@
 CREATE TABLE Users (
     id_user SERIAL PRIMARY KEY,
     email VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(128) NOT NULL,
     firstname VARCHAR(100),
     lastname VARCHAR(100)
 );
@@ -37,7 +37,7 @@ CREATE TABLE ficheqs_has_field (
 
 -- Insertion d'un utilisateur de test
 INSERT INTO Users (email, password, firstname, lastname)
-VALUES ('test@gmail.com', 'test', 'Jean', 'Dupont');
+VALUES ('test@gmail.com', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'Jean', 'Dupont');
 
 -- Insertion des champs prédéfinis dans Fields
 INSERT INTO Fields (name) VALUES
