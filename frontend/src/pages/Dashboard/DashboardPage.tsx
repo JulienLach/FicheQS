@@ -1,12 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu/Menu";
 
 const DashboardPage: React.FC = () => {
+    const navigate = useNavigate();
+
     return (
         <div>
             <Menu />
             <div className="container">
-                <button className="buttonDashboard">
+                <button
+                    className="buttonDashboard"
+                    onClick={() => navigate("/ficheqs")}
+                >
                     <i className="fas fa-file-circle-plus"></i>Nouvelle fiche
                     qualité sécurité
                 </button>

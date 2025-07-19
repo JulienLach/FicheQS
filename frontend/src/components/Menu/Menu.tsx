@@ -17,7 +17,12 @@ const Menu: React.FC = () => {
     return (
         <div className="menu">
             <div className="">
-                <img src={LogoMobile} alt="Logo" className="logoPages" />
+                <img
+                    src={LogoMobile}
+                    alt="Logo"
+                    className="logoPages"
+                    onClick={() => navigate("/dashboard")}
+                />
             </div>
             <button className="menuButton" onClick={toggleMenu}>
                 <i className={`fas fa-${isOpen ? "times" : "bars"}`}></i>

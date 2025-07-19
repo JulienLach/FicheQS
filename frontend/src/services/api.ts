@@ -14,3 +14,7 @@ export async function authenticateUser(email: string, password: string) {
     }
     return response.json();
 }
+
+export async function createFicheqs() {}
+
+export async function getAllFicheqs() {}
