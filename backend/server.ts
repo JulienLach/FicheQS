@@ -13,7 +13,11 @@ const SERVER_URL = process.env.SERVER_URL;
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:3000"];
+if (!ORIGIN_URL) {
+    throw new Error("ORIGIN_URL missing");
+}
+
+const allowedOrigins = [ORIGIN_URL];
 
 app.use(
     cors({
@@ -21,6 +25,7 @@ app.use(
         credentials: true,
     })
 );
+
 app.use(express.json());
 
 app.get("/", (req, res) => {

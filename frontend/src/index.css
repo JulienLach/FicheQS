@@ -13,12 +13,18 @@
     align-items: center;
     justify-content: start;
     height: 100vh;
+    width: 91vw;
+    margin: 0 auto;
 }
 
 .logoMobile {
     width: 280px;
     display: block;
     margin: 4em auto;
+}
+
+.logoPages {
+    width: 255px;
 }
 
 .formGroup {
@@ -41,20 +47,37 @@
     font-weight: 650;
 }
 
-.button {
-    margin: 0;
-    padding: 0.6em 1.8em;
+.buttonLogin {
+    margin: 1.5em 0;
+    padding: 0.7em 2.2em;
     display: flex;
     align-items: center;
     background-color: #00c472;
     color: #fff;
     border: none;
-    border-radius: 0.35em;
-    font-size: 1.25em;
+    border-radius: 0.23em;
+    font-size: 1.2em;
     cursor: pointer;
     font-weight: 600;
 }
 
-.button i {
-    margin-right: 0.5em;
+.buttonDashboard,
+.buttonMenu {
+    margin-bottom: 1.5em;
+    padding: 1.4em 1.5em;
+    display: flex;
+    align-items: center;
+    background-color: #00c472;
+    color: #fff;
+    border: none;
+    border-radius: 0.23em;
+    font-size: 1.15em;
+    font-weight: 600;
+    width: 100%;
+}
+
+.buttonLogin i,
+.buttonDashboard i,
+.buttonMenu i {
+    margin-right: 0.6em;
 }

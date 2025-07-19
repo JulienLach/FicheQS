@@ -1,0 +1,48 @@
+.menu {
+    height: 13vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 1.5em;
+}
+
+.menuButton {
+    background-color: #00c472;
+    border: none;
+    color: white;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.menuItems {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 60vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.08);
+    padding: 1em;
+}
+
+.closeButton {
+    background-color: #00c472;
+    border: none;
+    color: white;
+    padding: 0.28em 0.42em;
+    border-radius: 0.2em;
+    cursor: pointer;
+    font-size: 1.5em;
+    align-self: flex-end;
+    margin: 1.05em 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

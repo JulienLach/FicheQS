@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 import { authenticateUser } from "../../services/api";
 
@@ -7,12 +8,15 @@ const LoginForm: React.FC = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setError(null);
         try {
             const response = await authenticateUser(email, password);
             console.log("Connexion réussie :", response);
+            navigate("/dashboard");
         } catch (err: any) {
             setError(err.message || "Erreur de connexion");
         }
@@ -43,7 +47,7 @@ const LoginForm: React.FC = () => {
                 />
             </div>
             {error && <div className="error">{error}</div>}
-            <button type="submit" className="button">
+            <button type="submit" className="buttonLogin">
                 <i className="fas fa-user"></i>Connexion
             </button>
         </form>
