@@ -7,13 +7,13 @@ import ficheqsRoutes from "./routes/ficheqs.routes";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3001;
+const PORT_BACKEND = process.env.PORT_BACKEND;
 const ORIGIN_URL = process.env.ORIGIN_URL;
 const SERVER_URL = process.env.SERVER_URL;
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:3002"];
+const allowedOrigins = ["http://localhost:3000"];
 
 app.use(
     cors({
@@ -33,6 +33,6 @@ app.use("/login", authRoutes);
 // Routes ficheqs
 app.use("/ficheqs", authenticateToken, ficheqsRoutes);
 
-app.listen(PORT, () => {
+app.listen(PORT_BACKEND, () => {
     console.log(`Server is running on ${SERVER_URL}`);
 });
