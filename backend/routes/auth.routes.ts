@@ -15,7 +15,21 @@ router.post("/", async (req, res) => {
             maxAge: 2 * 60 * 60 * 1000, // 2h
         });
 
-        res.status(200).json({ userId });
+        res.cookie("userId", userId, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            maxAge: 2 * 60 * 60 * 1000, // 2h
+        });
+
+        res.cookie("email", email, {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            maxAge: 2 * 60 * 60 * 1000,
+        });
+
+        res.status(200).json({ email, userId, token });
     } catch (error: any) {
         res.status(401).json({ message: error.message });
     }

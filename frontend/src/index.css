@@ -84,8 +84,27 @@
 
 .headerTitle {
     font-size: 1.3em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
 }
 
 .headerTitle i {
     margin-right: 0.3em;
+}
+
+.fieldButtons {
+    display: flex;
+    gap: 1.5em;
+}
+
+.fieldButtons .switch {
+    width: 100%;
+    height: 2.3em;
+    margin: auto;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.fieldButtons .switch i {
+    margin-right: 0.5em;
 }

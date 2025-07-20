@@ -4,6 +4,14 @@
 
 -   Use **React v19** with the latest functional component syntax to benefit from improved performance, hooks, and modern React features.
 -   Use **Vite** as the frontend build tool and development server, replacing the deprecated Create React App, for faster builds and a better developer experience.
+    To create the frontend folder as a React project with Vite, run:
+    `npm create vite@latest frontend -- --template react`
+    Then, navigate into the folder and start the development server:
+    ```
+    cd frontend
+    npm install
+    npm run dev
+    ```
 -   Deploy the frontend as a **Progressive Web App (PWA)**, optimised for mobile devices, to provide an app-like experience.
 -   Use **npm** as the package manager and **Node.js** as the JavaScript runtime environment for both frontend and backend.
 -   Use **Express** as the backend web framework for building robust REST APIs.
