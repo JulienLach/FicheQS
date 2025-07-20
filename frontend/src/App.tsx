@@ -9,6 +9,7 @@ import "./App.css";
 import LoginPage from "./pages/Login/LoginPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import FicheqsPage from "./pages/FicheqsPage/FicheqsPage";
+import AllFichesqsPage from "./pages/AllFichesqsPage/AllFichesqsPage";
 
 const App: React.FC = () => {
     return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/ficheqs" element={<FicheqsPage />} />
+                <Route path="/all-fichesqs" element={<AllFichesqsPage />} />
             </Routes>
         </Router>
     );

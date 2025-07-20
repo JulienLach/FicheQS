@@ -16,7 +16,10 @@ const DashboardPage: React.FC = () => {
                     <i className="fas fa-file-circle-plus"></i>Nouvelle fiche
                     qualité sécurité
                 </button>
-                <button className="buttonDashboard">
+                <button
+                    className="buttonDashboard"
+                    onClick={() => navigate("/all-fichesqs")}
+                >
                     <i className="fas fa-file-circle-check"></i>Fiches qualité
                     sécurité validées
                 </button>

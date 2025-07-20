@@ -25,6 +25,7 @@
 
 .logoPages {
     width: 255px;
+    cursor: pointer;
 }
 
 .formGroup {
@@ -37,7 +38,7 @@
 
 .formGroup input {
     height: 2.5em;
-    border: 0.15em solid lightgrey;
+    border: 0.1em solid lightgrey;
     border-radius: 0.35em;
 }
 
@@ -74,6 +75,7 @@
     font-size: 1.15em;
     font-weight: 600;
     width: 100%;
+    cursor: pointer;
 }
 
 .buttonLogin i,
