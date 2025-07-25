@@ -17,4 +17,13 @@ export async function authenticateUser(email: string, password: string) {
 
 export async function createFicheqs() {}
 
-export async function getAllFicheqs() {}
+export async function getAllFicheqs() {
+    const response = await fetch(`${API_URL}/ficheqs`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la récupération des fichesqs");
+    }
+    return response.json();
+}

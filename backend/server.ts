@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 app.use("/login", authRoutes);
 
 // Routes ficheqs
-app.use("/ficheqs", authenticateToken, ficheqsRoutes);
+app.use("/ficheqs", ficheqsRoutes);
 
 app.listen(PORT_BACKEND, () => {
     console.log(`Server is running on ${SERVER_URL}`);
