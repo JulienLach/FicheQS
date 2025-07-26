@@ -114,10 +114,49 @@
 .ficheqsCard {
     display: flex;
     flex-direction: row;
-    padding: 1em 6em;
+    gap: 5em;
+    margin: 1.5em 0;
+    padding: 0.8em 2em;
     border-radius: 0.25em;
     border: 1px solid rgb(199, 199, 199);
     width: 100%;
-    margin: auto;
     background-color: #e1ebf0;
+    cursor: pointer;
+}
+
+.ficheqsDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    font-weight: 500;
+}
+
+.ficheqsDetails i {
+    margin-right: 0.5em;
+}
+
+.ficheStatus {
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 1em 0;
+    justify-content: center;
+}
+
+.pagination .fas {
+    cursor: pointer;
+    font-size: 1.3em;
+    transition: color 0.2s;
+}
+
+.pagination .disabled {
+    color: #bbb;
+    cursor: not-allowed;
+    pointer-events: none;
 }

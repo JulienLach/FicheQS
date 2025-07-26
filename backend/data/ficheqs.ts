@@ -11,7 +11,9 @@ export default class Ficheqs {
     ) {}
 
     public static async getAllFichesQS() {
-        const result = await pool.query("SELECT * FROM ficheqs");
+        const result = await pool.query(
+            "SELECT * FROM ficheqs ORDER BY visite_date DESC"
+        );
         return result.rows.map(
             (row: any) =>
                 new Ficheqs(
