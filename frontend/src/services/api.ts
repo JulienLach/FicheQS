@@ -27,3 +27,14 @@ export async function getAllFicheqs() {
     }
     return response.json();
 }
+
+export async function getFicheqsById(idFiche: number) {
+    const response = await fetch(`${API_URL}/ficheqs/${idFiche}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la récupération de la ficheqs");
+    }
+    return response.json();
+}

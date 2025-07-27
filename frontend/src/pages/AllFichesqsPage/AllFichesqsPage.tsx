@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu/Menu";
 import { formatDate } from "../../utils/date";
 import { formatStatus } from "../../utils/status";
@@ -10,6 +11,8 @@ const AllFichesqsPage: React.FC = () => {
     const [fiches, setFiches] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [page, setPage] = useState(1);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAllFicheqs()
@@ -33,7 +36,13 @@ const AllFichesqsPage: React.FC = () => {
                 {error && <div style={{ color: "red" }}>{error}</div>}
                 <ul>
                     {fichesToShow.map((fiche) => (
-                        <div className="ficheqsCard" key={fiche.idFiche}>
+                        <div
+                            className="ficheqsCard"
+                            key={fiche.idFiche}
+                            onClick={() =>
+                                navigate(`/ficheqs-details/${fiche.idFiche}`)
+                            }
+                        >
                             <div className="ficheqsDetails">
                                 <p>
                                     <i className="fas fa-house"></i>

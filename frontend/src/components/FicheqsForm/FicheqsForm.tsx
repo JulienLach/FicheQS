@@ -1,12 +1,353 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toInputDateValue } from "../../utils/date";
 import "./FicheqsForm.css";
 
-const FicheqsForm: React.FC = () => {
+interface FicheField {
+    idField: number;
+    valeur: boolean | null;
+    description: string;
+    label: string;
+}
+
+type FicheqsFormProps = {
+    ficheData: {
+        status: string;
+        email: string;
+        visiteDate: string;
+        logement: string;
+    };
+    fields: FicheField[];
+    readOnly: boolean;
+};
+
+const FicheqsForm: React.FC<FicheqsFormProps> = ({
+    ficheData,
+    fields,
+    readOnly,
+}) => {
     const [status, setStatus] = useState("");
     const [email, setEmail] = useState("");
     const [visiteDate, setVisiteDate] = useState("");
     const [logement, setLogement] = useState("");
+
+    useEffect(() => {
+        if (fields) {
+            setFieldsDaaf([
+                {
+                    idField: 1,
+                    label: "Présence",
+                    ...fields.find((f) => f.idField === 1),
+                },
+                {
+                    idField: 2,
+                    label: "État et propreté",
+                    ...fields.find((f) => f.idField === 2),
+                },
+                {
+                    idField: 3,
+                    label: "Fonctionnement",
+                    ...fields.find((f) => f.idField === 3),
+                },
+            ]);
+            setFieldsGaz([
+                {
+                    idField: 4,
+                    label: "ROAI bouchonné",
+                    ...fields.find((f) => f.idField === 4),
+                },
+                {
+                    idField: 5,
+                    label: "Chaudière vérifiée",
+                    ...fields.find((f) => f.idField === 5),
+                },
+                {
+                    idField: 6,
+                    label: "Canalisations correctement fixées",
+                    ...fields.find((f) => f.idField === 6),
+                },
+            ]);
+            setFieldsElectrique([
+                {
+                    idField: 7,
+                    label: "Cables électriques sous goulottes",
+                    ...fields.find((f) => f.idField === 7),
+                },
+                {
+                    idField: 8,
+                    label: "Prises et interrupteurs correctement fixés",
+                    ...fields.find((f) => f.idField === 8),
+                },
+                {
+                    idField: 9,
+                    label: "Convecteur en bon état et correctement fixés",
+                    ...fields.find((f) => f.idField === 9),
+                },
+                {
+                    idField: 10,
+                    label: "Tableau électrique sans pièce nue sous tension",
+                    ...fields.find((f) => f.idField === 10),
+                },
+            ]);
+            setFieldsRisqueChute([
+                {
+                    idField: 11,
+                    label: "Sols sans trou ni différence de dénivellation anormale",
+                    ...fields.find((f) => f.idField === 11),
+                },
+                {
+                    idField: 12,
+                    label: "Marches et mains courantes de l’escalier correctement fixées",
+                    ...fields.find((f) => f.idField === 12),
+                },
+                {
+                    idField: 13,
+                    label: "Gardes corps correctement dimensionnés, fixés et en bon état",
+                    ...fields.find((f) => f.idField === 13),
+                },
+            ]);
+            setFieldsBalcon([
+                {
+                    idField: 14,
+                    label: "Absence de fissure",
+                    ...fields.find((f) => f.idField === 14),
+                },
+                {
+                    idField: 15,
+                    label: "Absence d’infiltration",
+                    ...fields.find((f) => f.idField === 15),
+                },
+            ]);
+            setFieldsEvierLavabos([
+                {
+                    idField: 16,
+                    label: "Absence d’équipement cassé ou fuyard",
+                    ...fields.find((f) => f.idField === 16),
+                },
+                {
+                    idField: 17,
+                    label: "État des joints",
+                    ...fields.find((f) => f.idField === 17),
+                },
+            ]);
+            setFieldsFaience([
+                {
+                    idField: 18,
+                    label: "Absence d’équipement cassé ou fuyard",
+                    ...fields.find((f) => f.idField === 18),
+                },
+                {
+                    idField: 19,
+                    label: "État des joints",
+                    ...fields.find((f) => f.idField === 19),
+                },
+            ]);
+            setFieldsMeuble([
+                {
+                    idField: 20,
+                    label: "Ouverture / fermeture",
+                    ...fields.find((f) => f.idField === 20),
+                },
+                {
+                    idField: 21,
+                    label: "Ventilation gaz dégagée",
+                    ...fields.find((f) => f.idField === 21),
+                },
+                {
+                    idField: 22,
+                    label: "Ventilation sanitaire dégagée",
+                    ...fields.find((f) => f.idField === 22),
+                },
+                {
+                    idField: 23,
+                    label: "Fixations",
+                    ...fields.find((f) => f.idField === 23),
+                },
+            ]);
+            setFieldsCanalisation([
+                {
+                    idField: 24,
+                    label: "Absence d’équipement cassé ou fuyard",
+                    ...fields.find((f) => f.idField === 24),
+                },
+                {
+                    idField: 25,
+                    label: "État des joints",
+                    ...fields.find((f) => f.idField === 25),
+                },
+            ]);
+            setFieldsMenuiserie([
+                {
+                    idField: 26,
+                    label: "Ouverture / fermeture",
+                    ...fields.find((f) => f.idField === 26),
+                },
+                {
+                    idField: 27,
+                    label: "Menuiseries extérieures étanches à l’eau",
+                    ...fields.find((f) => f.idField === 27),
+                },
+                {
+                    idField: 28,
+                    label: "Détalonnage des portes",
+                    ...fields.find((f) => f.idField === 28),
+                },
+                {
+                    idField: 29,
+                    label: "Quincailleries en bon état",
+                    ...fields.find((f) => f.idField === 29),
+                },
+            ]);
+            setFieldsVentilation([
+                {
+                    idField: 30,
+                    label: "Bon fonctionnement",
+                    ...fields.find((f) => f.idField === 30),
+                },
+            ]);
+            setFieldsEmbelissement([
+                {
+                    idField: 31,
+                    label: "Propres et sans trous",
+                    ...fields.find((f) => f.idField === 31),
+                },
+                {
+                    idField: 32,
+                    label: "Plinthes correctement fixées",
+                    ...fields.find((f) => f.idField === 32),
+                },
+                {
+                    idField: 33,
+                    label: "Présence d’une barre de seuil si nécessaire",
+                    ...fields.find((f) => f.idField === 33),
+                },
+            ]);
+            setFieldsEspaceExt([
+                {
+                    idField: 34,
+                    label: "Haies, arbres et pelouses taillées et tondues",
+                    ...fields.find((f) => f.idField === 34),
+                },
+            ]);
+            setFieldsEquipementExt([
+                {
+                    idField: 35,
+                    label: "Fixation des gouttières et descentes d’EP",
+                    ...fields.find((f) => f.idField === 35),
+                },
+                {
+                    idField: 36,
+                    label: "Continuité des clôtures",
+                    ...fields.find((f) => f.idField === 36),
+                },
+                {
+                    idField: 37,
+                    label: "Ouverture / fermeture des portillons",
+                    ...fields.find((f) => f.idField === 37),
+                },
+            ]);
+            setFieldsEquipementDiv([
+                {
+                    idField: 38,
+                    label: "Hotte propre, à recyclage interne et correctement raccordée",
+                    ...fields.find((f) => f.idField === 38),
+                },
+                {
+                    idField: 39,
+                    label: "Fixation et fonctionnement de la sonette, de l’interphone ou du visiophone",
+                    ...fields.find((f) => f.idField === 39),
+                },
+                {
+                    idField: 40,
+                    label: "WC correctement fixé, non fuyard et inodore",
+                    ...fields.find((f) => f.idField === 40),
+                },
+                {
+                    idField: 41,
+                    label: "Ouverture / fermeture de la porte de douche",
+                    ...fields.find((f) => f.idField === 41),
+                },
+                {
+                    idField: 42,
+                    label: "Absence de brises vues (canisses)",
+                    ...fields.find((f) => f.idField === 42),
+                },
+                {
+                    idField: 43,
+                    label: "Stores bannes propres, en bon état et correctement fixés",
+                    ...fields.find((f) => f.idField === 43),
+                },
+            ]);
+            setFieldsProprete([
+                {
+                    idField: 44,
+                    label: "Toilettes (cuvette WC, réservoir de chasse d’eau)",
+                    ...fields.find((f) => f.idField === 44),
+                },
+                {
+                    idField: 45,
+                    label: "Salle de bain (lavabo, douche, baignoire)",
+                    ...fields.find((f) => f.idField === 45),
+                },
+                {
+                    idField: 46,
+                    label: "Cuisine (évier, meuble évier, plan de travail)",
+                    ...fields.find((f) => f.idField === 46),
+                },
+                {
+                    idField: 47,
+                    label: "Grilles de ventilation",
+                    ...fields.find((f) => f.idField === 47),
+                },
+                {
+                    idField: 48,
+                    label: "Calandre d’appareil de production d’eau chaude",
+                    ...fields.find((f) => f.idField === 48),
+                },
+                {
+                    idField: 49,
+                    label: "Tuyauteries",
+                    ...fields.find((f) => f.idField === 49),
+                },
+                {
+                    idField: 50,
+                    label: "Menuiseries PVC",
+                    ...fields.find((f) => f.idField === 50),
+                },
+                {
+                    idField: 51,
+                    label: "Vitrage",
+                    ...fields.find((f) => f.idField === 51),
+                },
+                {
+                    idField: 52,
+                    label: "Chambranles de portes",
+                    ...fields.find((f) => f.idField === 52),
+                },
+                {
+                    idField: 53,
+                    label: "Interrupteurs",
+                    ...fields.find((f) => f.idField === 53),
+                },
+                {
+                    idField: 54,
+                    label: "Sols",
+                    ...fields.find((f) => f.idField === 54),
+                },
+                {
+                    idField: 55,
+                    label: "Joints sillicones",
+                    ...fields.find((f) => f.idField === 55),
+                },
+            ]);
+        }
+        if (ficheData) {
+            setStatus(ficheData.status || "");
+            setEmail(ficheData.email || "");
+            setVisiteDate(ficheData.visiteDate || "");
+            setLogement(ficheData.logement || "");
+        }
+    }, [ficheData, fields]);
 
     // Groupe DAAF
     const [fieldsDaaf, setFieldsDaaf] = useState<any>([
@@ -580,9 +921,10 @@ const FicheqsForm: React.FC = () => {
                     <label>Date de visite :</label>
                     <input
                         type="date"
-                        value={visiteDate}
+                        value={toInputDateValue(visiteDate)}
                         onChange={(e) => setVisiteDate(e.target.value)}
                         required
+                        readOnly={readOnly}
                     />
                 </div>
                 <div>
@@ -592,6 +934,7 @@ const FicheqsForm: React.FC = () => {
                         value={logement}
                         onChange={(e) => setLogement(e.target.value)}
                         required
+                        readOnly={readOnly}
                     />
                 </div>
                 <div>
@@ -601,7 +944,7 @@ const FicheqsForm: React.FC = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        readOnly
+                        readOnly={readOnly}
                     />
                 </div>
             </div>
@@ -628,6 +971,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -646,6 +990,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -655,6 +1000,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleDaafFieldChange(
@@ -688,6 +1034,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -706,6 +1053,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -715,6 +1063,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleGazFieldChange(
@@ -748,6 +1097,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -766,6 +1116,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -775,6 +1126,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleElectriqueFieldChange(
@@ -808,6 +1160,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -826,6 +1179,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -835,6 +1189,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleRisqueChuteFieldChange(
@@ -868,6 +1223,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -886,6 +1242,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -895,6 +1252,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleBalconFieldChange(
@@ -930,6 +1288,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -948,6 +1307,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -957,6 +1317,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleRisqueChuteFieldChange(
@@ -990,6 +1351,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1008,6 +1370,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1017,6 +1380,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleFaienceFieldChange(
@@ -1050,6 +1414,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1068,6 +1433,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1077,6 +1443,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleMeubleFieldChange(
@@ -1110,6 +1477,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1128,6 +1496,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1137,6 +1506,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleCanalisationFieldChange(
@@ -1170,6 +1540,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1188,6 +1559,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1197,6 +1569,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleMenuiserieFieldChange(
@@ -1230,6 +1603,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1248,6 +1622,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1257,6 +1632,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleVentilationFieldChange(
@@ -1290,6 +1666,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1308,6 +1685,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1317,6 +1695,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleEmbelissementFieldChange(
@@ -1350,6 +1729,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1368,6 +1748,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1377,6 +1758,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleEspaceExtFieldChange(
@@ -1410,6 +1792,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1428,6 +1811,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1437,6 +1821,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleEquipementExtFieldChange(
@@ -1470,6 +1855,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1488,6 +1874,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1497,6 +1884,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handleEquipementDivFieldChange(
@@ -1530,6 +1918,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === true ? null : true
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
                                 Ok
@@ -1548,6 +1937,7 @@ const FicheqsForm: React.FC = () => {
                                         field.valeur === false ? null : false
                                     )
                                 }
+                                disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
                                 Pas opérationel
@@ -1557,6 +1947,7 @@ const FicheqsForm: React.FC = () => {
                             <textarea
                                 className="description"
                                 placeholder="Description"
+                                readOnly={readOnly}
                                 value={field.description}
                                 onChange={(e) =>
                                     handlePropreteFieldChange(
