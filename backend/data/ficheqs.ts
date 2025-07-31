@@ -11,18 +11,9 @@ export default class Ficheqs {
     ) {}
 
     public static async getAllFichesQS() {
-        const result = await pool.query(
-            "SELECT * FROM ficheqs ORDER BY visite_date DESC"
-        );
+        const result = await pool.query("SELECT * FROM ficheqs ORDER BY visite_date DESC");
         return result.rows.map(
-            (row: any) =>
-                new Ficheqs(
-                    row.id_fiche,
-                    row.status,
-                    row.visite_date,
-                    row.logement,
-                    row.id_user
-                )
+            (row: any) => new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user)
         );
     }
 
@@ -37,19 +28,12 @@ export default class Ficheqs {
 
         // Retourne un objet avec la fiche et ses champs
         return {
-            fiche: new Ficheqs(
-                row.id_fiche,
-                row.status,
-                row.visite_date,
-                row.logement,
-                row.id_user
-            ),
+            fiche: new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user),
             fields: fields,
         };
     }
 
     public static async createFicheQS(
-        idFiche: number,
         status: string,
         visiteDate: Date,
         logement: string,
@@ -62,11 +46,11 @@ export default class Ficheqs {
     ) {
         // 1. Insérer la fiche dans la table ficheqs
         const query = `
-            INSERT INTO ficheqs (id_fiche, status, visite_date, logement, id_user) 
-            VALUES ($1, $2, $3, $4, $5) 
+            INSERT INTO ficheqs (status, visite_date, logement, id_user) 
+            VALUES ($1, $2, $3, $4) 
             RETURNING *;
         `;
-        const values = [idFiche, status, visiteDate, logement, idUser];
+        const values = [status, visiteDate, logement, idUser];
         const result = await pool.query(query, values);
         const row = result.rows[0];
 
@@ -74,21 +58,10 @@ export default class Ficheqs {
         for (const field of fields) {
             await pool.query(
                 "INSERT INTO ficheqs_has_field (id_fiche, id_field, valeur, description) VALUES ($1, $2, $3, $4)",
-                [
-                    row.id_fiche,
-                    field.idField,
-                    field.valeur,
-                    field.description || null,
-                ]
+                [row.id_fiche, field.idField, field.valeur, field.description || null]
             );
         }
 
-        return new Ficheqs(
-            row.id_fiche,
-            row.status,
-            row.visite_date,
-            row.logement,
-            row.id_user
-        );
+        return new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user);
     }
 }

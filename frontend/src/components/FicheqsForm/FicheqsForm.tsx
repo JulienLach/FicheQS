@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toInputDateValue } from "../../utils/date";
+import { createFicheqs } from "../../services/api";
 import "./FicheqsForm.css";
 
 interface FicheField {
@@ -12,7 +13,7 @@ interface FicheField {
 
 type FicheqsFormProps = {
     ficheData: {
-        status: string;
+        status: number;
         email: string;
         visiteDate: string;
         logement: string;
@@ -21,13 +22,10 @@ type FicheqsFormProps = {
     readOnly: boolean;
 };
 
-const FicheqsForm: React.FC<FicheqsFormProps> = ({
-    ficheData,
-    fields,
-    readOnly,
-}) => {
-    const [status, setStatus] = useState("");
+const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }) => {
+    const [status, setStatus] = useState<number>();
     const [email, setEmail] = useState("");
+    const [idUser, setIdUser] = useState<number>();
     const [visiteDate, setVisiteDate] = useState("");
     const [logement, setLogement] = useState("");
 
@@ -342,7 +340,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             ]);
         }
         if (ficheData) {
-            setStatus(ficheData.status || "");
+            setStatus(ficheData.status);
             setEmail(ficheData.email || "");
             setVisiteDate(ficheData.visiteDate || "");
             setLogement(ficheData.logement || "");
@@ -740,7 +738,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     useEffect(() => {
         const email = decodeURIComponent(getCookie("email"));
         setEmail(email);
-    });
+        const idUser = decodeURIComponent(getCookie("userId"));
+        setIdUser(Number(idUser));
+    }, []);
 
     const handleDaafFieldChange = (idx: number, key: string, value: any) => {
         setFieldsDaaf((fields: any) => {
@@ -758,11 +758,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleElectriqueFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleElectriqueFieldChange = (idx: number, key: string, value: any) => {
         setFieldsElectrique((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -770,11 +766,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleRisqueChuteFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleRisqueChuteFieldChange = (idx: number, key: string, value: any) => {
         setFieldsRisqueChute((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -790,11 +782,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleEvierLavabosFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleEvierLavabosFieldChange = (idx: number, key: string, value: any) => {
         setFieldsEvierLavabos((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -818,11 +806,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleCanalisationFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleCanalisationFieldChange = (idx: number, key: string, value: any) => {
         setFieldsCanalisation((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -830,11 +814,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleMenuiserieFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleMenuiserieFieldChange = (idx: number, key: string, value: any) => {
         setFieldsMenuiserie((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -842,11 +822,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleVentilationFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleVentilationFieldChange = (idx: number, key: string, value: any) => {
         setFieldsVentilation((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -854,11 +830,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleEmbelissementFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleEmbelissementFieldChange = (idx: number, key: string, value: any) => {
         setFieldsEmbelissement((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -866,11 +838,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleEspaceExtFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleEspaceExtFieldChange = (idx: number, key: string, value: any) => {
         setFieldsEspaceExt((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -878,11 +846,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleEquipementExtFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleEquipementExtFieldChange = (idx: number, key: string, value: any) => {
         setFieldsEquipementExt((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -890,11 +854,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handleEquipementDivFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handleEquipementDivFieldChange = (idx: number, key: string, value: any) => {
         setFieldsEquipementDiv((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -902,11 +862,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
-    const handlePropreteFieldChange = (
-        idx: number,
-        key: string,
-        value: any
-    ) => {
+    const handlePropreteFieldChange = (idx: number, key: string, value: any) => {
         setFieldsProprete((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
@@ -914,8 +870,43 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         });
     };
 
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        const ficheData = {
+            status,
+            idUser,
+            visiteDate,
+            logement,
+            fieldsDaaf,
+            fieldsGaz,
+            fieldsElectrique,
+            fieldsRisqueChute,
+            fieldsBalcon,
+            fieldsEvierLavabos,
+            fieldsFaience,
+            fieldsMeuble,
+            fieldsCanalisation,
+            fieldsMenuiserie,
+            fieldsVentilation,
+            fieldsEmbelissement,
+            fieldsEspaceExt,
+            fieldsEquipementExt,
+            fieldsEquipementDiv,
+            fieldsProprete,
+        };
+        console.log("Données de la fiche :", ficheData);
+
+        try {
+            await createFicheqs(ficheData);
+            navigate("/dashboard");
+        } catch (error) {
+            console.error("Erreur lors de la création de la fiche :", error);
+        }
+    }
+
     return (
-        <form className="ficheqsForm">
+        <form className="ficheqsForm" onSubmit={handleSubmit}>
             <div className="formHeader">
                 <div>
                     <label>Date de visite :</label>
@@ -959,17 +950,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleDaafFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleDaafFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -978,17 +961,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleDaafFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleDaafFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1002,13 +977,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleDaafFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleDaafFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1022,18 +991,8 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
-                                onClick={() =>
-                                    handleGazFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
+                                onClick={() => handleGazFieldChange(idx, "valeur", field.valeur === true ? null : true)}
                                 disabled={readOnly}
                             >
                                 <i className="fas fa-check"></i>
@@ -1041,17 +1000,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleGazFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleGazFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1065,13 +1016,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleGazFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleGazFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1085,17 +1030,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleElectriqueFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleElectriqueFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1104,17 +1041,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleElectriqueFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleElectriqueFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1128,13 +1057,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleElectriqueFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleElectriqueFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1148,17 +1071,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleRisqueChuteFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleRisqueChuteFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1167,17 +1082,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleRisqueChuteFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleRisqueChuteFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1191,13 +1098,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleRisqueChuteFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleRisqueChuteFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1211,17 +1112,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleBalconFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleBalconFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1230,17 +1123,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleBalconFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleBalconFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1254,39 +1139,23 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleBalconFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleBalconFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
                 ))}
             </div>
             <div>
-                <h3 className="fieldTitle">
-                    Éviers, lavabos, baignoires, bacs à douche
-                </h3>
+                <h3 className="fieldTitle">Éviers, lavabos, baignoires, bacs à douche</h3>
                 {fieldsEvierLavabos.map((field: any, idx: number) => (
                     <div key={field.idField} className="field">
                         <span className="fieldSubtitle">{field.label} :</span>
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleEvierLavabosFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleEvierLavabosFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1295,17 +1164,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleEvierLavabosFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleEvierLavabosFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1319,13 +1180,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleRisqueChuteFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleRisqueChuteFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1339,17 +1194,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleFaienceFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleFaienceFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1358,17 +1205,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleFaienceFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleFaienceFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1382,13 +1221,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleFaienceFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleFaienceFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1402,17 +1235,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleMeubleFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleMeubleFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1421,17 +1246,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleMeubleFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleMeubleFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1445,13 +1262,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleMeubleFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleMeubleFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1465,17 +1276,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleCanalisationFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleCanalisationFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1484,17 +1287,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleCanalisationFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleCanalisationFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1508,13 +1303,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleCanalisationFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleCanalisationFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1528,17 +1317,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleMenuiserieFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleMenuiserieFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1547,17 +1328,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleMenuiserieFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleMenuiserieFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1571,13 +1344,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleMenuiserieFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleMenuiserieFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1591,17 +1358,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleVentilationFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleVentilationFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1610,17 +1369,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleVentilationFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleVentilationFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1634,13 +1385,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleVentilationFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleVentilationFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1654,17 +1399,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleEmbelissementFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleEmbelissementFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1673,17 +1410,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleEmbelissementFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleEmbelissementFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1697,13 +1426,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleEmbelissementFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleEmbelissementFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1717,17 +1440,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleEspaceExtFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleEspaceExtFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1736,17 +1451,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleEspaceExtFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleEspaceExtFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1760,13 +1467,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleEspaceExtFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleEspaceExtFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1780,17 +1481,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleEquipementExtFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleEquipementExtFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1799,17 +1492,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleEquipementExtFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleEquipementExtFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1823,13 +1508,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleEquipementExtFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleEquipementExtFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1843,17 +1522,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handleEquipementDivFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handleEquipementDivFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1862,17 +1533,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handleEquipementDivFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handleEquipementDivFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1886,13 +1549,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handleEquipementDivFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handleEquipementDivFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>
@@ -1906,17 +1563,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         <div className="fieldButtons">
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === true
-                                        ? "switch active"
-                                        : "switch"
-                                }
+                                className={field.valeur === true ? "switch active" : "switch"}
                                 onClick={() =>
-                                    handlePropreteFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === true ? null : true
-                                    )
+                                    handlePropreteFieldChange(idx, "valeur", field.valeur === true ? null : true)
                                 }
                                 disabled={readOnly}
                             >
@@ -1925,17 +1574,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                             </button>
                             <button
                                 type="button"
-                                className={
-                                    field.valeur === false
-                                        ? "switch descActive"
-                                        : "switch"
-                                }
+                                className={field.valeur === false ? "switch descActive" : "switch"}
                                 onClick={() =>
-                                    handlePropreteFieldChange(
-                                        idx,
-                                        "valeur",
-                                        field.valeur === false ? null : false
-                                    )
+                                    handlePropreteFieldChange(idx, "valeur", field.valeur === false ? null : false)
                                 }
                                 disabled={readOnly}
                             >
@@ -1949,13 +1590,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 placeholder="Description"
                                 readOnly={readOnly}
                                 value={field.description}
-                                onChange={(e) =>
-                                    handlePropreteFieldChange(
-                                        idx,
-                                        "description",
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => handlePropreteFieldChange(idx, "description", e.target.value)}
                             />
                         )}
                     </div>

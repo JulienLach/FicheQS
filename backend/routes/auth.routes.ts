@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
         });
 
         res.cookie("userId", userId, {
-            httpOnly: true,
+            httpOnly: false,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
             maxAge: 2 * 60 * 60 * 1000, // 2h

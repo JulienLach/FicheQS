@@ -9,19 +9,11 @@ const DashboardPage: React.FC = () => {
         <div>
             <Menu />
             <div className="container">
-                <button
-                    className="buttonDashboard"
-                    onClick={() => navigate("/ficheqs")}
-                >
-                    <i className="fas fa-file-circle-plus"></i>Nouvelle fiche
-                    qualité sécurité
+                <button className="buttonDashboard" onClick={() => navigate("/ficheqs")}>
+                    <i className="fas fa-file-circle-plus"></i>Nouvelle fiche qualité sécurité
                 </button>
-                <button
-                    className="buttonDashboard"
-                    onClick={() => navigate("/all-fichesqs")}
-                >
-                    <i className="fas fa-file-circle-check"></i>Fiches qualité
-                    sécurité validées
+                <button className="buttonDashboard" onClick={() => navigate("/all-fichesqs")}>
+                    <i className="fas fa-file-circle-check"></i>Fiches qualité sécurité validées
                 </button>
             </div>
         </div>

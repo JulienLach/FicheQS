@@ -17,12 +17,7 @@ const Menu: React.FC = () => {
     return (
         <div className="menu">
             <div className="">
-                <img
-                    src={LogoMobile}
-                    alt="Logo"
-                    className="logoPages"
-                    onClick={() => navigate("/dashboard")}
-                />
+                <img src={LogoMobile} alt="Logo" className="logoPages" onClick={() => navigate("/dashboard")} />
             </div>
             <button className="menuButton" onClick={toggleMenu}>
                 <i className={`fas fa-${isOpen ? "times" : "bars"}`}></i>
@@ -32,16 +27,10 @@ const Menu: React.FC = () => {
                     <button className="closeButton" onClick={toggleMenu}>
                         <i className="fas fa-xmark"></i>
                     </button>
-                    <button
-                        className="buttonMenu"
-                        onClick={() => handleNavigation("/dashboard")}
-                    >
+                    <button className="buttonMenu" onClick={() => handleNavigation("/dashboard")}>
                         <i className="fas fa-user"></i>Mon compte
                     </button>
-                    <button
-                        className="buttonMenu"
-                        onClick={() => handleNavigation("/login")}
-                    >
+                    <button className="buttonMenu" onClick={() => handleNavigation("/login")}>
                         <i className="fas fa-sign-out-alt"></i>Déconnexion
                     </button>
                 </div>

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./pages/Login/LoginPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
@@ -21,10 +16,7 @@ const App: React.FC = () => {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/ficheqs" element={<FicheqsPage />} />
                 <Route path="/all-fichesqs" element={<AllFichesqsPage />} />
-                <Route
-                    path="/ficheqs-details/:idFiche"
-                    element={<FicheqsDetailsPage />}
-                />
+                <Route path="/ficheqs-details/:idFiche" element={<FicheqsDetailsPage />} />
             </Routes>
         </Router>
     );

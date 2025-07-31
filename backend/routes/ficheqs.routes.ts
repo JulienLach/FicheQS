@@ -1,9 +1,5 @@
 import express from "express";
-import {
-    getAllFichesQS,
-    getFicheQSById,
-    createFicheQS,
-} from "../services/ficheqs.services";
+import { getAllFichesQS, getFicheQSById, createFicheQS } from "../services/ficheqs.services";
 
 const router = express.Router();
 
@@ -28,16 +24,8 @@ router.get("/:idFiche", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const { idFiche, status, visiteDate, logement, idUser, fields } =
-            req.body;
-        const ficheqs = await createFicheQS(
-            idFiche,
-            status,
-            visiteDate,
-            logement,
-            idUser,
-            fields
-        );
+        const { status, visiteDate, logement, idUser, fields } = req.body;
+        const ficheqs = await createFicheQS(status, visiteDate, logement, idUser, fields);
         res.status(201).json(ficheqs);
     } catch (error: any) {
         res.status(500).json({ message: error.message });

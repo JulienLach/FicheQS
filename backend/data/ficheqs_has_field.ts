@@ -13,13 +13,7 @@ export default class FicheqsHasField {
         const values = [idFiche];
         const result = await pool.query(query, values);
         return result.rows.map(
-            (row: any) =>
-                new FicheqsHasField(
-                    row.id_fiche,
-                    row.id_field,
-                    row.valeur,
-                    row.description
-                )
+            (row: any) => new FicheqsHasField(row.id_fiche, row.id_field, row.valeur, row.description)
         );
     }
 }

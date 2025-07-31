@@ -1,12 +1,7 @@
 import pool from "../config/db.config";
 
 export default class Users {
-    constructor(
-        public idUser: number,
-        public username: string,
-        public password: string,
-        public email: string
-    ) {}
+    constructor(public idUser: number, public username: string, public password: string, public email: string) {}
 
     public static async getUserById(id: number) {
         const query = "SELECT * FROM users WHERE id_user = $1";

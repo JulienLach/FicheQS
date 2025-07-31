@@ -8,10 +8,18 @@ const FicheqsPage: React.FC = () => {
             <Menu />
             <div className="container">
                 <h2 className="headerTitle">
-                    <i className="fas fa-file-circle-plus"></i> Nouvelle fiches
-                    qualité sécurité
+                    <i className="fas fa-file-circle-plus"></i> Nouvelle fiches qualité sécurité
                 </h2>
-                <FicheqsForm />
+                <FicheqsForm
+                    ficheData={{
+                        status: "",
+                        email: "",
+                        visiteDate: "",
+                        logement: "",
+                    }}
+                    fields={[]}
+                    readOnly={false}
+                />
             </div>
         </div>
     );

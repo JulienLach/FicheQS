@@ -11,8 +11,7 @@ const FicheqsDetailsPage: React.FC = () => {
             <Menu />
             <div className="container">
                 <h2 className="headerTitle">
-                    <i className="fas fa-file-circle-check"></i> Récapitulatif
-                    fiche qualité sécurité
+                    <i className="fas fa-file-circle-check"></i> Récapitulatif fiche qualité sécurité
                 </h2>
                 <FicheqsDetailsForm idFiche={Number(idFiche)} />
                 <button type="submit" className="buttonLogin">

@@ -15,7 +15,18 @@ export async function authenticateUser(email: string, password: string) {
     return response.json();
 }
 
-export async function createFicheqs() {}
+export async function createFicheqs(ficheData: any) {
+    const response = await fetch(`${API_URL}/ficheqs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(ficheData),
+        credentials: "include",
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la création de la fiche");
+    }
+    return response.json();
+}
 
 export async function getAllFicheqs() {
     const response = await fetch(`${API_URL}/ficheqs`, {

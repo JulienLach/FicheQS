@@ -30,8 +30,7 @@ const AllFichesqsPage: React.FC = () => {
             <Menu />
             <div className="container">
                 <h2 className="headerTitle">
-                    <i className="fas fa-file-circle-check"></i>Fiches qualité
-                    sécurité validées
+                    <i className="fas fa-file-circle-check"></i>Fiches qualité sécurité validées
                 </h2>
                 {error && <div style={{ color: "red" }}>{error}</div>}
                 <ul>
@@ -39,9 +38,7 @@ const AllFichesqsPage: React.FC = () => {
                         <div
                             className="ficheqsCard"
                             key={fiche.idFiche}
-                            onClick={() =>
-                                navigate(`/ficheqs-details/${fiche.idFiche}`)
-                            }
+                            onClick={() => navigate(`/ficheqs-details/${fiche.idFiche}`)}
                         >
                             <div className="ficheqsDetails">
                                 <p>
@@ -50,21 +47,16 @@ const AllFichesqsPage: React.FC = () => {
                                 </p>
                                 <p>
                                     <i className="far fa-calendar"></i>
-                                    <span>Date :</span>{" "}
-                                    {formatDate(fiche.visiteDate)}
+                                    <span>Date :</span> {formatDate(fiche.visiteDate)}
                                 </p>
                             </div>
-                            <div className="ficheStatus">
-                                {formatStatus(fiche.status)}
-                            </div>
+                            <div className="ficheStatus">{formatStatus(fiche.status)}</div>
                         </div>
                     ))}
                 </ul>
                 <div className="pagination">
                     <i
-                        className={`fas fa-chevron-left${
-                            page === 1 ? " disabled" : ""
-                        }`}
+                        className={`fas fa-chevron-left${page === 1 ? " disabled" : ""}`}
                         onClick={() => page > 1 && setPage(page - 1)}
                         aria-label="Page précédente"
                     ></i>
@@ -72,9 +64,7 @@ const AllFichesqsPage: React.FC = () => {
                         {page} / {totalPages}
                     </span>
                     <i
-                        className={`fas fa-chevron-right${
-                            page === totalPages ? " disabled" : ""
-                        }`}
+                        className={`fas fa-chevron-right${page === totalPages ? " disabled" : ""}`}
                         onClick={() => page < totalPages && setPage(page + 1)}
                         aria-label="Page suivante"
                     ></i>

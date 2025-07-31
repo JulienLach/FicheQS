@@ -21,10 +21,7 @@ export async function authenticateUser(email: string, password: string) {
     const user = result.rows[0];
 
     // Vérification du mot de passe
-    const hashedPassword = crypto
-        .createHash("sha256")
-        .update(password)
-        .digest("hex");
+    const hashedPassword = crypto.createHash("sha256").update(password).digest("hex");
     if (user.password !== hashedPassword) {
         throw new Error("Mot de passe incorrect");
     }
