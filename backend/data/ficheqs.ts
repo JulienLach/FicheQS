@@ -1,5 +1,6 @@
 import pool from "../config/db.config";
 import FicheqsHasField from "./ficheqs_has_field";
+import Users from "./users";
 
 export default class Ficheqs {
     constructor(
@@ -26,7 +27,7 @@ export default class Ficheqs {
         // Récupère les champs associés
         const fields = await FicheqsHasField.getFieldsByFicheId(idFiche);
 
-        // Retourne un objet avec la fiche et ses champs
+        // Retourne un objet avec la fiche et ses champs associés de la table ficheqs_has_field
         return {
             fiche: new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user),
             fields: fields,

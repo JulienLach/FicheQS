@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toInputDateValue } from "../../utils/date";
+import { getCookie } from "../../utils/cookie";
 import { createFicheqs } from "../../services/api";
 import "./FicheqsForm.css";
 
@@ -340,8 +341,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }
             ]);
         }
         if (ficheData) {
-            setStatus(1);
-            setEmail(ficheData.email || "");
+            setStatus(2);
             setVisiteDate(ficheData.visiteDate || "");
             setLogement(ficheData.logement || "");
         }
@@ -727,13 +727,6 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }
     ]);
 
     const navigate = useNavigate();
-
-    function getCookie(name: string) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop()!.split(";").shift()!;
-        return "";
-    }
 
     useEffect(() => {
         const email = decodeURIComponent(getCookie("email"));
