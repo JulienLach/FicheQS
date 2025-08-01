@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toInputDateValue } from "../../utils/date";
 import { getCookie } from "../../utils/cookie";
+import { formatStatusTag } from "../../utils/status";
 import { createFicheqs } from "../../services/api";
 import "./FicheqsForm.css";
 
@@ -933,6 +934,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }
                         readOnly={readOnly}
                     />
                 </div>
+                {readOnly && formatStatusTag(status)}
             </div>
 
             <hr />

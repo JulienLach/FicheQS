@@ -6,3 +6,15 @@ export function formatStatus(status: number) {
     }
     return null;
 }
+
+export function formatStatusTag(status: number) {
+    if (status === 2) {
+        return (
+            <div className="statusField">
+                <p>Status :</p>
+                <div className="statusTag">Validé</div>
+            </div>
+        );
+    }
+    return null;
+}

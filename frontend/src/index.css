@@ -160,3 +160,25 @@
     cursor: not-allowed;
     pointer-events: none;
 }
+
+.statusField {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.statusField p {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.statusTag {
+    background-color: #d4fcec;
+    padding: 0.2em 0.65em;
+    font-size: 0.9em;
+    font-weight: 500;
+    border-radius: 1em;
+    color: rgb(9, 65, 9);
+    width: fit-content;
+}
