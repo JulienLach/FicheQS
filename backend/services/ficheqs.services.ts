@@ -9,7 +9,7 @@ export async function getFicheQSById(idFiche: number) {
 }
 
 export async function createFicheQS(
-    status: string,
+    status: number,
     visiteDate: Date,
     logement: string,
     idUser: number,

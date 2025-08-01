@@ -34,7 +34,7 @@ export default class Ficheqs {
     }
 
     public static async createFicheQS(
-        status: string,
+        status: number,
         visiteDate: Date,
         logement: string,
         idUser: number,

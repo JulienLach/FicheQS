@@ -23,7 +23,7 @@ type FicheqsFormProps = {
 };
 
 const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }) => {
-    const [status, setStatus] = useState<number>();
+    const [status, setStatus] = useState<number>(1);
     const [email, setEmail] = useState("");
     const [idUser, setIdUser] = useState<number>();
     const [visiteDate, setVisiteDate] = useState("");
@@ -340,7 +340,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }
             ]);
         }
         if (ficheData) {
-            setStatus(ficheData.status);
+            setStatus(1);
             setEmail(ficheData.email || "");
             setVisiteDate(ficheData.visiteDate || "");
             setLogement(ficheData.logement || "");
@@ -878,22 +878,24 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }
             idUser,
             visiteDate,
             logement,
-            fieldsDaaf,
-            fieldsGaz,
-            fieldsElectrique,
-            fieldsRisqueChute,
-            fieldsBalcon,
-            fieldsEvierLavabos,
-            fieldsFaience,
-            fieldsMeuble,
-            fieldsCanalisation,
-            fieldsMenuiserie,
-            fieldsVentilation,
-            fieldsEmbelissement,
-            fieldsEspaceExt,
-            fieldsEquipementExt,
-            fieldsEquipementDiv,
-            fieldsProprete,
+            fields: [
+                ...fieldsDaaf,
+                ...fieldsGaz,
+                ...fieldsElectrique,
+                ...fieldsRisqueChute,
+                ...fieldsBalcon,
+                ...fieldsEvierLavabos,
+                ...fieldsFaience,
+                ...fieldsMeuble,
+                ...fieldsCanalisation,
+                ...fieldsMenuiserie,
+                ...fieldsVentilation,
+                ...fieldsEmbelissement,
+                ...fieldsEspaceExt,
+                ...fieldsEquipementExt,
+                ...fieldsEquipementDiv,
+                ...fieldsProprete,
+            ],
         };
         console.log("Données de la fiche :", ficheData);
 
