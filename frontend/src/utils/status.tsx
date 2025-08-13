@@ -11,7 +11,7 @@ export function formatStatusTag(status: number) {
     if (status === 2) {
         return (
             <div className="statusField">
-                <p>Status :</p>
+                <p>Statut :</p>
                 <div className="statusTag">Validé</div>
             </div>
         );
