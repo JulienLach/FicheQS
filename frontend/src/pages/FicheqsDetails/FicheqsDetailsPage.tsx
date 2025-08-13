@@ -14,10 +14,6 @@ const FicheqsDetailsPage: React.FC = () => {
                     <i className="fas fa-file-circle-check"></i> Récapitulatif fiche qualité sécurité
                 </h2>
                 <FicheqsDetailsForm idFiche={Number(idFiche)} />
-                <button type="submit" className="buttonLogin">
-                    <i className="fa-solid fa-paper-plane"></i>
-                    Envoyer par mail
-                </button>
             </div>
         </div>
     );

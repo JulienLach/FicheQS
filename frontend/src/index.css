@@ -182,3 +182,22 @@
     color: rgb(9, 65, 9);
     width: fit-content;
 }
+
+.loader {
+    border: 11px solid #f3f3f3;
+    border-top: 11px solid #09c989;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 2em auto;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

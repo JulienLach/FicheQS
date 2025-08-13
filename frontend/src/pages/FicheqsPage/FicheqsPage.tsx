@@ -19,6 +19,8 @@ const FicheqsPage: React.FC = () => {
                     }}
                     fields={[]}
                     readOnly={false}
+                    showSubmitButton={true}
+                    showEmailButton={false}
                 />
             </div>
         </div>

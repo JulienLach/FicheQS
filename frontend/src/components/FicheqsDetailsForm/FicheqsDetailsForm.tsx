@@ -13,7 +13,7 @@ const FicheqsDetailsForm: React.FC<FicheqsDetailsFormProps> = ({ idFiche }) => {
         getFicheqsById(idFiche).then((data) => setFicheData(data));
     }, [idFiche]);
 
-    if (!ficheData) return <div>Chargement...</div>;
+    if (!ficheData) return <div className="loader"></div>;
 
     console.log("Fiche Data:", ficheData);
 
@@ -21,7 +21,9 @@ const FicheqsDetailsForm: React.FC<FicheqsDetailsFormProps> = ({ idFiche }) => {
         <FicheqsForm
             ficheData={ficheData.fiche}
             fields={ficheData.fields}
-            readOnly={true} // afficahge des données de la fiche en read-only
+            readOnly={true} // affichage des données de la fiche en read-only
+            showSubmitButton={false}
+            showEmailButton={true}
         />
     );
 };

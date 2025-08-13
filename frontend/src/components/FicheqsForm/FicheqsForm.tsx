@@ -22,9 +22,17 @@ type FicheqsFormProps = {
     };
     fields: FicheField[];
     readOnly: boolean;
+    showSubmitButton: boolean;
+    showEmailButton: boolean;
 };
 
-const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }) => {
+const FicheqsForm: React.FC<FicheqsFormProps> = ({
+    ficheData,
+    fields,
+    readOnly,
+    showSubmitButton = true,
+    showEmailButton = false,
+}) => {
     const [status, setStatus] = useState<number>(1);
     const [email, setEmail] = useState("");
     const [idUser, setIdUser] = useState<number>();
@@ -1595,11 +1603,18 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({ ficheData, fields, readOnly }
             </div>
 
             <hr />
-
-            <button type="submit" className="buttonLogin">
-                <i className="fas fa-file-circle-check"></i>
-                Valider
-            </button>
+            {showSubmitButton && (
+                <button type="submit" className="buttonLogin">
+                    <i className="fas fa-file-circle-check"></i>
+                    Valider
+                </button>
+            )}
+            {showEmailButton && (
+                <button type="submit" className="buttonLogin">
+                    <i className="fa-solid fa-paper-plane"></i>
+                    Envoyer par mail
+                </button>
+            )}
         </form>
     );
 };
