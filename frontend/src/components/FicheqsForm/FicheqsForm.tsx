@@ -4,6 +4,7 @@ import { toInputDateValue } from "../../utils/date";
 import { getCookie } from "../../utils/cookie";
 import { formatStatusTag } from "../../utils/status";
 import { createFicheqs } from "../../services/api";
+import { sendPDF } from "../../services/api";
 import { generatePDF } from "../FicheqsPDF/FicheqsPDF";
 import "./FicheqsForm.css";
 
@@ -934,7 +935,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 ...fieldsProprete,
             ];
 
-            //objet de données pour le PDF
+            // Objet de données pour le PDF
             const pdfData = {
                 email,
                 visiteDate,
@@ -942,34 +943,51 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 fields: allFields,
             };
 
+            // Génération du PDF
             const pdfBlob = generatePDF(pdfData);
 
+            // Demande de l'email du destinataire
             const recipientEmail = prompt("Adresse email du destinataire :");
             if (!recipientEmail) return;
 
-            const formData = new FormData();
-            formData.append("to", recipientEmail);
-            formData.append("subject", `FicheQS - ${logement}`);
-            formData.append(
-                "body",
-                `Veuillez trouver ci-joint la fiche qualité sécurité pour le logement ${logement}.`
-            );
-            formData.append("attachment", pdfBlob, `ficheQS-${logement}.pdf`);
+            // Conversion du blob PDF en base64 pour l'envoi JSON
+            const base64PDF = await blobToBase64(pdfBlob);
 
-            const response = await fetch("/api/email", {
-                method: "POST",
-                body: formData,
-            });
+            // Création de l'objet à envoyer via l'API
+            const emailData = {
+                to: recipientEmail,
+                subject: `FicheQS - ${logement}`,
+                body: `Veuillez trouver ci-joint la fiche qualité sécurité pour le logement ${logement}.`,
+                attachmentBase64: base64PDF,
+            };
 
-            if (response.ok) {
+            // Utilisation de votre service API
+            const result = await sendPDF(emailData);
+
+            if (result.success) {
                 alert("Email envoyé avec succès !");
             } else {
-                throw new Error("Erreur lors de l'envoi de l'email");
+                throw new Error(result.message || "Erreur lors de l'envoi de l'email");
             }
         } catch (error) {
             console.error("Erreur lors de l'envoi de l'email:", error);
             alert("Une erreur est survenue lors de l'envoi de l'email");
         }
+    };
+
+    // Fonction utilitaire pour convertir un Blob en base64
+    const blobToBase64 = (blob: Blob): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result as string;
+                // Extraire uniquement la partie base64 sans le préfixe "data:application/pdf;base64,"
+                const base64 = base64String.split(",")[1];
+                resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
     };
 
     return (
