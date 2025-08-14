@@ -4,6 +4,7 @@ import { toInputDateValue } from "../../utils/date";
 import { getCookie } from "../../utils/cookie";
 import { formatStatusTag } from "../../utils/status";
 import { createFicheqs } from "../../services/api";
+import { generatePDF } from "../FicheqsPDF/FicheqsPDF";
 import "./FicheqsForm.css";
 
 interface FicheField {
@@ -909,6 +910,68 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         }
     }
 
+    const handleSendEmail = async (event: React.MouseEvent) => {
+        event.preventDefault();
+
+        try {
+            // Rassemblez toutes les données des champs
+            const allFields = [
+                ...fieldsDaaf,
+                ...fieldsGaz,
+                ...fieldsElectrique,
+                ...fieldsRisqueChute,
+                ...fieldsBalcon,
+                ...fieldsEvierLavabos,
+                ...fieldsFaience,
+                ...fieldsMeuble,
+                ...fieldsCanalisation,
+                ...fieldsMenuiserie,
+                ...fieldsVentilation,
+                ...fieldsEmbelissement,
+                ...fieldsEspaceExt,
+                ...fieldsEquipementExt,
+                ...fieldsEquipementDiv,
+                ...fieldsProprete,
+            ];
+
+            //objet de données pour le PDF
+            const pdfData = {
+                email,
+                visiteDate,
+                logement,
+                fields: allFields,
+            };
+
+            const pdfBlob = generatePDF(pdfData);
+
+            const recipientEmail = prompt("Adresse email du destinataire :");
+            if (!recipientEmail) return;
+
+            const formData = new FormData();
+            formData.append("to", recipientEmail);
+            formData.append("subject", `FicheQS - ${logement}`);
+            formData.append(
+                "body",
+                `Veuillez trouver ci-joint la fiche qualité sécurité pour le logement ${logement}.`
+            );
+            formData.append("attachment", pdfBlob, `ficheQS-${logement}.pdf`);
+
+            const response = await fetch("/api/email", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (response.ok) {
+                alert("Email envoyé avec succès !");
+            } else {
+                throw new Error("Erreur lors de l'envoi de l'email");
+            }
+        } catch (error) {
+            console.error("Erreur lors de l'envoi de l'email:", error);
+            alert("Une erreur est survenue lors de l'envoi de l'email");
+        }
+    };
+
     return (
         <form className="ficheqsForm" onSubmit={handleSubmit}>
             <div className="formHeader">
@@ -1610,7 +1673,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 </button>
             )}
             {showEmailButton && (
-                <button type="submit" className="buttonLogin">
+                <button type="submit" className="buttonLogin" onClick={handleSendEmail}>
                     <i className="fa-solid fa-paper-plane"></i>
                     Envoyer par mail
                 </button>

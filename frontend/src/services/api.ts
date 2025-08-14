@@ -49,3 +49,16 @@ export async function getFicheqsById(idFiche: number) {
     }
     return response.json();
 }
+
+export async function sendPDF(formData: any) {
+    const response = await fetch(`${API_URL}/email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+        credentials: "include",
+    });
+    if (!response.ok) {
+        throw new Error("Erreur de l'envoi du PDF par email");
+    }
+    return response.json();
+}
