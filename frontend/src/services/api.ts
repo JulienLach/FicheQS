@@ -1,4 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL;
+import { formData } from "../types/api.types";
 
 export async function authenticateUser(email: string, password: string) {
     const response = await fetch(`${API_URL}/login`, {
@@ -50,7 +51,7 @@ export async function getFicheqsById(idFiche: number) {
     return response.json();
 }
 
-export async function sendPDF(formData: any) {
+export async function sendPDF(formData: formData) {
     const response = await fetch(`${API_URL}/email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

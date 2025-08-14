@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import authRoutes from "./routes/auth.routes";
 import { authenticateToken } from "./middleware/auth.middleware";
+import authRoutes from "./routes/auth.routes";
 import ficheqsRoutes from "./routes/ficheqs.routes";
+import emailRoutes from "./routes/email.routes";
 
 dotenv.config();
 
@@ -37,6 +38,9 @@ app.use("/login", authRoutes);
 
 // Routes ficheqs
 app.use("/ficheqs", ficheqsRoutes);
+
+// Routes email
+app.use("/email", emailRoutes);
 
 app.listen(PORT_BACKEND, () => {
     console.log(`Server is running on ${SERVER_URL}`);
