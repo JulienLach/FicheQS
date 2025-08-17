@@ -26,17 +26,23 @@ export async function sendPDF(
     to: string,
     subject: string,
     body: string,
-    attachments: any[]
+    attachmentBase64: string
 ): Promise<{ success: boolean; message: string }> {
-    const emailData = {
-        from: process.env.EMAIL || "noreply@ficheqs.com",
-        to,
-        subject,
-        body,
-        attachments,
-    };
-
     try {
+        const emailData = {
+            from: process.env.EMAIL,
+            to,
+            subject,
+            text: body,
+            attachments: [
+                {
+                    filename: "ficheQS.pdf",
+                    content: attachmentBase64,
+                    encoding: "base64",
+                },
+            ],
+        };
+
         const info = await transporter.sendMail(emailData);
         console.log("Email envoyé:", info.response);
         return { success: true, message: "Email envoyé avec succès" };
