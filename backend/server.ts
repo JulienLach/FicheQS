@@ -18,7 +18,7 @@ if (!ORIGIN_URL) {
     throw new Error("ORIGIN_URL missing");
 }
 
-const allowedOrigins = [ORIGIN_URL];
+const allowedOrigins = [ORIGIN_URL, "http://localhost:3000", "http://192.168.1.146:3000"];
 
 app.use(
     cors({

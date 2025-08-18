@@ -37,7 +37,8 @@
 }
 
 .formGroup input {
-    height: 2.5em;
+    font-size: 1em;
+    height: 2.4em;
     border: 0.1em solid lightgrey;
     border-radius: 0.35em;
 }
@@ -45,11 +46,11 @@
 .formGroup label {
     margin-bottom: 0.5em;
     font-size: 1.25em;
-    font-weight: 650;
+    font-weight: 600;
 }
 
 .buttonLogin {
-    margin: 1.5em 0;
+    margin: 1.8em auto;
     padding: 0.7em 2.2em;
     display: flex;
     align-items: center;
@@ -65,7 +66,7 @@
 .buttonDashboard,
 .buttonMenu {
     margin-bottom: 1.5em;
-    padding: 1.4em 1.5em;
+    padding: 1.4em 1.3em;
     display: flex;
     align-items: center;
     background-color: #00c472;
@@ -85,6 +86,7 @@
 }
 
 .headerTitle {
+    margin-right: auto;
     font-size: 1.3em;
     margin-bottom: 0.5em;
     font-weight: 600;
@@ -96,7 +98,7 @@
 
 .fieldButtons {
     display: flex;
-    gap: 1.5em;
+    gap: 1.15em;
 }
 
 .fieldButtons .switch {
@@ -114,7 +116,8 @@
 .ficheqsCard {
     display: flex;
     flex-direction: row;
-    gap: 5em;
+    gap: 4em;
+    align-self: center;
     margin: 1.5em 0;
     padding: 0.8em 2em;
     border-radius: 0.25em;
@@ -175,12 +178,11 @@
 
 .statusTag {
     background-color: #d4fcec;
-    padding: 0.2em 0.65em;
-    font-size: 0.9em;
+    padding: 0.2em 0.7em;
+    font-size: 1em;
     font-weight: 500;
     border-radius: 1em;
     color: rgb(9, 65, 9);
-    width: fit-content;
 }
 
 .loader {

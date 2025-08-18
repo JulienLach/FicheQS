@@ -7,7 +7,7 @@
 
 .formHeader label {
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .formHeader input {
@@ -16,6 +16,7 @@
     border-radius: 0.3em;
     width: 100%;
     margin-top: 0.45em;
+    font-size: 1em;
 }
 
 .switch {
@@ -65,4 +66,5 @@
     min-height: 4em;
     resize: vertical;
     width: 100%;
+    font-size: 1em;
 }

@@ -25,3 +25,8 @@
 -   Use **async/await** for asynchronous code to avoid callback hell and improve readability.
 -   Use **TypeScript** for static type checking and safer code.
 -   Use **ES2020 import/export** syntax for modular and maintainable code.
+
+### Acces app on local network
+
+-   Open port with `sudo ufw allow 3000` and `sudo ufw allow 3001`
+-   In allowedOrigins in `backend/server.ts`, add the network URL: `http://your-local-ip:3000`
