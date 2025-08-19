@@ -1036,7 +1036,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1075,7 +1075,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1116,7 +1116,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1157,7 +1157,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1198,7 +1198,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1239,7 +1239,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1280,7 +1280,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1321,7 +1321,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1362,7 +1362,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1403,7 +1403,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1444,7 +1444,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1485,7 +1485,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1526,7 +1526,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1567,7 +1567,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1608,7 +1608,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
@@ -1649,7 +1649,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                                 disabled={readOnly}
                             >
                                 <i className="far fa-calendar"></i>
-                                Pas opérationel
+                                Pas opérationnel
                             </button>
                         </div>
                         {field.valeur === false && (
