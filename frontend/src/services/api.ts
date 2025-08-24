@@ -13,7 +13,11 @@ export async function authenticateUser(email: string, password: string) {
     if (!response.ok) {
         throw new Error("Erreur de connexion");
     }
-    return response.json();
+
+    const data = await response.json();
+    // cookie dans le localstorage après login pour la redirection
+    localStorage.setItem("token", data.token);
+    return data;
 }
 
 export async function createFicheqs(ficheData: any) {
