@@ -38,10 +38,10 @@ app.get("/", (req, res) => {
 app.use("/login", authRoutes);
 
 // Routes ficheqs
-app.use("/ficheqs", ficheqsRoutes);
+app.use("/ficheqs", authenticateToken, ficheqsRoutes);
 
 // Routes email
-app.use("/email", emailRoutes);
+app.use("/email", authenticateToken, emailRoutes);
 
 app.listen(PORT_BACKEND, () => {
     console.log(`Server is running on ${SERVER_URL}`);

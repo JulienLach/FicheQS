@@ -2,7 +2,19 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
-    const token = req.cookies.token;
+    const cookieHeader = req.headers.cookie;
+    let token: string = "";
+
+    if (cookieHeader) {
+        const cookies = cookieHeader.split(";");
+        for (let cookie of cookies) {
+            const [name, value] = cookie.trim().split("=");
+            if (name === "token") {
+                token = value;
+                break;
+            }
+        }
+    }
 
     if (!token) {
         res.status(401).json({ message: "Token manquant" });

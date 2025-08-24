@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
             httpOnly: false,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            maxAge: 2 * 60 * 60 * 1000, // 2h
+            maxAge: 2 * 60 * 60 * 1000,
         });
 
         res.cookie("email", email, {

@@ -5,7 +5,7 @@ import { formatDate } from "../../utils/date";
 import { formatStatus } from "../../utils/status";
 import { getAllFicheqs } from "../../services/api";
 
-const itemsPerPage = 4;
+const itemsPerPage = 5;
 
 const AllFichesqsPage: React.FC = () => {
     const [fiches, setFiches] = useState<any[]>([]);

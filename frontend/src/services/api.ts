@@ -33,6 +33,7 @@ export async function getAllFicheqs() {
     const response = await fetch(`${API_URL}/ficheqs`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
     });
     if (!response.ok) {
         throw new Error("Erreur lors de la récupération des fichesqs");
@@ -44,6 +45,7 @@ export async function getFicheqsById(idFiche: number) {
     const response = await fetch(`${API_URL}/ficheqs/${idFiche}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
     });
     if (!response.ok) {
         throw new Error("Erreur lors de la récupération de la ficheqs");
