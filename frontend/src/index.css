@@ -203,3 +203,29 @@
         transform: rotate(360deg);
     }
 }
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.emailSentMessage {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 12px;
+    border-radius: 0.4em;
+    font-size: 1em;
+    background-color: #e6ffed;
+    border: 1px solid #a8dab6;
+    color: #1a7f37;
+    font-weight: 600;
+    z-index: 1000;
+    animation: slideInLeft 0.08s ease-out;
+}

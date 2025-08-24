@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
     try {
-        const { to, subject, body, attachmentBase64 } = req.body;
-        const email = await sendPDF(to, subject, body, attachmentBase64);
+        const { to, subject, body, attachmentBase64, filename } = req.body;
+        const email = await sendPDF(to, subject, body, attachmentBase64, filename);
         res.status(200).json(email);
     } catch (error: any) {
         res.status(500).json({ message: error.message });

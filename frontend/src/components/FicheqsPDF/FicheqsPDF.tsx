@@ -1,7 +1,9 @@
 import { jsPDF } from "jspdf";
 import { formatDate } from "../../utils/date";
+import logoBase64 from "../../assets/images/logo-pdf.png";
 
 interface FicheQSData {
+    idFiche: number;
     email: string;
     visiteDate: string;
     logement: string;
@@ -21,42 +23,69 @@ export const generatePDF = (data: FicheQSData): Blob => {
         compress: true,
     });
 
-    // Ajouter la police Font Awesome
+    // Imports des polices + icones
     doc.addFont("/src/assets/fonts/fa-solid-900.ttf", "FontAwesomeSolid", "normal");
     doc.addFont("/src/assets/fonts/fa-regular-400.ttf", "FontAwesomeRegular", "normal");
+    doc.addFont("/src/assets/fonts/Inter-Regular.ttf", "Inter", "normal");
+    doc.addFont("/src/assets/fonts/Inter-SemiBold.ttf", "Inter", "semibold");
+    doc.addFont("/src/assets/fonts/Inter-Bold.ttf", "Inter", "bold");
 
-    // Ajout de l'en-tête
+    // En-tête
     doc.setFontSize(15);
-    doc.setFont("helvetica", "bold");
-    doc.text("Fiche Qualité Sécurité du logement", 105, 15, { align: "center" });
+    doc.setFont("Inter", "bold");
+    doc.text("Fiche Qualité Sécurité du logement", 15, 15, { align: "left" });
+    const titleWidth = doc.getTextWidth("Fiche Qualité Sécurité du logement");
+    doc.addImage(logoBase64, "PNG", 15 + titleWidth + 3, 10, 5.2, 6); // x, y, largeur, hauteur
+
+    // Séparateur horizontal sous le titre
+    doc.setLineWidth(0.2);
+    doc.setDrawColor(220, 220, 220);
+    doc.line(15, 20, 195, 20); // ligne horizontale à y=20
 
     // Bloc d'informations avec cadre
     doc.setDrawColor(0);
-    doc.setFillColor(240, 240, 240);
-    doc.roundedRect(10, 20, 190, 15, 2, 2, "F");
 
     // Informations sur une seule ligne
     doc.setFontSize(9);
-    doc.setFont("helvetica", "bold");
-    doc.text(`Logement : ${data.logement}`, 15, 28);
-    doc.text(`Par : ${data.email}`, 70, 28);
-    doc.text(`Date : ${formatDate(data.visiteDate)}`, 125, 28);
-    doc.text(`N° : FQS-001`, 175, 28);
+
+    // Logement
+    doc.setFont("Inter", "semibold");
+    doc.text("Logement :", 15, 27.5);
+    doc.setFont("Inter", "normal");
+    doc.text(`${data.logement}`, 33, 27.5);
+    // Par
+    doc.setFont("Inter", "semibold");
+    doc.text("Par :", 75, 27.5);
+    doc.setFont("Inter", "normal");
+    doc.text(`${data.email}`, 83, 27.5);
+    // Date
+    doc.setFont("Inter", "semibold");
+    doc.text("Date :", 135, 27.5);
+    doc.setFont("Inter", "normal");
+    doc.text(`${formatDate(data.visiteDate)}`, 145, 27.5);
+    // N°
+    doc.setFont("Inter", "semibold");
+    doc.text("N° :", 175, 27.5);
+    doc.setFont("Inter", "normal");
+    doc.text(`FQS-${data.idFiche}`, 182, 27.5);
+
+    // Séparateur horizontal sous le bloc d'info
+    doc.setLineWidth(0.2);
+    doc.setDrawColor(220, 220, 220);
+    doc.line(15, 33, 195, 33);
 
     // Fonction pour ajouter une section avec ses champs
     const addSection = (title: string, fields: any[], startY: number): number => {
         let yPos = startY;
 
         // Titre de la section
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(10);
-        doc.setFillColor(200, 200, 200);
-        doc.rect(10, yPos, 190, 8, "F");
-        doc.text(title, 15, yPos + 5.5);
+        doc.setFont("Inter", "semibold");
+        doc.setFontSize(11);
+        doc.text(title, 15, yPos + 4);
         yPos += 12;
 
         // Contenu de la section
-        doc.setFont("helvetica", "normal");
+        doc.setFont("Inter", "normal");
         doc.setFontSize(10);
 
         fields.forEach((field) => {
@@ -71,25 +100,28 @@ export const generatePDF = (data: FicheQSData): Blob => {
             // Affichage du champ
             doc.text(`${field.label} :`, 15, yPos);
 
-            // Ajouter l'icône uniquement si valeur est true
+            // Ajout icône
             if (field.valeur === true) {
                 doc.setFont("FontAwesomeSolid");
-                doc.setTextColor(0, 128, 0);
-                doc.text("\uF058", 145, yPos); // Unicode pour fa-circle-check
-                doc.setFont("helvetica", "normal"); // Revenir à Helvetica pour le texte
-                doc.setTextColor(0, 128, 0); // Vert pour OK
-                doc.text(status, 150, yPos); // Texte après l'icône
+                doc.setTextColor(0, 196, 114);
+                doc.text("\uF058", 145, yPos); // fa-circle-check
+                doc.setFont("Inter", "normal");
+                doc.setTextColor(0, 0, 0);
+                doc.text(status, 150, yPos);
+            } else if (field.valeur === false) {
+                doc.setTextColor(255, 140, 0);
+                doc.setFont("FontAwesomeRegular");
+                doc.text("\uF133", 145, yPos); // fa-calendar
+                doc.setFont("Inter", "normal");
+                doc.setTextColor(0, 0, 0);
+                doc.text(status, 150, yPos);
             } else {
-                // Couleur du statut selon la valeur
-                if (field.valeur === false) {
-                    doc.setTextColor(255, 140, 0); // Orange pour Pas opérationnel
-                    doc.setFont("FontAwesomeRegular");
-                    doc.text("\uF133", 145, yPos); // Unicode pour fa-calendar
-                    doc.setFont("helvetica", "normal");
-                } else {
-                    doc.setTextColor(128, 128, 128); // Gris pour Non concerné
-                }
-                doc.text(status, 150, yPos); // Texte sans icône
+                doc.setTextColor(128, 128, 128);
+                doc.setFont("FontAwesomeSolid");
+                doc.text("\uF057", 145, yPos); // fa-circle-xmark
+                doc.setFont("Inter", "normal");
+                doc.setTextColor(0, 0, 0);
+                doc.text(status, 150, yPos);
             }
 
             doc.setTextColor(0, 0, 0); // Réinitialiser la couleur
@@ -97,10 +129,13 @@ export const generatePDF = (data: FicheQSData): Blob => {
 
             // Affichage de la description si présente et Non OK
             if (field.description && field.valeur === false) {
-                doc.setTextColor(255, 0, 0);
-                doc.text(` ${field.description}`, 20, yPos);
+                yPos += 3; // marge top
+                doc.setDrawColor(220, 220, 220); // Gris clair
+                doc.setLineWidth(0.2);
+                doc.roundedRect(15, yPos - 4, 85, 7, 0.8, 0.8);
                 doc.setTextColor(0, 0, 0);
-                yPos += 6;
+                doc.text(`${field.description}`, 17, yPos + 0.7);
+                yPos += 7 + 3;
             }
         });
 
@@ -115,7 +150,7 @@ export const generatePDF = (data: FicheQSData): Blob => {
     };
 
     // Position de départ pour les sections
-    let currentY = 50;
+    let currentY = 38;
 
     // Organiser les fields par catégories
     const fieldsByCategory = {

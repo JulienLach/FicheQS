@@ -18,6 +18,7 @@ interface FicheField {
 
 type FicheqsFormProps = {
     ficheData: {
+        idFiche: number;
         status: number;
         email: string;
         visiteDate: string;
@@ -36,11 +37,13 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     showSubmitButton = true,
     showEmailButton = false,
 }) => {
+    const [idFiche, setIdFiche] = useState<number>(ficheData.idFiche);
     const [status, setStatus] = useState<number>(1);
     const [email, setEmail] = useState("");
     const [idUser, setIdUser] = useState<number>();
     const [visiteDate, setVisiteDate] = useState("");
     const [logement, setLogement] = useState("");
+    const [emailSent, setEmailSent] = useState(false);
 
     useEffect(() => {
         if (fields) {
@@ -353,11 +356,19 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             ]);
         }
         if (ficheData) {
+            setIdFiche(ficheData.idFiche);
             setStatus(2);
             setVisiteDate(ficheData.visiteDate || "");
             setLogement(ficheData.logement || "");
         }
     }, [ficheData, fields]);
+
+    useEffect(() => {
+        if (emailSent) {
+            const timer = setTimeout(() => setEmailSent(false), 3000); // 3 secondes
+            return () => clearTimeout(timer);
+        }
+    }, [emailSent]);
 
     // Groupe DAAF
     const [fieldsDaaf, setFieldsDaaf] = useState<any>([
@@ -938,6 +949,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
 
             // Objet de données pour le PDF
             const pdfData = {
+                idFiche,
                 email,
                 visiteDate,
                 logement,
@@ -956,6 +968,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 subject: `FicheQS - ${logement}`,
                 body: `Veuillez trouver ci-joint la fiche qualité sécurité pour le logement ${logement}.`,
                 attachmentBase64: attachmentBase64, // Envoi direct du base64, pas d'un tableau
+                filename: `FicheQS-${logement}.pdf`,
             };
 
             // Appel de la fonction de l'API qui gère l'envoi
@@ -963,6 +976,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
 
             if (result.success) {
                 console.log("Email envoyé avec succès !");
+                setEmailSent(true);
             } else {
                 throw new Error(result.message || "Erreur lors de l'envoi de l'email");
             }
@@ -1676,6 +1690,11 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 <button type="submit" className="buttonLogin" onClick={handleSendEmail}>
                     <i className="fa-solid fa-paper-plane"></i>
                     Envoyer par mail
+                    {emailSent && (
+                        <div className="emailSentMessage">
+                            <i className="fa-solid fa-check"></i> Email envoyé !
+                        </div>
+                    )}
                 </button>
             )}
         </form>

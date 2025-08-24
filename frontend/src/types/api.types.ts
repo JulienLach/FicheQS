@@ -3,4 +3,5 @@ export interface formData {
     subject: string;
     body: string;
     attachmentBase64: string;
+    filename: string;
 }

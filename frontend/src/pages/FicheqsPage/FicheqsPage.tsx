@@ -12,6 +12,7 @@ const FicheqsPage: React.FC = () => {
                 </h2>
                 <FicheqsForm
                     ficheData={{
+                        idFiche: 0,
                         status: 2,
                         email: "",
                         visiteDate: "",

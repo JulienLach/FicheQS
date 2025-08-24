@@ -26,7 +26,8 @@ export async function sendPDF(
     to: string,
     subject: string,
     body: string,
-    attachmentBase64: string
+    attachmentBase64: string,
+    filename: string
 ): Promise<{ success: boolean; message: string }> {
     try {
         const emailData = {
@@ -36,7 +37,7 @@ export async function sendPDF(
             text: body,
             attachments: [
                 {
-                    filename: "ficheQS.pdf",
+                    filename: filename,
                     content: attachmentBase64,
                     encoding: "base64",
                 },
