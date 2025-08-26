@@ -30,3 +30,5 @@
 
 -   Open port with `sudo ufw allow 3000` and `sudo ufw allow 3001`
 -   In allowedOrigins in `backend/server.ts`, add the network URL: `http://your-local-ip:3000`
+
+### .env file

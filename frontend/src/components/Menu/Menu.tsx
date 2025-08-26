@@ -6,8 +6,9 @@ import "./Menu.css";
 const Menu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
+    const appVersion = import.meta.env.VITE_APP_VERSION;
 
-    const toggleMenu = () => setIsOpen(!isOpen);
+    const toggleMenu = () => setIsOpen(isOpen == false);
 
     const handleNavigation = (path: string) => {
         setIsOpen(false);
@@ -33,6 +34,7 @@ const Menu: React.FC = () => {
                     <button className="buttonMenu" onClick={() => handleNavigation("/login")}>
                         <i className="fas fa-sign-out-alt"></i>Déconnexion
                     </button>
+                    <div className="version-tag">v{appVersion}</div>
                 </div>
             )}
         </div>
