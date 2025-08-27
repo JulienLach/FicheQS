@@ -99,7 +99,7 @@ INSERT INTO fields (name) VALUES
 
 -- FicheQS démo
 INSERT INTO ficheqs (status, visite_date, logement, id_user)
-VALUES (1, '2025-07-20', 'Appartement 12B', 1);
+VALUES (2, '2025-07-20', '3510702.02.01.00.007', 1);
 
 -- Associer tous les champs à cette ficheqs (id_fiche = 1)
 INSERT INTO ficheqs_has_field (id_fiche, id_field, valeur, description) VALUES
@@ -108,7 +108,7 @@ INSERT INTO ficheqs_has_field (id_fiche, id_field, valeur, description) VALUES
     (1, 3, NULL, NULL),
     (1, 4, true, NULL),
     (1, 5, true, NULL),
-    (1, 6, false, 'Fuite détectée'),
+    (1, 6, false, 'Remplacement semaine 25'),
     (1, 7, true, NULL),
     (1, 8, true, NULL),
     (1, 9, NULL, NULL),
@@ -126,7 +126,7 @@ INSERT INTO ficheqs_has_field (id_fiche, id_field, valeur, description) VALUES
     (1, 21, NULL, NULL),
     (1, 22, true, NULL),
     (1, 23, true, NULL),
-    (1, 24, false, 'Fuite'),
+    (1, 24, false, 'Bon de commande envoyé'),
     (1, 25, true, NULL),
     (1, 26, true, NULL),
     (1, 27, true, NULL),
