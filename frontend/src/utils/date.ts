@@ -1,11 +1,14 @@
 export function formatDate(dateString: string) {
     if (!dateString) return "";
-    // Prend juste la partie date, sans conversion
-    const [year, month, day] = dateString.slice(0, 10).split("-");
-    return `${day}/${month}/${year}`;
+    const [year, month, day] = dateString.split("T")[0].split("-");
+    // Ajoute +1 au jour
+    const newDay = String(Number(day) + 1).padStart(2, "0");
+    return `${newDay}/${month}/${year}`;
 }
 
 export function toInputDateValue(dateString: string) {
     if (!dateString) return "";
-    return new Date(dateString).toISOString().slice(0, 10);
+    const [year, month, day] = dateString.split("T")[0].split("-");
+    const newDay = String(Number(day) + 1).padStart(2, "0");
+    return `${year}-${month}-${newDay}`;
 }

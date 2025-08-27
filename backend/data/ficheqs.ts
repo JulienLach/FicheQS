@@ -1,12 +1,11 @@
 import pool from "../config/db.config";
 import FicheqsHasField from "./ficheqs_has_field";
-import Users from "./users";
 
 export default class Ficheqs {
     constructor(
         public idFiche: number,
         public status: string,
-        public visiteDate: Date,
+        public visiteDate: string,
         public logement: string,
         public idUser: number
     ) {}
@@ -36,7 +35,7 @@ export default class Ficheqs {
 
     public static async createFicheQS(
         status: number,
-        visiteDate: Date,
+        visiteDate: string,
         logement: string,
         idUser: number,
         fields: {
