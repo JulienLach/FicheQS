@@ -11,14 +11,16 @@ export default class Ficheqs {
     ) {}
 
     public static async getAllFichesQS() {
-        const result = await pool.query("SELECT * FROM ficheqs ORDER BY visite_date DESC");
+        const result = await pool.query(
+            "SELECT id_fiche, status, TO_CHAR(visite_date, 'YYYY-MM-DD') AS visite_date, logement, id_user FROM ficheqs ORDER BY visite_date DESC"
+        );
         return result.rows.map(
             (row: any) => new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user)
         );
     }
 
     public static async getFicheQSById(idFiche: number) {
-        const query = "SELECT * FROM ficheqs WHERE id_fiche = $1";
+        const query = "SELECT id_fiche, status, TO_CHAR(visite_date, 'YYYY-MM-DD') AS visite_date, logement, id_user FROM ficheqs WHERE id_fiche = $1";
         const values = [idFiche];
         const result = await pool.query(query, values);
         const row = result.rows[0];
