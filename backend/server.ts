@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import { authenticateToken } from "./middleware/auth.middleware";
+import { sanitizeInputs } from "./middleware/sanitize.middleware";
 import authRoutes from "./routes/auth.routes";
 import ficheqsRoutes from "./routes/ficheqs.routes";
 import emailRoutes from "./routes/email.routes";
@@ -38,7 +39,7 @@ app.get("/", (req, res) => {
 app.use("/login", authRoutes);
 
 // Routes ficheqs
-app.use("/ficheqs", authenticateToken, ficheqsRoutes);
+app.use("/ficheqs", authenticateToken, sanitizeInputs, ficheqsRoutes);
 
 // Routes email
 app.use("/email", authenticateToken, emailRoutes);
