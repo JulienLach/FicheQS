@@ -45,7 +45,7 @@ export async function getAllFicheqs() {
     return response.json();
 }
 
-export async function getFicheqsById(idFiche: number) {
+export async function getFicheQSById(idFiche: number) {
     const response = await fetch(`${API_URL}/ficheqs/${idFiche}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -66,6 +66,19 @@ export async function sendPDF(formData: formData) {
     });
     if (!response.ok) {
         throw new Error("Erreur de l'envoi du PDF par email");
+    }
+    return response.json();
+}
+
+export async function updateAccount(userId: number, email: string, password: string) {
+    const response = await fetch(`${API_URL}/account`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, email, password }),
+        credentials: "include",
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la mise à jour du compte");
     }
     return response.json();
 }

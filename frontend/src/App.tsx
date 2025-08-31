@@ -7,6 +7,7 @@ import DashboardPage from "./pages/Dashboard/DashboardPage";
 import FicheqsPage from "./pages/FicheqsPage/FicheqsPage";
 import AllFichesqsPage from "./pages/AllFichesqsPage/AllFichesqsPage";
 import FicheqsDetailsPage from "./pages/FicheqsDetails/FicheqsDetailsPage";
+import AccountPage from "./pages/AccountPage/AccountPage";
 
 const App: React.FC = () => {
     return (
@@ -28,6 +29,9 @@ const App: React.FC = () => {
                     <Route path="/ficheqs" element={<FicheqsPage />} />
                     <Route path="/all-fichesqs" element={<AllFichesqsPage />} />
                     <Route path="/ficheqs-details/:idFiche" element={<FicheqsDetailsPage />} />
+                    <Route path="/account" element={<AccountPage />}>
+                        /
+                    </Route>
                 </Route>
             </Routes>
         </Router>

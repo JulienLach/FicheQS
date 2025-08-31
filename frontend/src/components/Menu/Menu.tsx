@@ -28,7 +28,7 @@ const Menu: React.FC = () => {
                     <button className="closeButton" onClick={toggleMenu}>
                         <i className="fas fa-xmark"></i>
                     </button>
-                    <button className="buttonMenu" onClick={() => handleNavigation("/dashboard")}>
+                    <button className="buttonMenu" onClick={() => handleNavigation("/account")}>
                         <i className="fas fa-user"></i>Mon compte
                     </button>
                     <button className="buttonMenu" onClick={() => handleNavigation("/login")}>

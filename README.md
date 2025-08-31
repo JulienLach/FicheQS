@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="frontend/public/icon-192x192.png" alt="FicheQS Logo" width="100" height="100">
+  <img src="src/assets/images/logo-mobile.png" alt="FicheQS Logo" width="100" height="100">
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 ### Objectives
 
 -   Use **React v19** with the latest functional component syntax to benefit from improved performance, hooks, and modern React features.
--   Use **Vite** as the frontend build tool and development server, replacing the deprecated Create React App, for faster builds and a better developer experience.
+-   Use **Vite** as the frontend build tool and development server, replacing the deprecated Create React App, for faster builds and a better development experience.
     To create the frontend folder as a React project with Vite, run:
     `npm create vite@latest frontend -- --template react`
     Then, navigate into the folder and start the development server:

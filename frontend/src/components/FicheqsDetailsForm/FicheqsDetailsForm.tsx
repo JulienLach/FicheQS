@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getFicheqsById } from "../../services/api";
+import { getFicheQSById } from "../../services/api";
 import FicheqsForm from "../FicheqsForm/FicheqsForm";
 
 type FicheqsDetailsFormProps = {
@@ -10,7 +10,7 @@ const FicheqsDetailsForm: React.FC<FicheqsDetailsFormProps> = ({ idFiche }) => {
     const [ficheData, setFicheData] = useState<any>(null);
 
     useEffect(() => {
-        getFicheqsById(idFiche).then((data) => setFicheData(data));
+        getFicheQSById(idFiche).then((data) => setFicheData(data));
     }, [idFiche]);
 
     if (!ficheData) return <div className="loader"></div>;

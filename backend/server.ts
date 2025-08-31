@@ -5,6 +5,7 @@ import { authenticateToken } from "./middleware/auth.middleware";
 import { sanitizeInputs } from "./middleware/sanitize.middleware";
 import authRoutes from "./routes/auth.routes";
 import ficheqsRoutes from "./routes/ficheqs.routes";
+import accountRoutes from "./routes/account.routes";
 import emailRoutes from "./routes/email.routes";
 
 dotenv.config();
@@ -19,7 +20,7 @@ if (!ORIGIN_URL) {
     throw new Error("ORIGIN_URL missing");
 }
 
-const allowedOrigins = [ORIGIN_URL, "http://localhost:3000"];
+const allowedOrigins = [ORIGIN_URL, "http://localhost:3000", "http://192.168.1.146:3000"];
 
 app.use(
     cors({
@@ -40,6 +41,9 @@ app.use("/login", authRoutes);
 
 // Routes ficheqs
 app.use("/ficheqs", authenticateToken, sanitizeInputs, ficheqsRoutes);
+
+// Routes account
+app.use("/account", authenticateToken, sanitizeInputs, accountRoutes);
 
 // Routes email
 app.use("/email", authenticateToken, emailRoutes);

@@ -31,3 +31,26 @@ export async function authenticateUser(email: string, password: string) {
 
     return { userId: user.id_user, token };
 }
+
+export async function updateAccount(userId: number, email: string, password: string) {
+    try {
+        const hashedPassword = crypto.createHash("sha256").update(password).digest("hex");
+
+        const query = "UPDATE users SET password = $1, email = $2 WHERE id_user = $3 RETURNING *";
+        const values = [hashedPassword, email, userId];
+
+        const result = await pool.query(query, values);
+
+        if (result.rowCount === 0) {
+            throw new Error("Utilisateur non trouvé");
+        }
+
+        return {
+            success: true,
+            message: "Mot de passe mis à jour avec succès",
+            email: email,
+        };
+    } catch (error: any) {
+        throw new Error(`Erreur lors de la mise à jour du compte: ${error.message}`);
+    }
+}
