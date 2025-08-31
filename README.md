@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/images/logo-mobile.png" alt="FicheQS Logo" width="100" height="100">
+  <img src="frontend/src/assets/images/logo-mobile.png" alt="FicheQS Logo" width="100" height="100">
 </p>
 
 <p align="center">
@@ -30,8 +30,18 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 -   Create FicheQS from desktop or mobile devices with PWA
 -   View validated FicheQS with history
 -   Send FicheQS PDF via email
+-   User authentication and account management
 
 ### Requirements
+
+-   Node.js v20+
+-   npm v9+
+-   React v19+
+-   Vite
+-   Express
+-   TypeScript
+-   PostgreSQL
+-   Docker
 
 ### Objectives
 
@@ -65,6 +75,9 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 -   In allowedOrigins in `backend/server.ts`, add the network URL: `http://your-local-ip:3000`
 
 ### Testing
+
+-   This projet uses **vitest** for unit and integration tests.
+-   To run tests, use `npm run test` in `backend` folder.
 
 ### CI/CD
 
