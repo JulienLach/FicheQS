@@ -229,3 +229,9 @@
     z-index: 1000;
     animation: slideInLeft 0.08s ease-out;
 }
+
+small {
+    font-style: italic;
+    color: #7c7c7c;
+    margin-left: 0.5em;
+}

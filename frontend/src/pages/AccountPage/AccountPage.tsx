@@ -4,12 +4,14 @@ import AccountForm from "../../components/AccountForm/AccountForm";
 
 const AccountPage: React.FC = () => {
     return (
-        <div className="container">
+        <div>
             <Menu />
-            <h2 className="headerTitle">
-                <i className="fas fa-file-circle-check"></i>Fiche qualité sécurité validée
-            </h2>
-            <AccountForm />
+            <div className="container">
+                <h2 className="headerTitle">
+                    <i className="fas fa-user"></i>Mon compte
+                </h2>
+                <AccountForm />
+            </div>
         </div>
     );
 };

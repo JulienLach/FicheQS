@@ -23,7 +23,7 @@ const AccountForm: React.FC = () => {
 
             setTimeout(() => {
                 navigate("/dashboard");
-            }, 2000);
+            });
         } catch (error: any) {
             console.log("Erreur lors de la mise à jour du compte");
         }
@@ -45,7 +45,8 @@ const AccountForm: React.FC = () => {
                 </div>
                 <div>
                     <label>Mot de passe :</label>
-                    <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <small>Modifier le mot de passe</small>
                 </div>
             </div>
             <hr />
