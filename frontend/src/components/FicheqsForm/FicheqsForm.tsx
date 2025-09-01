@@ -918,6 +918,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         try {
             await createFicheqs(ficheData);
             navigate("/dashboard");
+            window.scrollTo(0, 0);
         } catch (error) {
             console.error("Erreur lors de la création de la fiche :", error);
         }

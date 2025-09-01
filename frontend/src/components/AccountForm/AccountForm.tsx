@@ -41,7 +41,7 @@ const AccountForm: React.FC = () => {
             <div className="formHeader">
                 <div>
                     <label>Email :</label>
-                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
                 <div>
                     <label>Mot de passe :</label>
