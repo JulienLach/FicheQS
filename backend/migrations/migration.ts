@@ -14,12 +14,12 @@ export async function runMigrations(): Promise<void> {
 
         // Liste des migrations à appliquer
         const migrations: { version: string; updateDatabase: () => Promise<void> }[] = [
-            {
-                version: "1.0.1",
-                updateDatabase: async () => {
-                    // Insérer les migrations ici
-                },
-            },
+            // {
+            //     version: "1.0.1",
+            //     updateDatabase: async () => {
+            //         // Insérer les migrations ici
+            //     },
+            // },
         ];
 
         // Appliquer les migrations jusqu'à la version cible

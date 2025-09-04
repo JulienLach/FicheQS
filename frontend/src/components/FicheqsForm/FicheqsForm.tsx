@@ -1679,7 +1679,6 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                     </div>
                 ))}
             </div>
-
             <hr />
             {showSubmitButton && (
                 <button type="submit" className="buttonLogin">
@@ -1693,7 +1692,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                     Envoyer par mail
                     {emailSent && (
                         <div className="emailSentMessage">
-                            <i className="fa-solid fa-check"></i> Email envoyé !
+                            <i className="fa-solid fa-check"></i> Email envoyé
                         </div>
                     )}
                 </button>
