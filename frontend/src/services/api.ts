@@ -11,7 +11,7 @@ export async function authenticateUser(email: string, password: string) {
     console.log("body", { email, password });
     console.log("response", response);
     if (!response.ok) {
-        throw new Error("Erreur de connexion");
+        throw new Error("Identifiants invalides");
     }
 
     const data = await response.json();

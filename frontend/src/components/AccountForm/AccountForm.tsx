@@ -51,7 +51,7 @@ const AccountForm: React.FC = () => {
             </div>
             <hr />
             <button type="submit" className="buttonLogin">
-                <i className="fas fa-save"></i>
+                <i className="fas fa-bookmark"></i>
                 Enregister
             </button>
         </form>

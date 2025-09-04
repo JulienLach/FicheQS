@@ -42,7 +42,7 @@ const AllFichesqsPage: React.FC = () => {
                         >
                             <div className="ficheqsDetails">
                                 <p>
-                                    <i className="fas fa-house"></i>
+                                    <i className="far fa-house"></i>
                                     <span>Logement :</span> {fiche.logement}
                                 </p>
                                 <p>

@@ -18,7 +18,7 @@ const LoginForm: React.FC = () => {
             console.log("Connexion réussie :", response);
             navigate("/dashboard");
         } catch (err: any) {
-            setError(err.message || "Erreur de connexion");
+            setError(err.message);
         }
     };
 
@@ -48,7 +48,7 @@ const LoginForm: React.FC = () => {
             </div>
             {error && <div className="error">{error}</div>}
             <button type="submit" className="buttonLogin">
-                <i className="fas fa-user"></i>Connexion
+                <i className="fa fa-user"></i>Connexion
             </button>
         </form>
     );
