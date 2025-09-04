@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="frontend/src/assets/images/logo-mobile.png" alt="FicheQS Logo" width="100" height="100">
+  <img src="frontend/src/assets/images/logo-mobile.png" alt="FicheQS Logo" width="200" height="100">
 </p>
 
 <p align="center">
@@ -15,11 +15,13 @@
 -   [Requirements](#requirements)
 -   [Objectives](#objectives)
 -   [Syntaxes and paradigms](#syntaxes-and-paradigms-to-practice)
--   [How to run the app](#acces-app-on-local-network)
+-   [Acces app on local network](#acces-app-on-local-network)
 -   [Testing](#testing)
 -   [CI/CD](#cicd)
 -   [Deployment with Docker](#deployment-with-docker)
 -   [Environment Variables](#env-file)
+-   [Frontend setup](#frontend-setup)
+-   [Backend setup](#backend-setup)
 
 ### Overview
 
@@ -76,6 +78,8 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 
 ### Testing
 
+`npm install -D vitest @vitest/ui @vitest/coverage-v8`
+
 -   This projet uses **vitest** for unit and integration tests.
 -   To run tests, use `npm run test` in `backend` folder.
 
@@ -84,3 +88,42 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 ### Deployment with Docker
 
 ### .env file
+
+### Frontend setup
+
+`npm create vite@latest frontend -- --template react-ts`
+
+Only kept these TS config files:
+
+-   vite.config.ts
+-   tsconfig.json
+-   vite-env.d.ts
+
+Additional frontend setup:
+
+-   Installed React Router: `npm install react-router-dom`
+-   Added PWA support: `npm install -D vite-plugin-pwa`
+-   Set up folder structure with components, pages, and services
+-   Configured proxy in vite.config.ts to connect with backend API
+
+### Backend setup
+
+TypeScript configuration for the backend was created with:
+`npm install -D typescript @types/node`
+`npx tsc --init`
+
+The tsconfig.json is customized with:
+
+-   ES2020 target for modern JavaScript features
+-   NodeNext module system for ESM compatibility
+-   Strict type checking enabled
+-   Output directory set to './dist'
+
+Additional backend setup:
+
+-   Express framework: `npm install express cors cookie-parser`
+-   Type definitions: `npm install -D @types/express @types/cors @types/cookie-parser`
+-   PostgreSQL integration: `npm install pg`
+-   Development utilities: `npm install -D nodemon ts-node dotenv`
+-   Email service: `npm install nodemailer`
+-   PDF generation: `npm install jspdf`
