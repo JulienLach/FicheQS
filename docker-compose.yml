@@ -8,12 +8,12 @@ services:
         environment:
             - NODE_ENV=${NODE_ENV}
             - DB_USER=${DB_USER}
-            - DB_HOST={DB_HOST}
+            - DB_HOST=${DB_HOST}
             - DB_NAME=${DB_NAME}
             - DB_PASSWORD=${DB_PASSWORD}
             - DB_PORT=${DB_PORT}
             - JWT_SECRET=${JWT_SECRET}
-            - PORT=${PORT_BACKEND}
+            - PORT_BACKEND=${PORT_BACKEND}
             - ORIGIN_URL=${ORIGIN_URL}
             - SERVER_URL=${SERVER_URL}
         depends_on:
@@ -25,7 +25,7 @@ services:
             context: ./frontend
             dockerfile: dockerfile.frontend
         ports:
-            - "${PORT_FRONTEND}:4173"
+            - "${PORT_FRONTEND}:${PORT_FRONTEND}"
         environment:
             - NODE_ENV=${NODE_ENV}
             - VITE_API_URL=${VITE_API_URL}
