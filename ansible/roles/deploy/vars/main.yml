@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for deploy
+node_env: ""
+port_backend: ""
+port_frontend: ""
+db_user: ""
+db_host: ""
+db_name: ""
+db_password: ""
+db_port: ""
+jwt_secret:
+email: ""
+mailjet_api_key: ""
+mailjet_secret_key: ""
+origin_url: ""
+server_url: ""
