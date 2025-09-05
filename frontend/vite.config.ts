@@ -1,11 +1,10 @@
-import { defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
+import react from "@vitejs/plugin-react";
+import packageJson from "./package.json";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, "../", "VITE_");
-
     return {
         plugins: [
             react(),
@@ -43,15 +42,15 @@ export default defineConfig(({ mode }) => {
                 },
             }),
         ],
+        define: {
+            "import.meta.env.PACKAGE_VERSION": JSON.stringify(packageJson.version),
+        },
         server: {
             port: 3000,
+            host: "0.0.0.0",
             proxy: {
                 "/api": "http://localhost:3001",
             },
-        },
-        define: {
-            "import.meta.env.VITE_API_URL": JSON.stringify(env.VITE_API_URL),
-            "import.meta.env.VITE_APP_VERSION": JSON.stringify(env.VITE_APP_VERSION),
         },
     };
 });

@@ -5,7 +5,7 @@ export async function runMigrations(): Promise<void> {
 
     try {
         // Version cible depuis les variables d'environnement
-        const targetVersion = process.env.VITE_APP_VERSION;
+        const { version: targetVersion } = require("../package.json");
         console.log(`Target application version: ${targetVersion}`);
 
         if (!targetVersion) {

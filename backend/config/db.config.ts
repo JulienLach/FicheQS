@@ -4,7 +4,7 @@ import { Pool } from "pg";
 
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
-const dbHost = process.env.NODE_ENV === "docker" ? "db" : process.env.DB_HOST;
+const dbHost = process.env.NODE_ENV === "production" ? "db" : process.env.DB_HOST;
 
 const pool = new Pool({
     user: process.env.DB_USER,

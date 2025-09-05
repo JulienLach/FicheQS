@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
+import { runMigrations } from "./migrations/migration";
 import { authenticateToken } from "./middleware/auth.middleware";
 import { sanitizeInputs } from "./middleware/sanitize.middleware";
 import authRoutes from "./routes/auth.routes";
@@ -48,6 +49,11 @@ app.use("/account", authenticateToken, sanitizeInputs, accountRoutes);
 // Routes email
 app.use("/email", authenticateToken, emailRoutes);
 
-app.listen(PORT_BACKEND, () => {
-    console.log(`Server is running on ${SERVER_URL}`);
-});
+async function startServer() {
+    await runMigrations();
+    app.listen(PORT_BACKEND, () => {
+        console.log(`Server is running on ${SERVER_URL}`);
+    });
+}
+
+startServer();

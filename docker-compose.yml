@@ -28,7 +28,6 @@ services:
             - "${PORT_FRONTEND}:${PORT_FRONTEND}"
         environment:
             - NODE_ENV=${NODE_ENV}
-            - VITE_API_URL=${VITE_API_URL}
         depends_on:
             - backend
         restart: unless-stopped
@@ -40,7 +39,7 @@ services:
             - POSTGRES_PASSWORD=${DB_PASSWORD}
             - POSTGRES_DB=${DB_NAME}
         ports:
-            - "${DB_PORT}:5432"
+            - "5433:5432"
         volumes:
             - pgdata:/var/lib/postgresql/data
             - ./database_script.sql:/docker-entrypoint-initdb.d/init.sql
