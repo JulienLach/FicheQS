@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import { runMigrations } from "./migrations/migration";
+import { runMigrations } from "./updates/migration";
 import { authenticateToken } from "./middleware/auth.middleware";
 import { sanitizeInputs } from "./middleware/sanitize.middleware";
 import authRoutes from "./routes/auth.routes";
