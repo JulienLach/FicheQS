@@ -1,0 +1,238 @@
+/* A utiliser pour les styles globaux */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Inter, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100vh;
+    width: 91vw;
+    margin: 0 auto;
+}
+
+.logoMobile {
+    width: 280px;
+    display: block;
+    margin: 4em auto;
+}
+
+.logoPages {
+    width: 255px;
+    cursor: pointer;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5em;
+}
+
+.formGroup input {
+    font-size: 1em;
+    height: 2.4em;
+    border: 0.1em solid lightgrey;
+    border-radius: 0.35em;
+}
+
+.formGroup label {
+    margin-bottom: 0.5em;
+    font-size: 1.25em;
+    font-weight: 600;
+}
+
+.buttonLogin {
+    margin: 1.8em auto;
+    padding: 0.7em 2.2em;
+    display: flex;
+    align-items: center;
+    background-color: #00c472;
+    color: #fff;
+    border: none;
+    border-radius: 0.23em;
+    font-size: 1.2em;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.buttonDashboard,
+.buttonMenu {
+    margin-bottom: 1.5em;
+    padding: 1.4em 1.3em;
+    display: flex;
+    align-items: center;
+    background-color: #00c472;
+    color: #fff;
+    border: none;
+    border-radius: 0.23em;
+    font-size: 1.15em;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+}
+
+.buttonLogin i,
+.buttonDashboard i,
+.buttonMenu i {
+    margin-right: 0.6em;
+}
+
+.headerTitle {
+    margin-right: auto;
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+.headerTitle i {
+    margin-right: 0.3em;
+}
+
+.fieldButtons {
+    display: flex;
+    gap: 1.15em;
+}
+
+.fieldButtons .switch {
+    width: 100%;
+    height: 2.3em;
+    margin: auto;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.fieldButtons .switch i {
+    margin-right: 0.5em;
+}
+
+.ficheqsCard {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3em;
+    align-self: center;
+    margin: 1.5em 0;
+    padding: 0.8em 1em;
+    border-radius: 0.25em;
+    border: 1px solid rgb(199, 199, 199);
+    width: 100%;
+    background-color: #e1ebf0;
+    cursor: pointer;
+}
+
+.ficheqsDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    font-weight: 500;
+}
+
+.ficheqsDetails i {
+    margin-right: 0.5em;
+}
+
+.ficheStatus {
+    display: flex;
+    align-items: end;
+    font-size: 1.25em;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 1em 0;
+    justify-content: center;
+}
+
+.pagination .fas {
+    cursor: pointer;
+    font-size: 1.3em;
+    transition: color 0.2s;
+}
+
+.pagination .disabled {
+    color: #bbb;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.statusField {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.statusField p {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.statusTag {
+    background-color: #d4fcec;
+    padding: 0.2em 0.7em;
+    font-size: 1em;
+    font-weight: 500;
+    border-radius: 1em;
+    color: rgb(9, 65, 9);
+    border: 1px solid #b3e1c0;
+}
+
+.loader {
+    border: 11px solid #f3f3f3;
+    border-top: 11px solid #09c989;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 2em auto;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.emailSentMessage {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 11px;
+    border-radius: 0.3em;
+    font-size: 1em;
+    background-color: #e6ffed;
+    border: 1px solid #b3e1c0;
+    color: #1a7f37;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideInLeft 0.08s ease-out;
+}
+
+small {
+    font-style: italic;
+    color: #7c7c7c;
+    margin-left: 0.5em;
+}

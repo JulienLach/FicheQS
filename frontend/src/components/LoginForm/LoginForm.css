@@ -1,0 +1,18 @@
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 78%;
+}
+
+.loginForm input {
+    padding-left: 0.75em;
+}
+
+.error {
+    color: rgb(203, 57, 57);
+    background-color: rgb(255, 243, 243);
+    border: 1px solid rgb(235, 184, 184);
+    padding: 0.5em;
+    border-radius: 0.3em;
+}

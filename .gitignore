@@ -13,6 +13,8 @@ node_modules/
 # Build directories
 dist/
 build/
+dist-ssr
+dev-dist/
 
 # Coverage directory
 coverage/
@@ -22,5 +24,15 @@ coverage/
 
 # Editor directories and files
 .vscode/
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 *.swp
 *.swo
+*.sw?
+*.local
