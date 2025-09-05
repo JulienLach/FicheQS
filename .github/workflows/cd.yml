@@ -35,7 +35,13 @@ jobs:
                   draft: false
                   prerelease: false
 
-            # Step 4: Deploy on VPS with Ansible
+            # Step 4: Generate Ansible inventory
+            - name: Générer le fichier de l'inventaire Ansible
+              run: |
+                  echo "[vps]" > ansible/inventory.ini
+                  echo "${{ secrets.VPS_IP }} ansible_user=${{ secrets.VPS_USER }}" >> ansible/inventory.ini
+
+            # Step 5: Deploy on VPS with Ansible
             - name: Déployer sur le VPS avec Ansible
               uses: dawidd6/action-ansible-playbook@v2
               with:
