@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/JulienLach/FicheQS/releases">
-    <img src="https://img.shields.io/badge/Release-0.0.0-00DD80?logo=github" alt="Release" />
+    <img src="https://img.shields.io/badge/Release-1.0.0-00DD80?logo=github" alt="Release" />
   </a>
 </p>
 
@@ -89,6 +89,42 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 
 ### .env file
 
+Create a `.env` file in the root directory with the following variables:
+
+```
+# Environment
+# NODE_ENV=production
+NODE_ENV=development
+PORT_BACKEND=3001
+PORT_FRONTEND=3000
+
+# Database
+DB_USER=postgres
+# DB_HOST=db
+DB_HOST=localhost
+DB_NAME=FichesQS
+DB_PASSWORD=postgres
+DB_PORT=5432
+
+# Authentication
+JWT_SECRET=*****************************************
+
+# Email SMTP
+EMAIL=mail@mail.ovh
+MAILJET_API_KEY=************************************
+MAILJET_SECRET_KEY=*********************************
+
+# URLs
+ORIGIN_URL=http://localhost:3000
+SERVER_URL=http://localhost:3001
+```
+
+In frontend, create a `.env` file with:
+
+```
+VITE_API_URL=http://localhost:3001
+```
+
 ### Frontend setup
 
 `npm create vite@latest frontend -- --template react-ts`
@@ -127,3 +163,7 @@ Additional backend setup:
 -   Development utilities: `npm install -D nodemon ts-node dotenv`
 -   Email service: `npm install nodemailer`
 -   PDF generation: `npm install jspdf`
+
+```
+
+```

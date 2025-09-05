@@ -24,11 +24,11 @@ export const generatePDF = (data: FicheQSData): Blob => {
     });
 
     // Imports des polices + icones
-    doc.addFont("/src/assets/fonts/fa-solid-900.ttf", "FontAwesomeSolid", "normal");
-    doc.addFont("/src/assets/fonts/fa-regular-400.ttf", "FontAwesomeRegular", "normal");
-    doc.addFont("/src/assets/fonts/Inter-Regular.ttf", "Inter", "normal");
-    doc.addFont("/src/assets/fonts/Inter-SemiBold.ttf", "Inter", "semibold");
-    doc.addFont("/src/assets/fonts/Inter-Bold.ttf", "Inter", "bold");
+    doc.addFont("/fonts/fa-solid-900.ttf", "FontAwesomeSolid", "normal");
+    doc.addFont("/fonts/fa-regular-400.ttf", "FontAwesomeRegular", "normal");
+    doc.addFont("/fonts/Inter-Regular.ttf", "Inter", "normal");
+    doc.addFont("/fonts/Inter-SemiBold.ttf", "Inter", "semibold");
+    doc.addFont("/fonts/Inter-Bold.ttf", "Inter", "bold");
 
     // En-tête
     doc.setFontSize(15);

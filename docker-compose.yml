@@ -16,6 +16,9 @@ services:
             - PORT_BACKEND=${PORT_BACKEND}
             - ORIGIN_URL=${ORIGIN_URL}
             - SERVER_URL=${SERVER_URL}
+            - EMAIL=${EMAIL}
+            - MAILJET_API_KEY=${MAILJET_API_KEY}
+            - MAILJET_SECRET_KEY=${MAILJET_SECRET_KEY}
         depends_on:
             - db
         restart: unless-stopped
