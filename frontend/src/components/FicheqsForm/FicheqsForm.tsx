@@ -44,6 +44,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     const [visiteDate, setVisiteDate] = useState("");
     const [logement, setLogement] = useState("");
     const [emailSent, setEmailSent] = useState(false);
+    const [balconSwitch, setBalconSwitch] = useState(true);
 
     useEffect(() => {
         if (fields) {
@@ -1188,45 +1189,57 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 ))}
             </div>
             <div>
-                <h3 className="fieldTitle">Balcon</h3>
-                {fieldsBalcon.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleBalconFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleBalconFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
+                <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
+                    <h3 className="fieldTitle">Balcon</h3>
+                    <label className="toggleSwitch">
+                        <input
+                            type="checkbox"
+                            checked={balconSwitch}
+                            onChange={() => setBalconSwitch(!balconSwitch)}
+                            disabled={readOnly}
+                        />
+                        <span className="slider"></span>
+                    </label>
+                </div>
+                {balconSwitch &&
+                    fieldsBalcon.map((field: any, idx: number) => (
+                        <div key={field.idField} className="field">
+                            <span className="fieldSubtitle">{field.label} :</span>
+                            <div className="fieldButtons">
+                                <button
+                                    type="button"
+                                    className={field.valeur === true ? "switch active" : "switch"}
+                                    onClick={() =>
+                                        handleBalconFieldChange(idx, "valeur", field.valeur === true ? null : true)
+                                    }
+                                    disabled={readOnly}
+                                >
+                                    <i className="fas fa-check"></i>
+                                    Ok
+                                </button>
+                                <button
+                                    type="button"
+                                    className={field.valeur === false ? "switch descActive" : "switch"}
+                                    onClick={() =>
+                                        handleBalconFieldChange(idx, "valeur", field.valeur === false ? null : false)
+                                    }
+                                    disabled={readOnly}
+                                >
+                                    <i className="far fa-calendar"></i>
+                                    Pas opérationnel
+                                </button>
+                            </div>
+                            {field.valeur === false && (
+                                <textarea
+                                    className="description"
+                                    placeholder="Description"
+                                    readOnly={readOnly}
+                                    value={field.description}
+                                    onChange={(e) => handleBalconFieldChange(idx, "description", e.target.value)}
+                                />
+                            )}
                         </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleBalconFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                    ))}
             </div>
             <div>
                 <h3 className="fieldTitle">Éviers, lavabos, baignoires, bacs à douche</h3>
