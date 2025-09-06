@@ -34,3 +34,33 @@ jobs:
                   release_name: ${{ github.ref }}
                   draft: false
                   prerelease: false
+
+            # Step 4: Generate Ansible inventory
+            - name: Générer le fichier de l'inventaire Ansible
+              run: |
+                  echo "[vps]" > ansible/inventory.ini
+                  echo "${{ secrets.VPS_IP }} ansible_user=${{ secrets.VPS_USER }}" >> ansible/inventory.ini
+
+            # Step 5: Deploy on VPS with Ansible
+            - name: Déployer sur le VPS avec Ansible
+              uses: dawidd6/action-ansible-playbook@v2
+              with:
+                  playbook: ansible/playbook.yml
+                  directory: ./ansible
+                  inventory: ansible/inventory.ini
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  options: |
+                      -e "node_env=${{ secrets.NODE_ENV }}"
+                      -e "port_backend=${{ secrets.PORT_BACKEND }}"
+                      -e "port_frontend=${{ secrets.PORT_FRONTEND }}"
+                      -e "db_user=${{ secrets.DB_USER }}"
+                      -e "db_host=${{ secrets.DB_HOST }}"
+                      -e "db_name=${{ secrets.DB_NAME }}"
+                      -e "db_password=${{ secrets.DB_PASSWORD }}"
+                      -e "db_port=${{ secrets.DB_PORT }}"
+                      -e "jwt_secret=${{ secrets.JWT_SECRET }}"
+                      -e "email=${{ secrets.EMAIL }}"
+                      -e "mailjet_api_key=${{ secrets.MAILJET_API_KEY }}"
+                      -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}"
+                      -e "origin_url=${{ secrets.ORIGIN_URL }}"
+                      -e "server_url=${{ secrets.SERVER_URL }}"
