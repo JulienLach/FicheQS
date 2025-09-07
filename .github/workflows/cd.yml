@@ -73,25 +73,21 @@ jobs:
 
             # Step 7: Deploy on VPS with Ansible
             - name: Déployer sur le VPS avec Ansible
-              uses: dawidd6/action-ansible-playbook@v2
-              with:
-                  playbook: playbook.yml
-                  directory: ./ansible
-                  inventory: inventory.ini
-                  key: ${{ secrets.SSH_PRIVATE_KEY }}
-                  options: |
-                      -vvv
-                      -e "node_env=${{ secrets.NODE_ENV }}"
-                      -e "port_backend=${{ secrets.PORT_BACKEND }}"
-                      -e "port_frontend=${{ secrets.PORT_FRONTEND }}"
-                      -e "db_user=${{ secrets.DB_USER }}"
-                      -e "db_host=${{ secrets.DB_HOST }}"
-                      -e "db_name=${{ secrets.DB_NAME }}"
-                      -e "db_password=${{ secrets.DB_PASSWORD }}"
-                      -e "db_port=${{ secrets.DB_PORT }}"
-                      -e "jwt_secret=${{ secrets.JWT_SECRET }}"
-                      -e "email=${{ secrets.EMAIL }}"
-                      -e "mailjet_api_key=${{ secrets.MAILJET_API_KEY }}"
-                      -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}"
-                      -e "origin_url=${{ secrets.ORIGIN_URL }}"
-                      -e "server_url=${{ secrets.SERVER_URL }}"
+              run: |
+                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
+                  chmod 600 ssh_key
+                  ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -u ${{ secrets.VPS_USER }} --private-key=ssh_key -vvv \
+                    -e "node_env=${{ secrets.NODE_ENV }}" \
+                    -e "port_backend=${{ secrets.PORT_BACKEND }}" \
+                    -e "port_frontend=${{ secrets.PORT_FRONTEND }}" \
+                    -e "db_user=${{ secrets.DB_USER }}" \
+                    -e "db_host=${{ secrets.DB_HOST }}" \
+                    -e "db_name=${{ secrets.DB_NAME }}" \
+                    -e "db_password=${{ secrets.DB_PASSWORD }}" \
+                    -e "db_port=${{ secrets.DB_PORT }}" \
+                    -e "jwt_secret=${{ secrets.JWT_SECRET }}" \
+                    -e "email=${{ secrets.EMAIL }}" \
+                    -e "mailjet_api_key=${{ secrets.MAILJET_API_KEY }}" \
+                    -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}" \
+                    -e "origin_url=${{ secrets.ORIGIN_URL }}" \
+                    -e "server_url=${{ secrets.SERVER_URL }}"
