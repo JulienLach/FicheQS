@@ -1,6 +1,46 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for deploy
-- name: Vérifier que le rôle s'exécute
-  ansible.builtin.debug:
-      msg: "Déploiement en cours sur {{ inventory_hostname }}"
+- name: Installer Docker et Docker Compose
+  ansible.builtin.apt:
+      name:
+          - docker.io
+          - docker-compose
+      state: present
+      update_cache: yes
+
+- name: Créer le répertoire /opt/app
+  ansible.builtin.file:
+      path: /opt/app
+      state: directory
+      mode: "0755"
+
+- name: Copier le docker-compose.yml
+  copy:
+      src: ../../docker-compose.yml # Chemin relatif depuis ansible/roles/deploy/tasks/
+      dest: /opt/app/docker-compose.yml
+
+- name: Copier le script SQL pour la base de données
+  copy:
+      src: ../../database_script.sql
+      dest: /opt/app/database_script.sql
+
+- name: Lancer les conteneurs avec docker-compose
+  shell: docker-compose -f /opt/app/docker-compose.yml up -d
+  args:
+      chdir: /opt/app
+  environment:
+      NODE_ENV: "{{ node_env }}"
+      DB_USER: "{{ db_user }}"
+      DB_HOST: "{{ db_host }}"
+      DB_NAME: "{{ db_name }}"
+      DB_PASSWORD: "{{ db_password }}"
+      DB_PORT: "{{ db_port }}"
+      PORT_BACKEND: "{{ port_backend }}"
+      PORT_FRONTEND: "{{ port_frontend }}"
+      JWT_SECRET: "{{ jwt_secret }}"
+      EMAIL: "{{ email }}"
+      MAILJET_API_KEY: "{{ mailjet_api_key }}"
+      MAILJET_SECRET_KEY: "{{ mailjet_secret_key }}"
+      ORIGIN_URL: "{{ origin_url }}"
+      SERVER_URL: "{{ server_url }}"
