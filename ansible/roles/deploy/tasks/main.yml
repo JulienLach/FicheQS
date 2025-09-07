@@ -28,7 +28,7 @@
       dest: /opt/app/
 
 - name: Lancer les conteneurs avec docker-compose
-  shell: docker compose -f /opt/app/docker-compose.yml up -d
+  command: docker compose -f /opt/app/docker-compose.yml up -d --build
   args:
       chdir: /opt/app
   environment:
