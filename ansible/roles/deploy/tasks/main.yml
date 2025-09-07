@@ -1,3 +1,6 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for deploy
+- name: Vérifier que le rôle s'exécute
+  ansible.builtin.debug:
+      msg: "Déploiement en cours sur {{ inventory_hostname }}"
