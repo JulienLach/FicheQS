@@ -45,9 +45,9 @@ jobs:
             - name: Déployer sur le VPS avec Ansible
               uses: dawidd6/action-ansible-playbook@v2
               with:
-                  playbook: ansible/playbook.yml
+                  playbook: playbook.yml
                   directory: ./ansible
-                  inventory: ansible/inventory.ini
+                  inventory: inventory.ini
                   key: ${{ secrets.SSH_PRIVATE_KEY }}
                   options: |
                       -e "node_env=${{ secrets.NODE_ENV }}"
