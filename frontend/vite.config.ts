@@ -52,5 +52,8 @@ export default defineConfig(({ mode }) => {
                 "/api": "http://localhost:3001",
             },
         },
+        preview: {
+            allowedHosts: ["h76.ficheqs.ovh"],
+        },
     };
 });
