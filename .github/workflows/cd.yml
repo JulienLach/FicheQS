@@ -38,12 +38,12 @@ jobs:
             # Step 4: Generate Ansible inventory
             - name: Générer le fichier de l'inventaire Ansible
               run: |
-                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ] || [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
-                    echo "Erreur : VPS_IP, VPS_USER ou SSH_PRIVATE_KEY non défini"
+                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ] || [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ] || [ -z "${{ secrets.VPS_SSH_PORT }}" ]; then
+                    echo "Erreur : VPS_IP, VPS_USER, SSH_PRIVATE_KEY ou VPS_SSH_PORT non défini"
                     exit 1
                   fi
                   echo "[vps]" > ansible/inventory.ini
-                  echo "${{ secrets.VPS_IP }} ansible_user=${{ secrets.VPS_USER }}" >> ansible/inventory.ini
+                  echo "${{ secrets.VPS_IP }} ansible_user=${{ secrets.VPS_USER }} ansible_port=${{ secrets.VPS_SSH_PORT }}" >> ansible/inventory.ini
 
             # Step 5: Debug inventory file path and contents
             - name: Debug inventory file
@@ -59,13 +59,13 @@ jobs:
             # Step 6: Test SSH connection
             - name: Tester la connexion SSH
               run: |
-                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ] || [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
-                    echo "Erreur : VPS_IP, VPS_USER ou SSH_PRIVATE_KEY non défini"
+                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ] || [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ] || [ -z "${{ secrets.VPS_SSH_PORT }}" ]; then
+                    echo "Erreur : VPS_IP, VPS_USER, SSH_PRIVATE_KEY ou VPS_SSH_PORT non défini"
                     exit 1
                   fi
                   echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
                   chmod 600 ssh_key
-                  ssh -i ssh_key -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} "echo Connexion SSH réussie"
+                  ssh -i ssh_key -o StrictHostKeyChecking=no -p ${{ secrets.VPS_SSH_PORT }} ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} "echo Connexion SSH réussie"
 
             # Step 7: Deploy on VPS with Ansible
             - name: Déployer sur le VPS avec Ansible
