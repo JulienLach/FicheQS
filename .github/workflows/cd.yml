@@ -12,7 +12,7 @@ jobs:
         steps:
             # Step 1: Checkout code
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             # Step 2: Verify commit is on main branch
             - name: Verify commit is on main
@@ -38,10 +38,25 @@ jobs:
             # Step 4: Generate Ansible inventory
             - name: Générer le fichier de l'inventaire Ansible
               run: |
+                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ]; then
+                    echo "Error: VPS_IP or VPS_USER secret is not set"
+                    exit 1
+                  fi
                   echo "[vps]" > ansible/inventory.ini
                   echo "${{ secrets.VPS_IP }} ansible_user=${{ secrets.VPS_USER }}" >> ansible/inventory.ini
 
-            # Step 5: Deploy on VPS with Ansible
+            # Step 5: Debug inventory file path and contents
+            - name: Debug inventory file
+              run: |
+                  echo "Current directory: $(pwd)"
+                  echo "Listing ansible/ directory:"
+                  ls -l ansible/
+                  echo "Contents of ansible/inventory.ini:"
+                  cat ansible/inventory.ini || echo "Error: ansible/inventory.ini not found"
+                  echo "Validating inventory with ansible-inventory:"
+                  ansible-inventory -i ansible/inventory.ini --list || echo "Error: Failed to parse inventory"
+
+            # Step 6: Deploy on VPS with Ansible
             - name: Déployer sur le VPS avec Ansible
               uses: dawidd6/action-ansible-playbook@v2
               with:
