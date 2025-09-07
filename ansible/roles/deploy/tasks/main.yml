@@ -1,14 +1,6 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for deploy
-- name: Installer Docker et Docker Compose
-  ansible.builtin.apt:
-      name:
-          - docker.io
-          - docker-compose
-      state: present
-      update_cache: yes
-
 - name: Créer le répertoire /opt/app
   ansible.builtin.file:
       path: /opt/app
