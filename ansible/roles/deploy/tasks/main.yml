@@ -9,7 +9,7 @@
 
 - name: Copier le docker-compose.yml
   copy:
-      src: .../../../../docker-compose.yml # Chemin relatif depuis ansible/roles/deploy/tasks/
+      src: ../../../../docker-compose.yml # Chemin relatif depuis ansible/roles/deploy/tasks/
       dest: /opt/app/docker-compose.yml
 
 - name: Copier le script SQL pour la base de données
