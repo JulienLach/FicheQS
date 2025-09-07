@@ -17,6 +17,16 @@
       src: ../../../../database_script.sql
       dest: /opt/app/database_script.sql
 
+- name: Copier le répertoire backend
+  copy:
+      src: ../../../../backend
+      dest: /opt/app/
+
+- name: Copier le répertoire frontend
+  copy:
+      src: ../../../../frontend
+      dest: /opt/app/
+
 - name: Lancer les conteneurs avec docker-compose
   shell: docker compose -f /opt/app/docker-compose.yml up -d
   args:
