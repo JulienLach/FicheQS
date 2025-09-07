@@ -38,8 +38,8 @@ jobs:
             # Step 4: Generate Ansible inventory
             - name: Générer le fichier de l'inventaire Ansible
               run: |
-                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ]; then
-                    echo "Erreur : VPS_IP ou VPS_USER non défini"
+                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ] || [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+                    echo "Erreur : VPS_IP, VPS_USER ou SSH_PRIVATE_KEY non défini"
                     exit 1
                   fi
                   echo "[vps]" > ansible/inventory.ini
@@ -59,10 +59,13 @@ jobs:
             # Step 6: Test SSH connection
             - name: Tester la connexion SSH
               run: |
+                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ] || [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+                    echo "Erreur : VPS_IP, VPS_USER ou SSH_PRIVATE_KEY non défini"
+                    exit 1
+                  fi
                   echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
                   chmod 600 ssh_key
                   ssh -i ssh_key -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} "echo Connexion SSH réussie"
-              if: ${{ secrets.VPS_IP != '' && secrets.VPS_USER != '' && secrets.SSH_PRIVATE_KEY != '' }}
 
             # Step 7: Deploy on VPS with Ansible
             - name: Déployer sur le VPS avec Ansible
