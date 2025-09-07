@@ -18,7 +18,7 @@
       dest: /opt/app/database_script.sql
 
 - name: Lancer les conteneurs avec docker-compose
-  shell: docker-compose -f /opt/app/docker-compose.yml up -d
+  shell: docker compose -f /opt/app/docker-compose.yml up -d
   args:
       chdir: /opt/app
   environment:
