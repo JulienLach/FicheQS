@@ -15,8 +15,8 @@ const pool = new Pool({
 });
 
 pool.query("SELECT NOW()", (err, res) => {
-    if (err) console.error("DB Connection Error:", err);
-    else console.log("DB Connected successfully at startup");
+    if (err) console.error("Database connection error:", err);
+    else console.log("Database connected successfully");
 });
 
 export default pool;

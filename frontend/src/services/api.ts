@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const isLocalhost = window.location.hostname === "localhost";
+const API_URL = isLocalhost ? "http://localhost:3001" : "/api";
+
 import { formData } from "../types/api.types";
 
 export async function authenticateUser(email: string, password: string) {
