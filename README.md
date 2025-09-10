@@ -119,12 +119,6 @@ ORIGIN_URL=http://localhost:3000
 SERVER_URL=http://localhost:3001
 ```
 
-In frontend, create a `.env` file with:
-
-```
-VITE_API_URL=http://localhost:3001
-```
-
 ### Frontend setup
 
 `npm create vite@latest frontend -- --template react-ts`
