@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-# 1.0.3 (2025-09-07)
+# 1.0.59 (2025-09-13)
+
+## Changes
+
+-   Add validated alert message when user validate a FicheQS
+
+## Fixes
+
+-   Fix CI/CD pipeline
 
 # 1.0.2 (2025-09-07)
 
