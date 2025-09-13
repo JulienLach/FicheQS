@@ -44,6 +44,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     const [visiteDate, setVisiteDate] = useState("");
     const [logement, setLogement] = useState("");
     const [emailSent, setEmailSent] = useState(false);
+    const [ficheValidated, setFicheValidated] = useState(false);
     const [balconSwitch, setBalconSwitch] = useState(true);
 
     useEffect(() => {
@@ -370,6 +371,13 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             return () => clearTimeout(timer);
         }
     }, [emailSent]);
+
+    useEffect(() => {
+        if (ficheValidated) {
+            const timer = setTimeout(() => setFicheValidated(false), 3000); // 3 secondes
+            return () => clearTimeout(timer);
+        }
+    }, [ficheValidated]);
 
     // Groupe DAAF
     const [fieldsDaaf, setFieldsDaaf] = useState<any>([
@@ -918,8 +926,11 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
 
         try {
             await createFicheqs(ficheData);
-            navigate("/dashboard");
-            window.scrollTo(0, 0);
+            setFicheValidated(true);
+            setTimeout(() => {
+                navigate("/dashboard");
+                window.scrollTo(0, 0);
+            }, 3000);
         } catch (error) {
             console.error("Erreur lors de la création de la fiche :", error);
         }
@@ -1692,23 +1703,31 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                     </div>
                 ))}
             </div>
-            <hr />
             {showSubmitButton && (
-                <button type="submit" className="buttonLogin">
-                    <i className="fas fa-file-circle-check"></i>
-                    Valider
-                </button>
+                <div className="submitContainer">
+                    <button type="submit" className="buttonLogin">
+                        <i className="fas fa-file-circle-check"></i>
+                        Valider
+                        {ficheValidated && (
+                            <div className="ficheValidatedMessage">
+                                <i className="fa-solid fa-check"></i> FicheQS validée
+                            </div>
+                        )}
+                    </button>
+                </div>
             )}
             {showEmailButton && (
-                <button type="submit" className="buttonLogin" onClick={handleSendEmail}>
-                    <i className="fa-solid fa-paper-plane"></i>
-                    Envoyer par mail
-                    {emailSent && (
-                        <div className="emailSentMessage">
-                            <i className="fa-solid fa-check"></i> Email envoyé
-                        </div>
-                    )}
-                </button>
+                <div className="sendEmailContainer">
+                    <button type="submit" className="buttonLogin" onClick={handleSendEmail}>
+                        <i className="fa-solid fa-paper-plane"></i>
+                        Envoyer par mail
+                        {emailSent && (
+                            <div className="emailSentMessage">
+                                <i className="fa-solid fa-check"></i> Email envoyé
+                            </div>
+                        )}
+                    </button>
+                </div>
             )}
         </form>
     );
