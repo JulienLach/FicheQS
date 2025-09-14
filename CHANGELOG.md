@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+# 1.0.61 (2025-09-14)
+
+## Changes
+
+-   Add legal mentions page for GDPR compliance
+
 # 1.0.6 (2025-09-13)
 
 ## Changes
