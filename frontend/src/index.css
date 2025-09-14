@@ -24,7 +24,7 @@
 }
 
 .logoPages {
-    width: 255px;
+    width: 205px;
     cursor: pointer;
 }
 
@@ -57,7 +57,7 @@
     background-color: #00c472;
     color: #fff;
     border: none;
-    border-radius: 0.23em;
+    border-radius: 2.23em;
     font-size: 1.2em;
     cursor: pointer;
     font-weight: 600;
@@ -69,10 +69,11 @@
     padding: 1.4em 1.3em;
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #00c472;
     color: #fff;
     border: none;
-    border-radius: 0.23em;
+    border-radius: 2.23em;
     font-size: 1.1em;
     font-weight: 600;
     width: 100%;
