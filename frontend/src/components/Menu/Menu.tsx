@@ -34,6 +34,9 @@ const Menu: React.FC = () => {
                     <button className="buttonMenu" onClick={() => handleNavigation("/login")}>
                         <i className="fas fa-sign-out-alt"></i>Déconnexion
                     </button>
+                    <a className="gdpr" onClick={() => handleNavigation("/mentions-legales")}>
+                        Mentions légales
+                    </a>
                     <div className="version-tag">{appVersion}</div>
                 </div>
             )}

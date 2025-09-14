@@ -312,3 +312,8 @@ small {
 .toggleSwitch input:checked + .slider:before {
     transform: translateX(20px);
 }
+
+.gdprText {
+    margin-top: 0.5em;
+    text-align: justify;
+}
