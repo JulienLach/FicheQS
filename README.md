@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/JulienLach/FicheQS/releases">
-    <img src="https://img.shields.io/badge/Release-1.0.62-00DD80?logo=github" alt="Release" />
+    <img src="https://img.shields.io/badge/Release-1.0.64-00DD80?logo=github" alt="Release" />
   </a>
 </p>
 
@@ -96,6 +96,23 @@ To access the app from another device on the same local network:
 ### CI/CD
 
 This project uses **GitHub Actions**, **Ansible** and **Docker** for CI/CD. The workflow is defined in `.github/workflows/cd.yml`.
+
+To triger the workflow, push the new tag to the `main` branch :
+
+Update versions in both `frontend/package.json` and `backend/package.json`.
+Update version in `CHANGELOG.md` with the new version and date.
+Update version in `README.md` if necessary.
+
+Push on `develop` branch and merge to `main` branch.
+
+Then run locally the following commands :
+
+```
+git checkout main
+git pull origin main
+git tag -a x.x.x -m "Release version x.x.x"
+git push origin x.x.x
+```
 
 ### Deployment with Docker
 

@@ -50,7 +50,7 @@
 .version-tag {
     position: absolute;
     bottom: 19px;
-    right: 35px;
+    right: 27px;
     font-size: 16px;
     color: #888;
 }
@@ -59,7 +59,7 @@
     position: absolute;
     cursor: pointer;
     bottom: 19px;
-    left: 25px;
+    left: 15px;
     font-size: 16px;
     color: #888;
 }
