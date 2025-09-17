@@ -15,7 +15,7 @@
 -   [Requirements](#requirements)
 -   [Objectives](#objectives)
 -   [Syntaxes and paradigms](#syntaxes-and-paradigms-to-practice)
--   [Acces app on local network](#acces-app-on-local-network)
+-   [Access app on local network](#acces-app-on-local-network)
 -   [Testing](#testing)
 -   [CI/CD](#cicd)
 -   [Deployment with Docker](#deployment-with-docker)
@@ -47,19 +47,23 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 
 ### Objectives
 
--   Use **React v19** with the latest functional component syntax to benefit from improved performance, hooks, and modern React features.
+-   Use **React v19** with the latest functional component syntax
 -   Use **Vite** as the frontend build tool and development server, replacing the deprecated Create React App, for faster builds and a better development experience.
+
     To create the frontend folder as a React project with Vite, run:
     `npm create vite@latest frontend -- --template react`
+
     Then, navigate into the folder and start the development server:
+
     ```
     cd frontend
     npm install
     npm run dev
     ```
+
 -   Deploy the frontend as a **Progressive Web App (PWA)**, optimised for mobile devices, to provide an app-like experience.
--   Use **npm** as the package manager and **Node.js** as the JavaScript runtime environment for both frontend and backend.
--   Use **Express** as the backend web framework for building robust REST APIs.
+-   Use **npm** and **Node.js** as the JavaScript runtime environment for both frontend and backend.
+-   Use **Express** as the backend web framework for building REST APIs.
 -   Use **TypeScript** throughout the project to ensure type safety, better code quality, and easier maintenance.
 -   Use **PostgreSQL** as the relational database for reliable and scalable data storage.
 -   Use **Docker** to containerise the application, ensuring consistency across development, testing, and production environments.
@@ -67,25 +71,35 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 ### Syntaxes and paradigms to practice
 
 -   Use the latest **React v19 functional component syntax** (with hooks and ES2020 features).
--   Use **async/await** for asynchronous code to avoid callback hell and improve readability.
+-   Use **async/await** for asynchronous code to improve readability.
 -   Use **TypeScript** for static type checking and safer code.
 -   Use **ES2020 import/export** syntax for modular and maintainable code.
 
 ### Acces app on local network
 
+On you local machine, if your ports are not yet opened:
+
 -   Open port with `sudo ufw allow 3000` and `sudo ufw allow 3001`
+
+To access the app from another device on the same local network:
+
 -   In allowedOrigins in `backend/server.ts`, add the network URL: `http://your-local-ip:3000`
 
 ### Testing
 
+-   This projet uses **vitest** for unit and integration tests. You can you the vitest UI for a better experience.
+
 `npm install -D vitest @vitest/ui @vitest/coverage-v8`
 
--   This projet uses **vitest** for unit and integration tests.
 -   To run tests, use `npm run test` in `backend` folder.
 
 ### CI/CD
 
+This project uses **GitHub Actions**, **Ansible** and **Docker** for CI/CD. The workflow is defined in `.github/workflows/cd.yml`.
+
 ### Deployment with Docker
+
+The application can be containerized using Docker. The `docker-compose.yml` file defines the services for the frontend, backend, and PostgreSQL database.
 
 ### .env file
 
@@ -100,17 +114,17 @@ PORT_FRONTEND=3000
 
 # Database
 DB_USER=postgres
-# DB_HOST=db
+# DB_HOST=********
 DB_HOST=localhost
 DB_NAME=FichesQS
-DB_PASSWORD=postgres
+DB_PASSWORD==********
 DB_PORT=5432
 
 # Authentication
 JWT_SECRET=*****************************************
 
 # Email SMTP
-EMAIL=mail@mail.ovh
+EMAIL=random@mail.com
 MAILJET_API_KEY=************************************
 MAILJET_SECRET_KEY=*********************************
 
@@ -123,7 +137,7 @@ SERVER_URL=http://localhost:3001
 
 `npm create vite@latest frontend -- --template react-ts`
 
-Only kept these TS config files:
+List of TS config files:
 
 -   vite.config.ts
 -   tsconfig.json
@@ -157,7 +171,4 @@ Additional backend setup:
 -   Development utilities: `npm install -D nodemon ts-node dotenv`
 -   Email service: `npm install nodemailer`
 -   PDF generation: `npm install jspdf`
-
-```
-
-```
+-   JWT authentication: `npm install jsonwebtoken bcryptjs`
