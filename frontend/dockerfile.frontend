@@ -8,11 +8,12 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Utilise Nginx pour servir le build
+# Nginx pour servir le build statique
 FROM nginx:alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
+# Exposer le port 80 pour le serveur web Nginx à l'intérieur du conteneur
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
