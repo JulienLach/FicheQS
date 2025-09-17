@@ -28,7 +28,7 @@ services:
             context: ./frontend
             dockerfile: dockerfile.frontend
         ports:
-            - "${PORT_FRONTEND}:${PORT_FRONTEND}"
+            - "${PORT_FRONTEND}:80"
         environment:
             - NODE_ENV=${NODE_ENV}
         depends_on:
