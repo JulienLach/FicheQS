@@ -1,5 +1,6 @@
 import pool from "../config/db.config";
 import FicheqsHasField from "./ficheqs_has_field";
+import { FicheqsData, FicheqsHasFieldData } from "../interfaces/types";
 
 export default class Ficheqs {
     constructor(
@@ -10,16 +11,25 @@ export default class Ficheqs {
         public idUser: number
     ) {}
 
-    public static async getAllFichesQS() {
+    public static async getAllFichesQS(): Promise<FicheqsData[]> {
         const result = await pool.query(
             "SELECT id_fiche, status, TO_CHAR(visite_date, 'YYYY-MM-DD') AS visite_date, logement, id_user FROM ficheqs ORDER BY visite_date DESC"
         );
         return result.rows.map(
-            (row: any) => new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user)
+            (row: any): FicheqsData => ({
+                idFiche: row.id_fiche,
+                status: row.status,
+                visiteDate: row.visite_date,
+                logement: row.logement,
+                idUser: row.id_user
+            })
         );
     }
 
-    public static async getFicheQSById(idFiche: number) {
+    public static async getFicheQSById(idFiche: number): Promise<{
+        fiche: FicheqsData;
+        fields: FicheqsHasFieldData[];
+    }> {
         const query = "SELECT id_fiche, status, TO_CHAR(visite_date, 'YYYY-MM-DD') AS visite_date, logement, id_user FROM ficheqs WHERE id_fiche = $1";
         const values = [idFiche];
         const result = await pool.query(query, values);
@@ -30,7 +40,13 @@ export default class Ficheqs {
 
         // Retourne un objet avec la fiche et ses champs associés de la table ficheqs_has_field
         return {
-            fiche: new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user),
+            fiche: {
+                idFiche: row.id_fiche,
+                status: row.status,
+                visiteDate: row.visite_date,
+                logement: row.logement,
+                idUser: row.id_user
+            },
             fields: fields,
         };
     }
@@ -45,7 +61,7 @@ export default class Ficheqs {
             valeur: boolean | null;
             description?: string;
         }[]
-    ) {
+    ): Promise<FicheqsData> {
         // 1. Insérer la fiche dans la table ficheqs
         const query = `
             INSERT INTO ficheqs (status, visite_date, logement, id_user) 
@@ -64,6 +80,12 @@ export default class Ficheqs {
             );
         }
 
-        return new Ficheqs(row.id_fiche, row.status, row.visite_date, row.logement, row.id_user);
+        return {
+            idFiche: row.id_fiche,
+            status: row.status,
+            visiteDate: row.visite_date,
+            logement: row.logement,
+            idUser: row.id_user
+        };
     }
 }
