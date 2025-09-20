@@ -1,10 +1,14 @@
 import Ficheqs from "../data/ficheqs";
+import { FicheqsData, FicheqsHasFieldData } from "../interfaces/types";
 
-export async function getAllFichesQS() {
+export async function getAllFichesQS(): Promise<FicheqsData[]> {
     return await Ficheqs.getAllFichesQS();
 }
 
-export async function getFicheQSById(idFiche: number) {
+export async function getFicheQSById(idFiche: number): Promise<{
+    fiche: FicheqsData;
+    fields: FicheqsHasFieldData[];
+}> {
     return await Ficheqs.getFicheQSById(idFiche);
 }
 
@@ -14,6 +18,6 @@ export async function createFicheQS(
     logement: string,
     idUser: number,
     fields: { idField: number; valeur: boolean | null; description?: string }[]
-) {
+): Promise<FicheqsData> {
     return await Ficheqs.createFicheQS(status, visiteDate, logement, idUser, fields);
 }
