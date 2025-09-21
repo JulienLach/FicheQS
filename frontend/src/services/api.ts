@@ -84,3 +84,15 @@ export async function updateAccount(userId: number, email: string, password: str
     }
     return response.json();
 }
+
+export async function deleteFicheqs(idFiche: number) {
+    const response = await fetch(`${API_URL}/ficheqs/${idFiche}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la suppression de la ficheqs");
+    }
+    return response.json();
+}

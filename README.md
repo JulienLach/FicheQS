@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/JulienLach/FicheQS/releases">
-    <img src="https://img.shields.io/badge/Release-1.0.64-00DD80?logo=github" alt="Release" />
+    <img src="https://img.shields.io/badge/Release-1.0.66-00DD80?logo=github" alt="Release" />
   </a>
 </p>
 
@@ -33,6 +33,7 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 -   View validated FicheQS with history
 -   Send FicheQS PDF via email
 -   User authentication and account management
+-   Delete FicheQS
 
 ### Requirements
 

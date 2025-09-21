@@ -4,7 +4,7 @@ import { toInputDateValue } from "../../utils/date";
 import { getCookie } from "../../utils/cookie";
 import { formatStatusTag } from "../../utils/status";
 import { blobToBase64 } from "../../utils/blobToBase64";
-import { createFicheqs } from "../../services/api";
+import { createFicheqs, deleteFicheqs } from "../../services/api";
 import { sendPDF } from "../../services/api";
 import { generatePDF } from "../FicheqsPDF/FicheqsPDF";
 import "./FicheqsForm.css";
@@ -28,6 +28,7 @@ type FicheqsFormProps = {
     readOnly: boolean;
     showSubmitButton: boolean;
     showEmailButton: boolean;
+    showDeleteButton: boolean;
 };
 
 const FicheqsForm: React.FC<FicheqsFormProps> = ({
@@ -36,6 +37,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     readOnly,
     showSubmitButton = true,
     showEmailButton = false,
+    showDeleteButton = false,
 }) => {
     const [idFiche, setIdFiche] = useState<number>(ficheData.idFiche);
     const [status, setStatus] = useState<number>(1);
@@ -46,6 +48,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     const [emailSent, setEmailSent] = useState(false);
     const [ficheValidated, setFicheValidated] = useState(false);
     const [balconSwitch, setBalconSwitch] = useState(true);
+    const [ficheDeleted, setFicheDeleted] = useState(false);
 
     useEffect(() => {
         if (fields) {
@@ -365,6 +368,8 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         }
     }, [ficheData, fields]);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (emailSent) {
             const timer = setTimeout(() => setEmailSent(false), 3000); // 3 secondes
@@ -378,6 +383,17 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             return () => clearTimeout(timer);
         }
     }, [ficheValidated]);
+
+    useEffect(() => {
+        if (ficheDeleted) {
+            const timer = setTimeout(() => {
+                setFicheDeleted(false);
+                navigate("/dashboard");
+                window.scrollTo(0, 0);
+            }, 1500); // Redirige après 3 secondes
+            return () => clearTimeout(timer);
+        }
+    }, [ficheDeleted, navigate]);
 
     // Groupe DAAF
     const [fieldsDaaf, setFieldsDaaf] = useState<any>([
@@ -758,8 +774,6 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         },
     ]);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         const email = decodeURIComponent(getCookie("email"));
         setEmail(email);
@@ -999,6 +1013,15 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            await deleteFicheqs(idFiche);
+            setFicheDeleted(true);
+        } catch (error) {
+            console.error("Erreur lors de la suppression :", error);
+        }
+    };
+
     return (
         <form className="ficheqsForm" onSubmit={handleSubmit}>
             <div className="formHeader">
@@ -1032,7 +1055,19 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         readOnly={readOnly}
                     />
                 </div>
-                {readOnly && formatStatusTag(status)}
+                <div className="formButtons">
+                    {readOnly && formatStatusTag(status)}
+                    {showDeleteButton && (
+                        <button type="button" className="deleteButton" onClick={handleDelete}>
+                            Supprimer
+                        </button>
+                    )}
+                    {ficheDeleted && (
+                        <div className="ficheDeletedMessage">
+                            <i className="fa-solid fa-check"></i> FicheQS supprimée
+                        </div>
+                    )}
+                </div>
             </div>
 
             <hr />

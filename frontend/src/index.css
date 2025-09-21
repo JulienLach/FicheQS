@@ -256,6 +256,21 @@
     animation: slideInLeft 0.08s ease-out;
 }
 
+.ficheDeletedMessage {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 11px;
+    border-radius: 0.45em;
+    font-size: 1em;
+    background-color: #fff2de;
+    border: 1px solid #f5ce94;
+    color: #bf7300;
+    font-weight: 400;
+    z-index: 1000;
+    animation: slideInLeft 0.08s ease-out;
+}
+
 small {
     font-style: italic;
     color: #7c7c7c;
@@ -316,4 +331,23 @@ small {
 .gdprText {
     margin-top: 0.5em;
     text-align: justify;
+}
+
+.formButtons {
+    display: flex;
+    gap: 1.15em;
+    justify-content: space-between;
+}
+
+.deleteButton {
+    background-color: #fff2de;
+    border: 1px solid #f5ce94;
+    border-radius: 0.35em;
+    padding: 0.2em 0.5em;
+    color: #bf7300;
+    font-size: 16px;
+}
+
+.deleteButton i {
+    margin-right: 0.4em;
 }
