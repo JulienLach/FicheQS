@@ -21,3 +21,7 @@ export async function createFicheQS(
 ): Promise<FicheqsData> {
     return await Ficheqs.createFicheQS(status, visiteDate, logement, idUser, fields);
 }
+
+export async function deleteFicheqs(idFiche: number): Promise<void> {
+    return await Ficheqs.deleteFicheqs(idFiche);
+}

@@ -21,7 +21,7 @@ export default class Ficheqs {
                 status: row.status,
                 visiteDate: row.visite_date,
                 logement: row.logement,
-                idUser: row.id_user
+                idUser: row.id_user,
             })
         );
     }
@@ -30,7 +30,8 @@ export default class Ficheqs {
         fiche: FicheqsData;
         fields: FicheqsHasFieldData[];
     }> {
-        const query = "SELECT id_fiche, status, TO_CHAR(visite_date, 'YYYY-MM-DD') AS visite_date, logement, id_user FROM ficheqs WHERE id_fiche = $1";
+        const query =
+            "SELECT id_fiche, status, TO_CHAR(visite_date, 'YYYY-MM-DD') AS visite_date, logement, id_user FROM ficheqs WHERE id_fiche = $1";
         const values = [idFiche];
         const result = await pool.query(query, values);
         const row = result.rows[0];
@@ -45,7 +46,7 @@ export default class Ficheqs {
                 status: row.status,
                 visiteDate: row.visite_date,
                 logement: row.logement,
-                idUser: row.id_user
+                idUser: row.id_user,
             },
             fields: fields,
         };
@@ -85,7 +86,16 @@ export default class Ficheqs {
             status: row.status,
             visiteDate: row.visite_date,
             logement: row.logement,
-            idUser: row.id_user
+            idUser: row.id_user,
         };
+    }
+
+    public static async deleteFicheqs(idFiche: number): Promise<void> {
+        const queryFields = "DELETE FROM ficheqs_has_field WHERE id_fiche = $1";
+        const values = [idFiche];
+        await pool.query(queryFields, values);
+
+        const queryFiche = "DELETE FROM ficheqs WHERE id_fiche = $1";
+        await pool.query(queryFiche, values);
     }
 }

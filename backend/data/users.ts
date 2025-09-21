@@ -20,7 +20,7 @@ export default class Users {
             firstname: row.firstname,
             lastname: row.lastname,
             password: row.password,
-            email: row.email
+            email: row.email,
         };
     }
 }

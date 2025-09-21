@@ -24,6 +24,7 @@ const FicheqsDetailsForm: React.FC<FicheqsDetailsFormProps> = ({ idFiche }) => {
             readOnly={true} // affichage des données de la fiche en read-only
             showSubmitButton={false}
             showEmailButton={true}
+            showDeleteButton={true}
         />
     );
 };
