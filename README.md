@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/JulienLach/FicheQS/releases">
-    <img src="https://img.shields.io/badge/Release-1.0.66-00DD80?logo=github" alt="Release" />
+    <img src="https://img.shields.io/badge/Release-1.0.67-00DD80?logo=github" alt="Release" />
   </a>
 </p>
 
@@ -93,6 +93,8 @@ To access the app from another device on the same local network:
 `npm install -D vitest @vitest/ui @vitest/coverage-v8`
 
 -   To run tests, use `npm run test` in `backend` folder.
+
+To check type errors, use `npx tsc --noEmit` in both `frontend` folder.
 
 ### CI/CD
 

@@ -22,6 +22,7 @@ const FicheqsPage: React.FC = () => {
                     readOnly={false}
                     showSubmitButton={true}
                     showEmailButton={false}
+                    showDeleteButton={false}
                 />
             </div>
         </div>
