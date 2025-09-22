@@ -1,338 +1,342 @@
 :root {
-  --primary-color: #00c472;
-  --border-grey: #ccc;
-  --border-light-grey: rgb(199, 199, 199);
-  --notification-success-bg: #e6ffed;
-  --notification-success-border: #74cb8d;
-  --notification-success-text: #1a7f37;
-  --notification-warning-bg: #fff2de;
-  --notification-warning-border: #f5ce94;
-  --notification-warning-text: #bf7300;
+    --primary-color: #00c472;
+    --border-grey: #ccc;
+    --border-light-grey: rgb(199, 199, 199);
+    --notification-success-bg: #e6ffed;
+    --notification-success-border: #74cb8d;
+    --notification-success-text: #1a7f37;
+    --notification-warning-bg: #fff2de;
+    --notification-warning-border: #f5ce94;
+    --notification-warning-text: #bf7300;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Inter, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Inter, sans-serif;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  height: 100vh;
-  width: 91vw;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100vh;
+    width: 91vw;
+    margin: 0 auto;
 }
 
 .logoMobile {
-  width: 280px;
-  display: block;
-  margin: 4em auto;
+    width: 280px;
+    display: block;
+    margin: 4em auto;
 }
 
 .logoPages {
-  width: 205px;
-  cursor: pointer;
+    width: 205px;
+    cursor: pointer;
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 1.5em;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5em;
 }
 
 .formGroup input {
-  font-size: 1em;
-  height: 2.4em;
-  border: 0.1em solid var(--border-grey);
-  border-radius: 0.35em;
+    font-size: 1em;
+    height: 2.4em;
+    border: 0.1em solid var(--border-grey);
+    border-radius: 0.35em;
 }
 
 .formGroup label {
-  margin-bottom: 0.5em;
-  font-size: 1.25em;
-  font-weight: 600;
+    margin-bottom: 0.5em;
+    font-size: 1.25em;
+    font-weight: 600;
 }
 
 .buttonLogin,
 .buttonDashboard,
 .buttonMenu {
-  display: flex;
-  align-items: center;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 2.23em;
-  font-weight: 600;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 2.23em;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .buttonLogin {
-  margin: 1.8em auto;
-  padding: 0.7em 2.2em;
-  font-size: 1.2em;
+    margin: 1.8em auto;
+    padding: 0.7em 2.2em;
+    font-size: 1.2em;
 }
 
 .buttonDashboard,
 .buttonMenu {
-  margin-bottom: 1.5em;
-  padding: 1.4em 1.3em;
-  justify-content: center;
-  font-size: 1.1em;
-  width: 100%;
+    margin-bottom: 1.5em;
+    padding: 1.4em 1.3em;
+    justify-content: center;
+    font-size: 1.1em;
+    width: 100%;
 }
 
 .buttonLogin i,
 .buttonDashboard i,
 .buttonMenu i {
-  margin-right: 0.5em;
+    margin-right: 0.5em;
 }
 
 .headerTitle {
-  margin-right: auto;
-  font-size: 1.3em;
-  margin-bottom: 0.5em;
-  font-weight: 600;
+    margin-right: auto;
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
 }
 
 .headerTitle i {
-  margin-right: 0.3em;
+    margin-right: 0.3em;
 }
 
 .fieldButtons {
-  display: flex;
-  gap: 1.15em;
+    display: flex;
+    gap: 1.15em;
 }
 
 .fieldButtons .switch {
-  width: 100%;
-  height: 2.3em;
-  margin: auto;
-  font-size: 0.877em;
-  font-weight: 600;
+    width: 100%;
+    height: 2.3em;
+    margin: auto;
+    font-size: 0.877em;
+    font-weight: 600;
 }
 
 .fieldButtons .switch i {
-  margin-right: 0.5em;
+    margin-right: 0.5em;
 }
 
 .ficheqsCard {
-  display: flex;
-  flex-direction: row;
-  gap: 0.3em;
-  align-self: center;
-  margin: 1.5em 0;
-  padding: 0.8em 1em;
-  border-radius: 0.65em;
-  border: 1px solid var(--border-light-grey);
-  width: 100%;
-  background-color: #e1ebf0;
-  cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 0.3em;
+    align-self: center;
+    margin: 1.5em 0;
+    padding: 0.8em 1em;
+    border-radius: 0.65em;
+    border: 1px solid var(--border-light-grey);
+    width: 100%;
+    background-color: #e1ebf0;
+    cursor: pointer;
 }
 
 .ficheqsDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6em;
-  font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    font-weight: 500;
 }
 
 .ficheqsDetails i {
-  margin-right: 0.5em;
+    margin-right: 0.5em;
 }
 
 .ficheStatus {
-  display: flex;
-  align-items: end;
-  font-size: 1.25em;
+    display: flex;
+    align-items: end;
+    font-size: 1.25em;
 }
 
 .pagination {
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  margin: 1em 0;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 1em 0;
+    justify-content: center;
 }
 
 .pagination .fas {
-  cursor: pointer;
-  font-size: 1.3em;
-  transition: color 0.2s;
+    cursor: pointer;
+    font-size: 1.3em;
+    transition: color 0.2s;
 }
 
 .pagination .disabled {
-  color: #bbb;
-  cursor: not-allowed;
-  pointer-events: none;
+    color: #bbb;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .statusField {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 0.5em;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .statusField p {
-  font-size: 1.1em;
-  font-weight: 600;
+    font-size: 1.1em;
+    font-weight: 600;
 }
 
 .statusTag {
-  background-color: #d4fcec;
-  padding: 0.2em 0.7em;
-  font-size: 1em;
-  font-weight: 500;
-  border-radius: 1em;
-  color: rgb(9, 65, 9);
-  border: 1px solid #b3e1c0;
+    background-color: #d4fcec;
+    padding: 0.2em 0.7em;
+    font-size: 1em;
+    font-weight: 500;
+    border-radius: 1em;
+    color: rgb(9, 65, 9);
+    border: 1px solid #b3e1c0;
 }
 
 .sendEmailContainer {
-  position: sticky;
-  width: 100%;
-  bottom: 0;
-  padding: 0.3em 0;
-  border-top: 1px solid var(--border-grey);
-  background-color: #fff;
+    position: sticky;
+    width: 100%;
+    bottom: 0;
+    padding: 0.3em 0;
+    border-top: 1px solid var(--border-grey);
+    background-color: #fff;
 }
 
 .loader {
-  border: 0.6875rem solid #f3f3f3;
-  border-top: 0.6875rem solid var(--primary-color);
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  margin: 2em auto;
-  animation: spin 2s linear infinite;
+    border: 0.6875rem solid #f3f3f3;
+    border-top: 0.6875rem solid var(--primary-color);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 2em auto;
+    animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Notifications */
 .emailSentMessage,
 .ficheValidatedMessage,
 .ficheDeletedMessage {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  padding: 11px;
-  border-radius: 0.45em;
-  font-size: 0.9em;
-  font-weight: 400;
-  z-index: 1000;
-  animation: slideInLeft 0.08s ease-out;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 11px;
+    border-radius: 0.45em;
+    font-size: 0.9em;
+    font-weight: 400;
+    z-index: 1000;
+    animation: slideInLeft 0.08s ease-out;
 }
 
 .emailSentMessage,
 .ficheValidatedMessage {
-  background-color: var(--notification-success-bg);
-  border: 1px solid var(--notification-success-border);
-  color: var(--notification-success-text);
+    background-color: var(--notification-success-bg);
+    border: 1px solid var(--notification-success-border);
+    color: var(--notification-success-text);
 }
 
 .ficheDeletedMessage {
-  background-color: var(--notification-warning-bg);
-  border: 1px solid var(--notification-warning-border);
-  color: var(--notification-warning-text);
+    background-color: var(--notification-warning-bg);
+    border: 1px solid var(--notification-warning-border);
+    color: var(--notification-warning-text);
 }
 
 @keyframes slideInLeft {
-  from {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    from {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 small {
-  font-style: italic;
-  color: #7c7c7c;
-  margin-left: 0.5em;
+    font-style: italic;
+    color: #7c7c7c;
+    margin-left: 0.5em;
 }
 
 .sectionDisable {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .toggleSwitch {
-  position: relative;
-  margin-top: 0.7em;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
+    position: relative;
+    margin-top: 0.7em;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
 }
 
 .toggleSwitch input {
-  opacity: 0;
+    opacity: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--border-grey);
-  transition: 0.3s;
-  border-radius: 20px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-grey);
+    transition: 0.3s;
+    border-radius: 20px;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  transition: 0.3s;
-  border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
 }
 
 .toggleSwitch input:checked + .slider {
-  background-color: var(--primary-color);
+    background-color: var(--primary-color);
 }
 
 .toggleSwitch input:checked + .slider:before {
-  transform: translateX(20px);
+    transform: translateX(20px);
 }
 
 .gdprText {
-  margin-top: 0.5em;
-  text-align: justify;
+    margin-top: 0.5em;
+    text-align: justify;
 }
 
 .formButtons {
-  display: flex;
-  gap: 1.15em;
-  justify-content: space-between;
+    display: flex;
+    gap: 1.15em;
+    justify-content: space-between;
 }
 
 .deleteButton {
-  background-color: var(--notification-warning-bg);
-  border: 1px solid var(--notification-warning-border);
-  border-radius: 0.35em;
-  padding: 0.2em 0.5em;
-  color: var(--notification-warning-text);
-  font-size: 1rem;
-  cursor: pointer;
+    background-color: var(--notification-warning-bg);
+    border: 1px solid var(--notification-warning-border);
+    border-radius: 0.35em;
+    padding: 0.2em 0.5em;
+    color: var(--notification-warning-text);
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .deleteButton i {
-  margin-right: 0.4em;
+    margin-right: 0.4em;
 }
