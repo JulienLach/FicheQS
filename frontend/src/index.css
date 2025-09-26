@@ -1,4 +1,14 @@
-/* A utiliser pour les styles globaux */
+:root {
+    --primary-color: #00c472;
+    --border-grey: #ccc;
+    --border-light-grey: rgb(199, 199, 199);
+    --notification-success-bg: #e6ffed;
+    --notification-success-border: #74cb8d;
+    --notification-success-text: #1a7f37;
+    --notification-warning-bg: #fff2de;
+    --notification-warning-border: #f5ce94;
+    --notification-warning-text: #bf7300;
+}
 
 * {
     box-sizing: border-box;
@@ -39,7 +49,7 @@
 .formGroup input {
     font-size: 1em;
     height: 2.4em;
-    border: 0.1em solid lightgrey;
+    border: 0.1em solid var(--border-grey);
     border-radius: 0.35em;
 }
 
@@ -49,41 +59,38 @@
     font-weight: 600;
 }
 
-.buttonLogin {
-    margin: 1.8em auto;
-    padding: 0.7em 2.2em;
+.buttonLogin,
+.buttonDashboard,
+.buttonMenu {
     display: flex;
     align-items: center;
-    background-color: #00c472;
+    background-color: var(--primary-color);
     color: #fff;
     border: none;
     border-radius: 2.23em;
-    font-size: 1.2em;
-    cursor: pointer;
     font-weight: 600;
+    cursor: pointer;
+}
+
+.buttonLogin {
+    margin: 1.8em auto;
+    padding: 0.7em 2.2em;
+    font-size: 1.2em;
 }
 
 .buttonDashboard,
 .buttonMenu {
     margin-bottom: 1.5em;
     padding: 1.4em 1.3em;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: #00c472;
-    color: #fff;
-    border: none;
-    border-radius: 2.23em;
     font-size: 1.1em;
-    font-weight: 600;
     width: 100%;
-    cursor: pointer;
 }
 
 .buttonLogin i,
 .buttonDashboard i,
 .buttonMenu i {
-    margin-right: 0.6em;
+    margin-right: 0.5em;
 }
 
 .headerTitle {
@@ -121,8 +128,8 @@
     align-self: center;
     margin: 1.5em 0;
     padding: 0.8em 1em;
-    border-radius: 0.25em;
-    border: 1px solid rgb(199, 199, 199);
+    border-radius: 0.65em;
+    border: 1px solid var(--border-light-grey);
     width: 100%;
     background-color: #e1ebf0;
     cursor: pointer;
@@ -192,13 +199,13 @@
     width: 100%;
     bottom: 0;
     padding: 0.3em 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--border-grey);
     background-color: #fff;
 }
 
 .loader {
-    border: 11px solid #f3f3f3;
-    border-top: 11px solid #09c989;
+    border: 0.6875rem solid #f3f3f3;
+    border-top: 0.6875rem solid var(--primary-color);
     border-radius: 50%;
     width: 80px;
     height: 80px;
@@ -215,6 +222,34 @@
     }
 }
 
+/* Notifications */
+.emailSentMessage,
+.ficheValidatedMessage,
+.ficheDeletedMessage {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 11px;
+    border-radius: 0.45em;
+    font-size: 0.9em;
+    font-weight: 400;
+    z-index: 1000;
+    animation: slideInLeft 0.08s ease-out;
+}
+
+.emailSentMessage,
+.ficheValidatedMessage {
+    background-color: var(--notification-success-bg);
+    border: 1px solid var(--notification-success-border);
+    color: var(--notification-success-text);
+}
+
+.ficheDeletedMessage {
+    background-color: var(--notification-warning-bg);
+    border: 1px solid var(--notification-warning-border);
+    color: var(--notification-warning-text);
+}
+
 @keyframes slideInLeft {
     from {
         transform: translateX(-120%);
@@ -224,51 +259,6 @@
         transform: translateX(0);
         opacity: 1;
     }
-}
-
-.emailSentMessage {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 11px;
-    border-radius: 0.45em;
-    font-size: 0.9em;
-    background-color: #e6ffed;
-    border: 1px solid #74cb8d;
-    color: #1a7f37;
-    font-weight: 400;
-    z-index: 1000;
-    animation: slideInLeft 0.08s ease-out;
-}
-
-.ficheValidatedMessage {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 11px;
-    border-radius: 0.45em;
-    font-size: 0.9em;
-    background-color: #e6ffed;
-    border: 1px solid #74cb8d;
-    color: #1a7f37;
-    font-weight: 400;
-    z-index: 1000;
-    animation: slideInLeft 0.08s ease-out;
-}
-
-.ficheDeletedMessage {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 11px;
-    border-radius: 0.45em;
-    font-size: 1em;
-    background-color: #fff2de;
-    border: 1px solid #f5ce94;
-    color: #bf7300;
-    font-weight: 400;
-    z-index: 1000;
-    animation: slideInLeft 0.08s ease-out;
 }
 
 small {
@@ -292,8 +282,6 @@ small {
 
 .toggleSwitch input {
     opacity: 0;
-    width: 0;
-    height: 0;
 }
 
 .slider {
@@ -303,7 +291,7 @@ small {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--border-grey);
     transition: 0.3s;
     border-radius: 20px;
 }
@@ -321,7 +309,7 @@ small {
 }
 
 .toggleSwitch input:checked + .slider {
-    background-color: #09c989;
+    background-color: var(--primary-color);
 }
 
 .toggleSwitch input:checked + .slider:before {
@@ -340,12 +328,13 @@ small {
 }
 
 .deleteButton {
-    background-color: #fff2de;
-    border: 1px solid #f5ce94;
+    background-color: var(--notification-warning-bg);
+    border: 1px solid var(--notification-warning-border);
     border-radius: 0.35em;
     padding: 0.2em 0.5em;
-    color: #bf7300;
-    font-size: 16px;
+    color: var(--notification-warning-text);
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .deleteButton i {

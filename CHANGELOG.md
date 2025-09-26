@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+-   Optimize styles
+
 # 1.0.67 (2025-09-21)
 
 -   Add delete FicheQS feature
