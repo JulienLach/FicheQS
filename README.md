@@ -183,7 +183,7 @@ The tsconfig.json is customized with:
 -   Strict type checking enabled
 -   Output directory set to './dist'
 
-Additional backend setup:
+List of backend dependencies installed:
 
 -   Express framework: `npm install express cors cookie-parser`
 -   Type definitions: `npm install -D @types/express @types/cors @types/cookie-parser`
