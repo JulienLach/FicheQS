@@ -4,7 +4,7 @@ services:
             context: ./backend
             dockerfile: dockerfile.backend
         ports:
-            - "${PORT_BACKEND}:${PORT_BACKEND}"
+            - "127.0.0.1:${PORT_BACKEND}:${PORT_BACKEND}"
         environment:
             - NODE_ENV=${NODE_ENV}
             - DB_USER=${DB_USER}
@@ -28,7 +28,7 @@ services:
             context: ./frontend
             dockerfile: dockerfile.frontend
         ports:
-            - "${PORT_FRONTEND}:80"
+            - "127.0.0.1:${PORT_FRONTEND}:80"
         environment:
             - NODE_ENV=${NODE_ENV}
         depends_on:
