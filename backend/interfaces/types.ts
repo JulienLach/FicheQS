@@ -12,7 +12,7 @@ export interface UserData {
 
 export interface FicheqsData {
     idFiche: number;
-    status: string;
+    status: number;
     visiteDate: string;
     logement: string;
     idUser: number;
