@@ -10,8 +10,8 @@ export async function authenticateUser(email: string, password: string) {
         body: JSON.stringify({ email, password }),
         credentials: "include",
     });
-    console.log("body", { email, password });
-    console.log("response", response);
+    // console.log("body", { email, password });
+    // console.log("response", response);
     if (!response.ok) {
         throw new Error("Identifiants invalides");
     }

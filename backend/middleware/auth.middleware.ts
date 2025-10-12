@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
     const cookieHeader = req.headers.cookie;
     let token: string = "";
+    const secret = process.env.JWT_SECRET;
 
     if (cookieHeader) {
         const cookies = cookieHeader.split(";");
@@ -21,7 +22,6 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
         return;
     }
 
-    const secret = process.env.JWT_SECRET;
     if (!secret) {
         res.status(500).json({ message: "JWT_SECRET non défini" });
         return;

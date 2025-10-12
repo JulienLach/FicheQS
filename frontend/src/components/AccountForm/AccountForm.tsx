@@ -14,9 +14,9 @@ const AccountForm: React.FC = () => {
         event.preventDefault();
 
         try {
-            const result = await updateAccount(parseInt(userId), email, password);
+            await updateAccount(parseInt(userId), email, password);
 
-            console.log("Compte mis à jour avec succès");
+            console.warn("Compte mis à jour avec succès");
 
             // Mise à jour du cookie email si l'email a été modifié
             document.cookie = `email=${encodeURIComponent(email)};path=/;max-age=${2 * 60 * 60}`;
