@@ -1,4 +1,3 @@
--- Création de la table users
 CREATE TABLE users (
     id_user SERIAL PRIMARY KEY,
     email VARCHAR(50) NOT NULL UNIQUE,
@@ -7,13 +6,11 @@ CREATE TABLE users (
     lastname VARCHAR(100)
 );
 
--- Création de la table fields
 CREATE TABLE fields (
     id_field SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Création de la table ficheqs
 CREATE TABLE ficheqs (
     id_fiche SERIAL PRIMARY KEY,
     status INTEGER,
@@ -23,7 +20,6 @@ CREATE TABLE ficheqs (
     FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE RESTRICT
 );
 
--- Création de la table ficheqs_has_field
 CREATE TABLE ficheqs_has_field (
     id_fiche INTEGER,
     id_field INTEGER,
@@ -35,7 +31,6 @@ CREATE TABLE ficheqs_has_field (
     CHECK (description IS NULL OR valeur = false) -- Contrainte : description seulement si valeur = false
 );
 
--- Insertion d'un utilisateur de test
 INSERT INTO users (email, password, firstname, lastname)
 VALUES ('test@gmail.com', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'Jean', 'Dupont');
 
