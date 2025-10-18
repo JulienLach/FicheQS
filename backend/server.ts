@@ -4,12 +4,19 @@ import cors from "cors";
 import { runMigrations } from "./updates/migration";
 import { authenticateToken } from "./middleware/auth.middleware";
 import { sanitizeInputs } from "./middleware/sanitize.middleware";
+import { rateLimit } from "express-rate-limit";
 import authRoutes from "./routes/auth.routes";
 import ficheqsRoutes from "./routes/ficheqs.routes";
 import accountRoutes from "./routes/account.routes";
 import emailRoutes from "./routes/email.routes";
 
 dotenv.config();
+
+// Gestion des exceptions non gérées
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught Exception:", err);
+    process.exit(1);
+});
 
 const PORT_BACKEND = process.env.PORT_BACKEND;
 const ORIGIN_URL = process.env.ORIGIN_URL;
@@ -28,6 +35,7 @@ app.use(
         origin: allowedOrigins,
         credentials: true,
     }),
+    rateLimit({ windowMs: 1 * 60 * 1000, max: 100 }),
     (req, res, next) => {
         // Cache-Control
         res.setHeader("Cache-Control", "private, no-cache");
@@ -56,6 +64,12 @@ app.use("/login", authRoutes);
 app.use("/ficheqs", authenticateToken, sanitizeInputs, ficheqsRoutes);
 app.use("/account", authenticateToken, sanitizeInputs, accountRoutes);
 app.use("/email", authenticateToken, emailRoutes);
+
+// Middleware global de gestion centralisée des erreurs
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.error("Global Error:", err.message || err);
+    res.status(err.status || 500).json({ message: "Une erreur interne est survenue." });
+});
 
 async function startServer() {
     await runMigrations();
