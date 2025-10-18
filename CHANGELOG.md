@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+# 1.0.69 (2025-10-18)
+
+-   Improve email validation in login form with regex
+-   Add server headers for security
+
 # 1.0.68 (2025-10-12)
 
 -   Cleanup code

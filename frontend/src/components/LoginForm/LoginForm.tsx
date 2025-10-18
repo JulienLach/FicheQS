@@ -13,6 +13,13 @@ const LoginForm: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setError(null);
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email) || email.trim() === "") {
+            setError("Email invalide");
+            return;
+        }
+
         try {
             const response = await authenticateUser(email, password);
             console.log("Connexion réussie :", response);

@@ -67,7 +67,7 @@
     background-color: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: 2.23em;
+    border-radius: 2em;
     font-weight: 600;
     cursor: pointer;
 }
