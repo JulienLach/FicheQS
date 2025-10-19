@@ -3,7 +3,7 @@ import { authenticateUser } from "../services/auth.services";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const { userId, token } = await authenticateUser(email, password);
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
 
         res.status(200).json({ email, userId, token });
     } catch (error: any) {
-        res.status(401).json({ message: error.message });
+        next(error);
     }
 });
 
