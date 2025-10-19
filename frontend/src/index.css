@@ -28,7 +28,7 @@
 }
 
 .logoMobile {
-    width: 280px;
+    width: 270px;
     display: block;
     margin: 4em auto;
 }
@@ -49,13 +49,13 @@
 .formGroup input {
     font-size: 1em;
     height: 2.4em;
-    border: 0.1em solid var(--border-grey);
+    border: 1px solid var(--border-grey);
     border-radius: 0.35em;
 }
 
 .formGroup label {
     margin-bottom: 0.5em;
-    font-size: 1.25em;
+    font-size: 1em;
     font-weight: 500;
 }
 
@@ -188,7 +188,7 @@
     padding: 0.2em 0.7em;
     font-size: 1em;
     font-weight: 500;
-    border-radius: 1em;
+    border-radius: 0.35em;
     color: rgb(9, 65, 9);
     border: 1px solid #b3e1c0;
 }

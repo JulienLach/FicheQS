@@ -10,7 +10,7 @@ export function formatStatusTag(status: number) {
         return (
             <div className="statusField">
                 <p>Statut :</p>
-                <div className="statusTag">Validé</div>
+                <div className="statusTag">Validée</div>
             </div>
         );
     }
