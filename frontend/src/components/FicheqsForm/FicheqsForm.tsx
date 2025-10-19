@@ -43,7 +43,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     const [status, setStatus] = useState<number>(1);
     const [email, setEmail] = useState("");
     const [idUser, setIdUser] = useState<number>();
-    const [visiteDate, setVisiteDate] = useState("");
+    const [visiteDate, setVisiteDate] = useState(new Date().toISOString().split("T")[0]);
     const [logement, setLogement] = useState("");
     const [emailSent, setEmailSent] = useState(false);
     const [ficheValidated, setFicheValidated] = useState(false);
@@ -363,7 +363,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         if (ficheData) {
             setIdFiche(ficheData.idFiche);
             setStatus(2);
-            setVisiteDate(ficheData.visiteDate || "");
+            setVisiteDate(ficheData.visiteDate || new Date().toISOString().split("T")[0]);
             setLogement(ficheData.logement || "");
         }
     }, [ficheData, fields]);
@@ -506,7 +506,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         },
     ]);
 
-    // Groupe Faience murales
+    // Groupe Faiences murales
     const [fieldsFaience, setFieldsFaience] = useState<any>([
         {
             idField: 18,
@@ -1330,7 +1330,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 ))}
             </div>
             <div>
-                <h3 className="fieldTitle">Faience murales</h3>
+                <h3 className="fieldTitle">Faiences murales</h3>
                 {fieldsFaience.map((field: any, idx: number) => (
                     <div key={field.idField} className="field">
                         <span className="fieldSubtitle">{field.label} :</span>
