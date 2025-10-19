@@ -1033,6 +1033,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                         onChange={(e) => setVisiteDate(e.target.value)}
                         required
                         readOnly={readOnly}
+                        style={{ WebkitAppearance: "none" }}
                     />
                 </div>
                 <div>

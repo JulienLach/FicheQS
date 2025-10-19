@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+# 1.0.70 (2025-10-19)
+
+-   Fix date input field appearance on Safari IOS
+-   Optimize img sizes
+-   UI/UX updates
+
 # 1.0.69 (2025-10-19)
 
 -   Improve email validation in login form with regex
