@@ -7,7 +7,7 @@
     --notification-success-text: #1a7f37;
     --notification-warning-bg: #fff2de;
     --notification-warning-border: #f5ce94;
-    --notification-warning-text: #bf7300;
+    --notification-warning-text: #b36b00;
 }
 
 * {
@@ -75,7 +75,7 @@
 .buttonLogin {
     margin: 1.8em auto;
     padding: 0.7em 1.6em;
-    font-size: 1.2em;
+    font-size: 1.05em;
 }
 
 .buttonDashboard,
@@ -83,7 +83,7 @@
     margin-bottom: 1.5em;
     padding: 1.3em 1.3em;
     justify-content: center;
-    font-size: 1.1em;
+    font-size: 1.05em;
     width: 100%;
 }
 
@@ -187,19 +187,20 @@
     background-color: #d4fcec;
     padding: 0.2em 0.7em;
     font-size: 1em;
-    font-weight: 500;
     border-radius: 0.35em;
     color: rgb(9, 65, 9);
     border: 1px solid #b3e1c0;
 }
 
 .sendEmailContainer {
+    position: -webkit-sticky;
     position: sticky;
     width: 100%;
     bottom: 0;
     padding: 0.3em 0;
     border-top: 1px solid var(--border-grey);
     background-color: #fff;
+    z-index: 100;
 }
 
 .loader {
@@ -335,7 +336,6 @@ small {
     color: var(--notification-warning-text);
     font-size: 1rem;
     cursor: pointer;
-    font-weight: 500;
 }
 
 .deleteButton i {
