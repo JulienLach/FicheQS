@@ -18,6 +18,9 @@ const AllFichesqsPage: React.FC = () => {
         getAllFicheqs()
             .then(setFiches)
             .catch(() => setError("Impossible de charger les fiches."));
+        if (!fiches) {
+            setError("Aucune fiche");
+        }
     }, []);
 
     const totalPages = Math.ceil(fiches.length / itemsPerPage);
@@ -30,9 +33,9 @@ const AllFichesqsPage: React.FC = () => {
             <Menu />
             <div className="container">
                 <h2 className="headerTitle">
-                    <i className="fas fa-file-circle-check"></i>Fiches qualité sécurité validées
+                    <i className="far fa-circle-check"></i>Fiches qualité sécurité validées
                 </h2>
-                {error && <div style={{ color: "red" }}>{error}</div>}
+                {error && <div className="empty">{error}</div>}
                 <ul>
                     {fichesToShow.map((fiche) => (
                         <div

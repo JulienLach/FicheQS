@@ -8,7 +8,7 @@ const FicheqsPage: React.FC = () => {
             <Menu />
             <div className="container">
                 <h2 className="headerTitle">
-                    <i className="fas fa-file-circle-plus"></i> Nouvelle fiche qualité sécurité
+                    <i className="far fa-file"></i> Nouvelle fiche qualité sécurité
                 </h2>
                 <FicheqsForm
                     ficheData={{

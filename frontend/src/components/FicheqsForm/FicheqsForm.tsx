@@ -1065,7 +1065,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                     )}
                     {ficheDeleted && (
                         <div className="ficheDeletedMessage">
-                            <i className="fa-solid fa-check"></i> FicheQS supprimée
+                            <i className="far fa-trash-can"> </i> FicheQS supprimée
                         </div>
                     )}
                 </div>
@@ -1742,7 +1742,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             {showSubmitButton && (
                 <div className="submitContainer">
                     <button type="submit" className="buttonLogin">
-                        <i className="fas fa-file-circle-check"></i>
+                        <i className="far fa-circle-check"></i>
                         Valider
                         {ficheValidated && (
                             <div className="ficheValidatedMessage">

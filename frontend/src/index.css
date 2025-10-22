@@ -27,6 +27,14 @@
     margin: 0 auto;
 }
 
+.empty {
+    color: rgb(1, 158, 27);
+    background-color: rgb(248, 255, 248);
+    border: 1px solid rgb(184, 235, 193);
+    padding: 0.4em;
+    border-radius: 0.3em;
+}
+
 .logoMobile {
     width: 270px;
     display: block;
@@ -248,7 +256,6 @@
     background-color: var(--notification-warning-bg);
     border: 1px solid var(--notification-warning-border);
     color: var(--notification-warning-text);
-    font-size: 1.1em !important;
 }
 
 @keyframes slideInLeft {
