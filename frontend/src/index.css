@@ -36,7 +36,7 @@
 }
 
 .logoMobile {
-    width: 270px;
+    width: 250px;
     display: block;
     margin: 4em auto;
 }
@@ -193,7 +193,7 @@
 
 .statusTag {
     background-color: #d4fcec;
-    padding: 0.2em 0.7em;
+    padding: 0.2em 0.45em;
     font-size: 1em;
     border-radius: 0.35em;
     color: rgb(9, 65, 9);

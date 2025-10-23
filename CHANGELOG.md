@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+# 1.0.73 (2025-10-23)
+
+### Changes
+
+-   Add loader to submit button in FicheQS form
+
 # 1.0.72 (2025-10-21)
 
 ### Fixes

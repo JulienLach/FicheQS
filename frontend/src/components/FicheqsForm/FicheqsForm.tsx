@@ -49,6 +49,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     const [ficheValidated, setFicheValidated] = useState(false);
     const [balconSwitch, setBalconSwitch] = useState(true);
     const [ficheDeleted, setFicheDeleted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         if (fields) {
@@ -390,7 +391,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 setFicheDeleted(false);
                 navigate("/dashboard");
                 window.scrollTo(0, 0);
-            }, 1500); // Redirige après 3 secondes
+            }, 1500); // Redirige après 1,5 secondes
             return () => clearTimeout(timer);
         }
     }, [ficheDeleted, navigate]);
@@ -911,6 +912,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setIsSubmitting(true);
 
         const ficheData = {
             status,
@@ -944,6 +946,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             setTimeout(() => {
                 navigate("/dashboard");
                 window.scrollTo(0, 0);
+                setIsSubmitting(false);
             }, 3000);
         } catch (error) {
             console.error("Erreur lors de la création de la fiche :", error);
@@ -1739,11 +1742,21 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                     </div>
                 ))}
             </div>
+
             {showSubmitButton && (
                 <div className="submitContainer">
-                    <button type="submit" className="buttonLogin">
-                        <i className="far fa-circle-check"></i>
-                        Valider
+                    <button type="submit" className="buttonLogin" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                            <>
+                                <i className="fas fa-circle-notch fa-spin"></i>
+                                Chargement...
+                            </>
+                        ) : (
+                            <>
+                                <i className="far fa-circle-check"></i>
+                                Valider
+                            </>
+                        )}
                         {ficheValidated && (
                             <div className="ficheValidatedMessage">
                                 <i className="fa-solid fa-check"></i> FicheQS validée
@@ -1755,7 +1768,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             {showEmailButton && (
                 <div className="sendEmailContainer">
                     <button type="submit" className="buttonLogin" onClick={handleSendEmail}>
-                        <i className="fa-solid fa-paper-plane"></i>
+                        <i className="far fa-paper-plane"></i>
                         Envoyer par mail
                         {emailSent && (
                             <div className="emailSentMessage">

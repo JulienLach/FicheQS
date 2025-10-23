@@ -29,10 +29,10 @@ const Menu: React.FC = () => {
                         <i className="fas fa-xmark"></i>
                     </button>
                     <button className="buttonMenu" onClick={() => handleNavigation("/account")}>
-                        <i className="fas fa-user"></i>Mon compte
+                        <i className="far fa-user"></i>Mon compte
                     </button>
                     <button className="buttonMenu" onClick={() => handleNavigation("/login")}>
-                        <i className="fas fa-sign-out-alt"></i>Déconnexion
+                        <i className="fa-solid fa-arrow-right-from-bracket"></i>Déconnexion
                     </button>
                     <a className="gdpr" onClick={() => handleNavigation("/mentions-legales")}>
                         Mentions légales
