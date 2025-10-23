@@ -8,7 +8,7 @@ const AccountPage: React.FC = () => {
             <Menu />
             <div className="container">
                 <h2 className="headerTitle">
-                    <i className="fas fa-user"></i>Mon compte
+                    <i className="far fa-user"></i>Mon compte
                 </h2>
                 <AccountForm />
             </div>

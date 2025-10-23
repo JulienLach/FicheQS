@@ -7,7 +7,7 @@ const MentionsLegalesPage: React.FC = () => {
             <Menu />
             <div className="container">
                 <h2 className="headerTitle">
-                    <i className="fa-solid fa-lock"></i>Mentions Légales
+                    <i className="fa-regular fa-circle-question"></i>Mentions Légales
                 </h2>
                 <p className="gdprText">
                     <strong>Collecte de données :</strong> Nous collectons votre email, nom et prénom uniquement pour

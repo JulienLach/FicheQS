@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
     return (
         <form className="loginForm" onSubmit={handleSubmit}>
             <div className="formGroup">
-                <label htmlFor="email">Identifiant :</label>
+                <label htmlFor="email">Identifiant</label>
                 <input
                     type="text"
                     id="email"
@@ -43,7 +43,7 @@ const LoginForm: React.FC = () => {
                 />
             </div>
             <div className="formGroup">
-                <label htmlFor="password">Mot de passe :</label>
+                <label htmlFor="password">Mot de passe</label>
                 <input
                     type="password"
                     id="password"
@@ -55,7 +55,7 @@ const LoginForm: React.FC = () => {
             </div>
             {error && <div className="error">{error}</div>}
             <button type="submit" className="buttonLogin">
-                <i className="fa fa-user"></i>Connexion
+                <i className="far fa-user"></i>Connexion
             </button>
         </form>
     );
