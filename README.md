@@ -13,7 +13,7 @@
 -   [Overview](#overview)
 -   [Features](#features)
 -   [Requirements](#requirements)
--   [Objectives](#objectives)
+-   [Objectives of this project](#objectives)
 -   [Syntaxes and paradigms](#syntaxes-and-paradigms-to-practice)
 -   [Access app on local network](#acces-app-on-local-network)
 -   [Testing](#testing)
@@ -25,7 +25,7 @@
 
 ### Overview
 
-FicheQS is a fullstack PWA for digitizing quality and safety forms in housing and real estate industry.
+FicheQS is a fullstack PWA for digitizing forms used to verify the safety and quality of housing and equipment in the real estate industry.
 
 ### Features
 
@@ -38,7 +38,7 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 ### Requirements
 
 -   Node.js v20+
--   npm v9+
+-   npm
 -   React v19+
 -   Vite
 -   Express
@@ -46,7 +46,7 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 -   PostgreSQL
 -   Docker
 
-### Objectives
+### Objectives of this project
 
 -   Use **React v19** with the latest functional component syntax
 -   Use **Vite** as the frontend build tool and development server, replacing the deprecated Create React App, for faster builds and a better development experience.
@@ -78,7 +78,7 @@ FicheQS is a fullstack PWA for digitizing quality and safety forms in housing an
 
 ### Acces app on local network
 
-On you local machine, if your ports are not yet opened:
+On you local machine, if your ports are not yet opened in your firewall, run :
 
 -   Open port with `sudo ufw allow 3000` and `sudo ufw allow 3001`
 
@@ -157,13 +157,13 @@ SERVER_URL=http://localhost:3001
 
 `npm create vite@latest frontend -- --template react-ts`
 
-List of TS config files:
+List of TS config files :
 
 -   vite.config.ts
 -   tsconfig.json
 -   vite-env.d.ts
 
-Additional frontend setup:
+Additional frontend setup :
 
 -   Installed React Router: `npm install react-router-dom`
 -   Added PWA support: `npm install -D vite-plugin-pwa`
@@ -172,11 +172,12 @@ Additional frontend setup:
 
 ### Backend setup
 
-TypeScript configuration for the backend was created with:
+TypeScript configuration for the backend was created with :
+
 `npm install -D typescript @types/node`
 `npx tsc --init`
 
-The tsconfig.json is customized with:
+The tsconfig.json is customized with :
 
 -   ES2020 target for modern JavaScript features
 -   NodeNext module system for ESM compatibility
