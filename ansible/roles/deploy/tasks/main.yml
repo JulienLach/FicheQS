@@ -1,36 +1,36 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for deploy
-- name: Créer le répertoire /opt/app
+- name: Créer le répertoire client
   ansible.builtin.file:
-      path: /opt/app
+      path: "/opt/ficheqs-{{ client_name }}"
       state: directory
       mode: "0755"
 
 - name: Copier le docker-compose.yml
   copy:
-      src: ../../../../docker-compose.yml # Chemin relatif depuis ansible/roles/deploy/tasks/
-      dest: /opt/app/docker-compose.yml
+      src: ../../../../docker-compose.yml
+      dest: "/opt/ficheqs-{{ client_name }}/docker-compose.yml"
 
 - name: Copier le script SQL pour la base de données
   copy:
       src: ../../../../database_script.sql
-      dest: /opt/app/database_script.sql
+      dest: "/opt/ficheqs-{{ client_name }}/database_script.sql"
 
 - name: Copier le répertoire backend
   copy:
       src: ../../../../backend
-      dest: /opt/app/
+      dest: "/opt/ficheqs-{{ client_name }}/"
 
 - name: Copier le répertoire frontend
   copy:
       src: ../../../../frontend
-      dest: /opt/app/
+      dest: "/opt/ficheqs-{{ client_name }}/"
 
 - name: Lancer les conteneurs avec docker-compose
-  command: docker compose -f /opt/app/docker-compose.yml up -d --build
+  command: docker compose -f /opt/ficheqs-{{ client_name }}/docker-compose.yml up -d --build
   args:
-      chdir: /opt/app
+      chdir: "/opt/ficheqs-{{ client_name }}"
   environment:
       NODE_ENV: "{{ node_env }}"
       DB_USER: "{{ db_user }}"
