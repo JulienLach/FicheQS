@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 1.0.74 (2025-10-23)
+
+-   Update cd.yml to deploy on demo.ficheqs.ovh
+
 ## 1.0.73 (2025-10-23)
 
 ### Changes
