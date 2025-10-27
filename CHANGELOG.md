@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 1.0.77 (2025-10-23)
+
+-   Remove hardcoded EXPOSE port in backend Dockerfile to allow dynamic port assignment with docker-compose environment variables
+
 ## 1.0.75 (2025-10-23)
 
 ### Fixes
