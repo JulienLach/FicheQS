@@ -1,5 +1,5 @@
 import pool from "../config/db.config";
-import { FicheqsHasFieldData } from "../interfaces/types";
+import { FicheqsHasFieldData } from "../interfaces/interfaces";
 
 export default class FicheqsHasField {
     constructor(
@@ -18,7 +18,7 @@ export default class FicheqsHasField {
                 idFiche: row.id_fiche,
                 idField: row.id_field,
                 valeur: row.valeur,
-                description: row.description
+                description: row.description,
             })
         );
     }

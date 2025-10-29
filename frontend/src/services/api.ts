@@ -1,7 +1,7 @@
 const isLocalhost = window.location.hostname === "localhost";
 const API_URL = isLocalhost ? "http://localhost:3001" : "/api";
 
-import { formData } from "../types/api.types";
+import { formData } from "../interfaces/interfaces";
 
 export async function authenticateUser(email: string, password: string) {
     const response = await fetch(`${API_URL}/login`, {
@@ -10,12 +10,9 @@ export async function authenticateUser(email: string, password: string) {
         body: JSON.stringify({ email, password }),
         credentials: "include",
     });
-    // console.log("body", { email, password });
-    // console.log("response", response);
     if (!response.ok) {
         throw new Error("Identifiants invalides");
     }
-
     const data = await response.json();
     // cookie dans le localstorage après login pour la redirection
     localStorage.setItem("token", data.token);

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changes
+
+-   Refactor FicheqsForm with React memo and useCallback to optimize rendering performance
+
 ## 1.0.77 (2025-10-27)
 
 ### Fixes
