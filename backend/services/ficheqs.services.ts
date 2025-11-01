@@ -1,5 +1,5 @@
 import Ficheqs from "../data/ficheqs";
-import { FicheqsData, FicheqsHasFieldData } from "../interfaces/types";
+import { FicheqsData, FicheqsHasFieldData } from "../interfaces/interfaces";
 
 export async function getAllFichesQS(): Promise<FicheqsData[]> {
     return await Ficheqs.getAllFichesQS();

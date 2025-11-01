@@ -5,7 +5,6 @@ import { formatDate } from "../../utils/date";
 import { formatStatus } from "../../utils/status";
 import { getAllFicheqs } from "../../services/api";
 
-const itemsPerPage = 5;
 
 const AllFichesqsPage: React.FC = () => {
     const [fiches, setFiches] = useState<any[]>([]);
@@ -23,6 +22,7 @@ const AllFichesqsPage: React.FC = () => {
         }
     }, []);
 
+    const itemsPerPage = 5;
     const totalPages = Math.ceil(fiches.length / itemsPerPage);
     const startIdx = (page - 1) * itemsPerPage;
     const endIdx = startIdx + itemsPerPage;

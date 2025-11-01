@@ -35,58 +35,10 @@ jobs:
                   draft: false
                   prerelease: false
 
-            # Step 4: Generate Ansible inventory
-            - name: Générer le fichier de l'inventaire Ansible
-              run: |
-                  if [ -z "${{ secrets.VPS_IP }}" ] || [ -z "${{ secrets.VPS_USER }}" ] || [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ] || [ -z "${{ secrets.VPS_SSH_PORT }}" ]; then
-                    echo "Erreur : VPS_IP, VPS_USER, SSH_PRIVATE_KEY ou VPS_SSH_PORT non défini"
-                    exit 1
-                  fi
-                  echo "[vps]" > ansible/inventory.ini
-                  echo "${{ secrets.VPS_IP }} ansible_user=${{ secrets.VPS_USER }} ansible_port=${{ secrets.VPS_SSH_PORT }} ansible_ssh_common_args='-o StrictHostKeyChecking=no'" >> ansible/inventory.ini
-
-            # Step 5: Setup SSH key
-            - name: Setup SSH key
-              run: |
-                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
-                  chmod 600 ssh_key
-
-            # Step 6: Deploy H76
-            - name: Déployer H76
-              run: |
-                  ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -u ${{ secrets.VPS_USER }} --private-key=ssh_key \
-                    -e "client_name=h76" \
-                    -e "node_env=${{ secrets.NODE_ENV }}" \
-                    -e "port_backend=${{ secrets.PORT_BACKEND_H76 }}" \
-                    -e "port_frontend=${{ secrets.PORT_FRONTEND_H76 }}" \
-                    -e "db_user=${{ secrets.DB_USER }}" \
-                    -e "db_host=${{ secrets.DB_HOST }}" \
-                    -e "db_name=${{ secrets.DB_NAME_H76 }}" \
-                    -e "db_password=${{ secrets.DB_PASSWORD_H76 }}" \
-                    -e "db_port=${{ secrets.DB_PORT }}" \
-                    -e "jwt_secret=${{ secrets.JWT_SECRET }}" \
-                    -e "email=${{ secrets.EMAIL }}" \
-                    -e "mailjet_api_key=${{ secrets.MAILJET_API_KEY }}" \
-                    -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}" \
-                    -e "origin_url=${{ secrets.ORIGIN_URL_H76 }}" \
-                    -e "server_url=${{ secrets.SERVER_URL_H76 }}"
-
-            # Step 7: Deploy Demo
-            - name: Déployer Demo
-              run: |
-                  ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -u ${{ secrets.VPS_USER }} --private-key=ssh_key \
-                    -e "client_name=demo" \
-                    -e "node_env=${{ secrets.NODE_ENV }}" \
-                    -e "port_backend=${{ secrets.PORT_BACKEND_DEMO }}" \
-                    -e "port_frontend=${{ secrets.PORT_FRONTEND_DEMO }}" \
-                    -e "db_user=${{ secrets.DB_USER }}" \
-                    -e "db_host=${{ secrets.DB_HOST }}" \
-                    -e "db_name=${{ secrets.DB_NAME_DEMO }}" \
-                    -e "db_password=${{ secrets.DB_PASSWORD_DEMO }}" \
-                    -e "db_port=${{ secrets.DB_PORT }}" \
-                    -e "jwt_secret=${{ secrets.JWT_SECRET_DEMO }}" \
-                    -e "email=${{ secrets.EMAIL }}" \
-                    -e "mailjet_api_key=${{ secrets.MAILJET_API_KEY }}" \
-                    -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}" \
-                    -e "origin_url=${{ secrets.ORIGIN_URL_DEMO }}" \
-                    -e "server_url=${{ secrets.SERVER_URL_DEMO }}"
+            # Step 4: Trigger deployment workflow
+            - name: Déclencher le déploiement
+              uses: peter-evans/repository-dispatch@v2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  event-type: deploy-release
+                  client-payload: '{"tag": "${{ github.ref_name }}"}'

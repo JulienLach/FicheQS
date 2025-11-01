@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { toInputDateValue } from "../../utils/date";
 import { getCookie } from "../../utils/cookie";
 import { formatStatusTag } from "../../utils/status";
+import FieldSection from "./FieldSection";
 import { blobToBase64 } from "../../utils/blobToBase64";
 import { createFicheqs, deleteFicheqs } from "../../services/api";
 import { sendPDF } from "../../services/api";
@@ -47,7 +48,6 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
     const [logement, setLogement] = useState("");
     const [emailSent, setEmailSent] = useState(false);
     const [ficheValidated, setFicheValidated] = useState(false);
-    const [balconSwitch, setBalconSwitch] = useState(true);
     const [ficheDeleted, setFicheDeleted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -782,133 +782,133 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
         setIdUser(Number(idUser));
     }, []);
 
-    const handleDaafFieldChange = (idx: number, key: string, value: any) => {
+    const handleDaafFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsDaaf((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleGazFieldChange = (idx: number, key: string, value: any) => {
+    const handleGazFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsGaz((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleElectriqueFieldChange = (idx: number, key: string, value: any) => {
+    const handleElectriqueFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsElectrique((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleRisqueChuteFieldChange = (idx: number, key: string, value: any) => {
+    const handleRisqueChuteFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsRisqueChute((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleBalconFieldChange = (idx: number, key: string, value: any) => {
+    const handleBalconFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsBalcon((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleEvierLavabosFieldChange = (idx: number, key: string, value: any) => {
+    const handleEvierLavabosFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsEvierLavabos((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleFaienceFieldChange = (idx: number, key: string, value: any) => {
+    const handleFaienceFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsFaience((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleMeubleFieldChange = (idx: number, key: string, value: any) => {
+    const handleMeubleFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsMeuble((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleCanalisationFieldChange = (idx: number, key: string, value: any) => {
+    const handleCanalisationFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsCanalisation((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleMenuiserieFieldChange = (idx: number, key: string, value: any) => {
+    const handleMenuiserieFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsMenuiserie((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleVentilationFieldChange = (idx: number, key: string, value: any) => {
+    const handleVentilationFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsVentilation((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleEmbelissementFieldChange = (idx: number, key: string, value: any) => {
+    const handleEmbelissementFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsEmbelissement((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleEspaceExtFieldChange = (idx: number, key: string, value: any) => {
+    const handleEspaceExtFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsEspaceExt((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleEquipementExtFieldChange = (idx: number, key: string, value: any) => {
+    const handleEquipementExtFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsEquipementExt((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handleEquipementDivFieldChange = (idx: number, key: string, value: any) => {
+    const handleEquipementDivFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsEquipementDiv((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
-    const handlePropreteFieldChange = (idx: number, key: string, value: any) => {
+    const handlePropreteFieldChange = useCallback((idx: number, key: string, value: any) => {
         setFieldsProprete((fields: any) => {
             const updated = [...fields];
             updated[idx][key] = value;
             return updated;
         });
-    };
+    }, []);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -1077,670 +1077,132 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             <hr />
 
             <div>
-                <h3 className="fieldTitle">DAAF</h3>
-                {fieldsDaaf.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleDaafFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleDaafFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleDaafFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="DAAF"
+                    fields={fieldsDaaf}
+                    onFieldChange={handleDaafFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Installations de gaz</h3>
-                {fieldsGaz.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() => handleGazFieldChange(idx, "valeur", field.valeur === true ? null : true)}
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleGazFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleGazFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Installations de gaz"
+                    fields={fieldsGaz}
+                    onFieldChange={handleGazFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Installations électriques</h3>
-                {fieldsElectrique.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleElectriqueFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleElectriqueFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleElectriqueFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Installations électriques"
+                    fields={fieldsElectrique}
+                    onFieldChange={handleElectriqueFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Risque de chute</h3>
-                {fieldsRisqueChute.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleRisqueChuteFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleRisqueChuteFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleRisqueChuteFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Risque de chute"
+                    fields={fieldsRisqueChute}
+                    onFieldChange={handleRisqueChuteFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
-                    <h3 className="fieldTitle">Balcon</h3>
-                    <label className="toggleSwitch">
-                        <input
-                            type="checkbox"
-                            checked={balconSwitch}
-                            onChange={() => setBalconSwitch(!balconSwitch)}
-                            disabled={readOnly}
-                        />
-                        <span className="slider"></span>
-                    </label>
-                </div>
-                {balconSwitch &&
-                    fieldsBalcon.map((field: any, idx: number) => (
-                        <div key={field.idField} className="field">
-                            <span className="fieldSubtitle">{field.label} :</span>
-                            <div className="fieldButtons">
-                                <button
-                                    type="button"
-                                    className={field.valeur === true ? "switch active" : "switch"}
-                                    onClick={() =>
-                                        handleBalconFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                    }
-                                    disabled={readOnly}
-                                >
-                                    <i className="fas fa-check"></i>
-                                    Ok
-                                </button>
-                                <button
-                                    type="button"
-                                    className={field.valeur === false ? "switch descActive" : "switch"}
-                                    onClick={() =>
-                                        handleBalconFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                    }
-                                    disabled={readOnly}
-                                >
-                                    <i className="far fa-calendar"></i>
-                                    Pas opérationnel
-                                </button>
-                            </div>
-                            {field.valeur === false && (
-                                <textarea
-                                    className="description"
-                                    placeholder="Description"
-                                    readOnly={readOnly}
-                                    value={field.description}
-                                    onChange={(e) => handleBalconFieldChange(idx, "description", e.target.value)}
-                                />
-                            )}
-                        </div>
-                    ))}
+                <FieldSection
+                    title="Balcon"
+                    fields={fieldsBalcon}
+                    onFieldChange={handleBalconFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Éviers, lavabos, baignoires, bacs à douche</h3>
-                {fieldsEvierLavabos.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleEvierLavabosFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleEvierLavabosFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleRisqueChuteFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Éviers, lavabos, baignoires, bacs à douche"
+                    fields={fieldsEvierLavabos}
+                    onFieldChange={handleEvierLavabosFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Faiences murales</h3>
-                {fieldsFaience.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleFaienceFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleFaienceFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleFaienceFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Faiences murales"
+                    fields={fieldsFaience}
+                    onFieldChange={handleFaienceFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Meubles et placards</h3>
-                {fieldsMeuble.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleMeubleFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleMeubleFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleMeubleFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Meubles et placards"
+                    fields={fieldsMeuble}
+                    onFieldChange={handleMeubleFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Canalisations d’eau</h3>
-                {fieldsCanalisation.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleCanalisationFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleCanalisationFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleCanalisationFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Canaliations d'eau"
+                    fields={fieldsCanalisation}
+                    onFieldChange={handleCanalisationFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Menuiseries</h3>
-                {fieldsMenuiserie.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleMenuiserieFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleMenuiserieFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleMenuiserieFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Menuiseries"
+                    fields={fieldsMenuiserie}
+                    onFieldChange={handleMenuiserieFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Ventilation sanitaire</h3>
-                {fieldsVentilation.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleVentilationFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleVentilationFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleVentilationFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Ventilation sanitaire"
+                    fields={fieldsVentilation}
+                    onFieldChange={handleVentilationFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Embelissements</h3>
-                {fieldsEmbelissement.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleEmbelissementFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleEmbelissementFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleEmbelissementFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Embelissements"
+                    fields={fieldsEmbelissement}
+                    onFieldChange={handleEmbelissementFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Espaces extérieurs</h3>
-                {fieldsEspaceExt.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleEspaceExtFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleEspaceExtFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleEspaceExtFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Espaces extérieurs"
+                    fields={fieldsEspaceExt}
+                    onFieldChange={handleEspaceExtFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Équipements extérieurs</h3>
-                {fieldsEquipementExt.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleEquipementExtFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleEquipementExtFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleEquipementExtFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Équipements extérieurs"
+                    fields={fieldsEquipementExt}
+                    onFieldChange={handleEquipementExtFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Équipements divers</h3>
-                {fieldsEquipementDiv.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handleEquipementDivFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handleEquipementDivFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handleEquipementDivFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Équipements divers"
+                    fields={fieldsEquipementDiv}
+                    onFieldChange={handleEquipementDivFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
             <div>
-                <h3 className="fieldTitle">Propreté</h3>
-                {fieldsProprete.map((field: any, idx: number) => (
-                    <div key={field.idField} className="field">
-                        <span className="fieldSubtitle">{field.label} :</span>
-                        <div className="fieldButtons">
-                            <button
-                                type="button"
-                                className={field.valeur === true ? "switch active" : "switch"}
-                                onClick={() =>
-                                    handlePropreteFieldChange(idx, "valeur", field.valeur === true ? null : true)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="fas fa-check"></i>
-                                Ok
-                            </button>
-                            <button
-                                type="button"
-                                className={field.valeur === false ? "switch descActive" : "switch"}
-                                onClick={() =>
-                                    handlePropreteFieldChange(idx, "valeur", field.valeur === false ? null : false)
-                                }
-                                disabled={readOnly}
-                            >
-                                <i className="far fa-calendar"></i>
-                                Pas opérationnel
-                            </button>
-                        </div>
-                        {field.valeur === false && (
-                            <textarea
-                                className="description"
-                                placeholder="Description"
-                                readOnly={readOnly}
-                                value={field.description}
-                                onChange={(e) => handlePropreteFieldChange(idx, "description", e.target.value)}
-                            />
-                        )}
-                    </div>
-                ))}
+                <FieldSection
+                    title="Propreté"
+                    fields={fieldsProprete}
+                    onFieldChange={handlePropreteFieldChange}
+                    readOnly={readOnly}
+                />
             </div>
 
             {showSubmitButton && (
@@ -1765,6 +1227,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                     </button>
                 </div>
             )}
+
             {showEmailButton && (
                 <div className="sendEmailContainer">
                     <button type="submit" className="buttonLogin" onClick={handleSendEmail}>

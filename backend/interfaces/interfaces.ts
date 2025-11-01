@@ -1,7 +1,3 @@
-import Ficheqs from "../data/ficheqs";
-import Users from "../data/users";
-import Fields from "../data/fields";
-
 export interface UserData {
     idUser: number;
     firstname: string;

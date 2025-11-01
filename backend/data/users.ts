@@ -1,5 +1,5 @@
 import pool from "../config/db.config";
-import { UserData } from "../interfaces/types";
+import { UserData } from "../interfaces/interfaces";
 
 export default class Users {
     constructor(

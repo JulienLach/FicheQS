@@ -1,6 +1,6 @@
 import pool from "../config/db.config";
 import FicheqsHasField from "./ficheqs_has_field";
-import { FicheqsData, FicheqsHasFieldData } from "../interfaces/types";
+import { FicheqsData, FicheqsHasFieldData } from "../interfaces/interfaces";
 
 export default class Ficheqs {
     constructor(
