@@ -1,48 +1,63 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# tasks file for deploy
-- name: Créer le répertoire client
+# tasks file for deploy - Simple et efficace
+- name: Créer le répertoire de l'application
   ansible.builtin.file:
-      path: "/opt/ficheqs-{{ client_name }}"
+      path: "/opt/ficheqs"
       state: directory
       mode: "0755"
 
-- name: Copier le docker-compose.yml
+- name: Copier les fichiers de l'application
   copy:
-      src: ../../../../docker-compose.yml
-      dest: "/opt/ficheqs-{{ client_name }}/docker-compose.yml"
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+  loop:
+      - { src: "../../../../docker-compose.yml", dest: "/opt/ficheqs/docker-compose.yml" }
+      - { src: "../../../../database_script.sql", dest: "/opt/ficheqs/database_script.sql" }
+      - { src: "../../../../init-databases.sql", dest: "/opt/ficheqs/init-databases.sql" }
 
-- name: Copier le script SQL pour la base de données
+- name: Copier les répertoires backend et frontend
   copy:
-      src: ../../../../database_script.sql
-      dest: "/opt/ficheqs-{{ client_name }}/database_script.sql"
+      src: "{{ item }}"
+      dest: "/opt/ficheqs/"
+  loop:
+      - "../../../../backend"
+      - "../../../../frontend"
 
-- name: Copier le répertoire backend
-  copy:
-      src: ../../../../backend
-      dest: "/opt/ficheqs-{{ client_name }}/"
-
-- name: Copier le répertoire frontend
-  copy:
-      src: ../../../../frontend
-      dest: "/opt/ficheqs-{{ client_name }}/"
-
-- name: Lancer les conteneurs avec docker-compose
-  command: docker compose -f /opt/ficheqs-{{ client_name }}/docker-compose.yml up -d --build
+- name: Arrêter tous les conteneurs existants
+  command: docker compose -f /opt/ficheqs/docker-compose.yml down
   args:
-      chdir: "/opt/ficheqs-{{ client_name }}"
+      chdir: "/opt/ficheqs"
+  ignore_errors: yes
+
+- name: Démarrer tous les services
+  command: docker compose -f /opt/ficheqs/docker-compose.yml up -d --build
+  args:
+      chdir: "/opt/ficheqs"
   environment:
       NODE_ENV: "{{ node_env }}"
       DB_USER: "{{ db_user }}"
-      DB_HOST: "{{ db_host }}"
-      DB_NAME: "{{ db_name }}"
       DB_PASSWORD: "{{ db_password }}"
-      DB_PORT: "{{ db_port }}"
-      PORT_BACKEND: "{{ port_backend }}"
-      PORT_FRONTEND: "{{ port_frontend }}"
-      JWT_SECRET: "{{ jwt_secret }}"
       EMAIL: "{{ email }}"
       MAILJET_API_KEY: "{{ mailjet_api_key }}"
       MAILJET_SECRET_KEY: "{{ mailjet_secret_key }}"
-      ORIGIN_URL: "{{ origin_url }}"
-      SERVER_URL: "{{ server_url }}"
+      JWT_SECRET: "{{ secrets.JWT_SECRET }}"
+      JWT_SECRET_H76: "{{ secrets.JWT_SECRET }}"
+      JWT_SECRET_DEMO: "{{ secrets.JWT_SECRET_DEMO }}"
+      ORIGIN_URL_H76: "{{ secrets.ORIGIN_URL_H76 }}"
+      SERVER_URL_H76: "{{ secrets.SERVER_URL_H76 }}"
+      ORIGIN_URL_DEMO: "{{ secrets.ORIGIN_URL_DEMO }}"
+      SERVER_URL_DEMO: "{{ secrets.SERVER_URL_DEMO }}"
+
+- name: Attendre que les services soient prêts
+  wait_for:
+      port: "{{ item }}"
+      host: localhost
+      delay: 5
+      timeout: 60
+  loop:
+      - 5432 # PostgreSQL
+      - 3001 # Backend H76
+      - 3002 # Backend Demo
+      - 8080 # Frontend H76
+      - 8081 # Frontend Demo

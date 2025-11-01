@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 1.0.78 (2025-10-27)
+
 ### Changes
 
 -   Refactor FicheqsForm with React memo and useCallback to optimize rendering performance
+-   Fix ansible deployment to create only one database container, separate release and client deployment workflows in CI/CD pipeline
 
 ## 1.0.77 (2025-10-27)
 

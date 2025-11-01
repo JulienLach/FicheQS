@@ -1,54 +1,98 @@
 services:
-    backend:
-        build:
-            context: ./backend
-            dockerfile: dockerfile.backend
-        ports:
-            - "127.0.0.1:${PORT_BACKEND}:${PORT_BACKEND}"
-        environment:
-            - NODE_ENV=${NODE_ENV}
-            - DB_USER=${DB_USER}
-            - DB_HOST=${DB_HOST}
-            - DB_NAME=${DB_NAME}
-            - DB_PASSWORD=${DB_PASSWORD}
-            - DB_PORT=${DB_PORT}
-            - JWT_SECRET=${JWT_SECRET}
-            - PORT_BACKEND=${PORT_BACKEND}
-            - ORIGIN_URL=${ORIGIN_URL}
-            - SERVER_URL=${SERVER_URL}
-            - EMAIL=${EMAIL}
-            - MAILJET_API_KEY=${MAILJET_API_KEY}
-            - MAILJET_SECRET_KEY=${MAILJET_SECRET_KEY}
-        depends_on:
-            - db
-        restart: unless-stopped
-
-    frontend:
-        build:
-            context: ./frontend
-            dockerfile: dockerfile.frontend
-        ports:
-            - "127.0.0.1:${PORT_FRONTEND}:80"
-        environment:
-            - NODE_ENV=${NODE_ENV}
-        depends_on:
-            - backend
-        restart: unless-stopped
-
+    # Base de données partagée
     db:
         image: postgres:14-alpine
         environment:
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
-            - POSTGRES_DB=${DB_NAME}
+            - POSTGRES_DB=postgres
         volumes:
             - pgdata:/var/lib/postgresql/data
-            - ./database_script.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./init-databases.sql:/docker-entrypoint-initdb.d/01-init-databases.sql
+            - ./database_script.sql:/docker-entrypoint-initdb.d/02-database_script.sql
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
             interval: 10s
             timeout: 5s
             retries: 5
+        restart: unless-stopped
+
+    # Backend H76
+    backend-h76:
+        build:
+            context: ./backend
+            dockerfile: dockerfile.backend
+        ports:
+            - "127.0.0.1:3001:3001"
+        environment:
+            - NODE_ENV=${NODE_ENV}
+            - DB_USER=${DB_USER}
+            - DB_HOST=db
+            - DB_NAME=ficheqs_h76
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_PORT=5432
+            - JWT_SECRET=${JWT_SECRET_H76:-${JWT_SECRET}}
+            - PORT_BACKEND=3001
+            - ORIGIN_URL=${ORIGIN_URL_H76}
+            - SERVER_URL=${SERVER_URL_H76}
+            - EMAIL=${EMAIL}
+            - MAILJET_API_KEY=${MAILJET_API_KEY}
+            - MAILJET_SECRET_KEY=${MAILJET_SECRET_KEY}
+        depends_on:
+            db:
+                condition: service_healthy
+        restart: unless-stopped
+
+    # Frontend H76
+    frontend-h76:
+        build:
+            context: ./frontend
+            dockerfile: dockerfile.frontend
+        ports:
+            - "127.0.0.1:8080:80"
+        environment:
+            - NODE_ENV=${NODE_ENV}
+        depends_on:
+            - backend-h76
+        restart: unless-stopped
+
+    # Backend Demo
+    backend-demo:
+        build:
+            context: ./backend
+            dockerfile: dockerfile.backend
+        ports:
+            - "127.0.0.1:3002:3002"
+        environment:
+            - NODE_ENV=${NODE_ENV}
+            - DB_USER=${DB_USER}
+            - DB_HOST=db
+            - DB_NAME=ficheqs_demo
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_PORT=5432
+            - JWT_SECRET=${JWT_SECRET_DEMO:-${JWT_SECRET}}
+            - PORT_BACKEND=3002
+            - ORIGIN_URL=${ORIGIN_URL_DEMO}
+            - SERVER_URL=${SERVER_URL_DEMO}
+            - EMAIL=${EMAIL}
+            - MAILJET_API_KEY=${MAILJET_API_KEY}
+            - MAILJET_SECRET_KEY=${MAILJET_SECRET_KEY}
+        depends_on:
+            db:
+                condition: service_healthy
+        restart: unless-stopped
+
+    # Frontend Demo
+    frontend-demo:
+        build:
+            context: ./frontend
+            dockerfile: dockerfile.frontend
+        ports:
+            - "127.0.0.1:8081:80"
+        environment:
+            - NODE_ENV=${NODE_ENV}
+        depends_on:
+            - backend-demo
         restart: unless-stopped
 
 volumes:

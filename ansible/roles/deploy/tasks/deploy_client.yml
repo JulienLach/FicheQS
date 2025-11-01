@@ -1,0 +1,46 @@
+---
+# Task pour déployer un client spécifique
+- name: "Déployer le backend pour {{ client.name }}"
+  command: >
+      docker run -d 
+      --name "ficheqs-backend-{{ client.name }}"
+      --network ficheqs_ficheqs-network
+      -p "127.0.0.1:{{ client.port_backend }}:{{ client.port_backend }}"
+      -e NODE_ENV="{{ node_env }}"
+      -e DB_USER="{{ db_user }}"
+      -e DB_HOST="ficheqs-db-1"
+      -e DB_NAME="{{ client.db_name }}"
+      -e DB_PASSWORD="{{ client.db_password }}"
+      -e DB_PORT="5432"
+      -e JWT_SECRET="{{ client.jwt_secret }}"
+      -e PORT_BACKEND="{{ client.port_backend }}"
+      -e ORIGIN_URL="{{ client.origin_url }}"
+      -e SERVER_URL="{{ client.server_url }}"
+      -e EMAIL="{{ email }}"
+      -e MAILJET_API_KEY="{{ mailjet_api_key }}"
+      -e MAILJET_SECRET_KEY="{{ mailjet_secret_key }}"
+      "ficheqs-backend-template"
+  args:
+      chdir: "/opt/ficheqs"
+  ignore_errors: yes
+
+- name: "Déployer le frontend pour {{ client.name }}"
+  command: >
+      docker run -d 
+      --name "ficheqs-frontend-{{ client.name }}"
+      --network ficheqs_ficheqs-network
+      -p "127.0.0.1:{{ client.port_frontend }}:80"
+      -e NODE_ENV="{{ node_env }}"
+      "ficheqs-frontend-template"
+  args:
+      chdir: "/opt/ficheqs"
+  ignore_errors: yes
+
+- name: "Vérifier que le backend {{ client.name }} répond"
+  uri:
+      url: "http://localhost:{{ client.port_backend }}/health"
+      method: GET
+      status_code: 200
+  retries: 3
+  delay: 10
+  ignore_errors: yes
