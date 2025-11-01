@@ -42,4 +42,11 @@ jobs:
                     -e "db_password=${{ secrets.DB_PASSWORD }}" \
                     -e "email=${{ secrets.EMAIL }}" \
                     -e "mailjet_api_key=${{ secrets.MAILJET_API_KEY }}" \
-                    -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}"
+                    -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}" \
+                    -e "jwt_secret=${{ secrets.JWT_SECRET }}" \
+                    -e "jwt_secret_h76=${{ secrets.JWT_SECRET }}" \
+                    -e "jwt_secret_demo=${{ secrets.JWT_SECRET_DEMO }}" \
+                    -e "origin_url_h76=${{ secrets.ORIGIN_URL_H76 }}" \
+                    -e "server_url_h76=${{ secrets.SERVER_URL_H76 }}" \
+                    -e "origin_url_demo=${{ secrets.ORIGIN_URL_DEMO }}" \
+                    -e "server_url_demo=${{ secrets.SERVER_URL_DEMO }}"
