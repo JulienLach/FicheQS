@@ -10,11 +10,6 @@ services:
             - pgdata:/var/lib/postgresql/data
             - ./init-databases.sql:/docker-entrypoint-initdb.d/01-init-databases.sql
             - ./database_script.sql:/docker-entrypoint-initdb.d/02-database_script.sql
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready"]
-            interval: 10s
-            timeout: 5s
-            retries: 5
         restart: unless-stopped
 
     # Backend H76
@@ -40,7 +35,7 @@ services:
             - MAILJET_SECRET_KEY=${MAILJET_SECRET_KEY}
         depends_on:
             db:
-                condition: service_healthy
+                condition: service_started
         restart: unless-stopped
 
     # Frontend H76
@@ -79,7 +74,7 @@ services:
             - MAILJET_SECRET_KEY=${MAILJET_SECRET_KEY}
         depends_on:
             db:
-                condition: service_healthy
+                condition: service_started
         restart: unless-stopped
 
     # Frontend Demo

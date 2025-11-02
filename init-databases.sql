@@ -1,15 +1,17 @@
 -- Script d'initialisation pour créer les bases de données des différents clients
 -- Ce script est exécuté automatiquement au démarrage du conteneur PostgreSQL
 
--- Créer les bases de données pour chaque client
-CREATE DATABASE ficheqs_h76;
-CREATE DATABASE ficheqs_demo;
+-- Créer les bases de données seulement si elles n'existent pas
+SELECT 'CREATE DATABASE ficheqs_h76'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'ficheqs_h76')\gexec
 
--- Créer des utilisateurs spécifiques par client avec des mots de passe différents
--- Ces utilisateurs seront configurés via les variables d'environnement Ansible
+SELECT 'CREATE DATABASE ficheqs_demo'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'ficheqs_demo')\gexec
 
--- Note: Le script database_script.sql sera exécuté automatiquement après
--- grâce à l'ordre alphabétique des fichiers dans /docker-entrypoint-initdb.d/
+-- Se connecter à ficheqs_h76 et créer les tables si elles n'existent pas
+\c ficheqs_h76
+\i /docker-entrypoint-initdb.d/02-database_script.sql
 
--- Les permissions et mots de passe spécifiques seront gérés par Ansible
--- lors du déploiement de chaque client
+-- Se connecter à ficheqs_demo et créer les tables si elles n'existent pas
+\c ficheqs_demo
+\i /docker-entrypoint-initdb.d/02-database_script.sql
