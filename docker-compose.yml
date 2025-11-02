@@ -31,7 +31,7 @@ services:
             - DB_NAME=ficheqs_h76
             - DB_PASSWORD=${DB_PASSWORD}
             - DB_PORT=5432
-            - JWT_SECRET=${JWT_SECRET_H76:-${JWT_SECRET}}
+            - JWT_SECRET=${JWT_SECRET:-${JWT_SECRET}}
             - PORT_BACKEND=3001
             - ORIGIN_URL=${ORIGIN_URL_H76}
             - SERVER_URL=${SERVER_URL_H76}

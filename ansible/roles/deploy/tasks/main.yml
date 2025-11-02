@@ -25,13 +25,13 @@
       - "../../../../frontend"
 
 - name: Arrêter tous les conteneurs existants
-  command: docker compose -f /opt/ficheqs/docker-compose.yml down
+  command: docker compose down
   args:
       chdir: "/opt/ficheqs"
   ignore_errors: yes
 
 - name: Démarrer tous les services
-  command: docker compose -f /opt/ficheqs/docker-compose.yml up -d --build
+  command: docker compose up -d --build
   args:
       chdir: "/opt/ficheqs"
   environment:
@@ -41,20 +41,19 @@
       EMAIL: "{{ email }}"
       MAILJET_API_KEY: "{{ mailjet_api_key }}"
       MAILJET_SECRET_KEY: "{{ mailjet_secret_key }}"
-      JWT_SECRET: "{{ secrets.JWT_SECRET }}"
-      JWT_SECRET_H76: "{{ secrets.JWT_SECRET }}"
-      JWT_SECRET_DEMO: "{{ secrets.JWT_SECRET_DEMO }}"
-      ORIGIN_URL_H76: "{{ secrets.ORIGIN_URL_H76 }}"
-      SERVER_URL_H76: "{{ secrets.SERVER_URL_H76 }}"
-      ORIGIN_URL_DEMO: "{{ secrets.ORIGIN_URL_DEMO }}"
-      SERVER_URL_DEMO: "{{ secrets.SERVER_URL_DEMO }}"
+      JWT_SECRET: "{{ jwt_secret }}"
+      JWT_SECRET_DEMO: "{{ jwt_secret_demo }}"
+      ORIGIN_URL_H76: "{{ origin_url_h76 }}"
+      SERVER_URL_H76: "{{ server_url_h76 }}"
+      ORIGIN_URL_DEMO: "{{ origin_url_demo }}"
+      SERVER_URL_DEMO: "{{ server_url_demo }}"
 
 - name: Attendre que les services soient prêts
   wait_for:
       port: "{{ item }}"
       host: localhost
-      delay: 5
-      timeout: 60
+      delay: 10
+      timeout: 120
   loop:
       - 5432 # PostgreSQL
       - 3001 # Backend H76
