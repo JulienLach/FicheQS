@@ -42,7 +42,6 @@
       MAILJET_API_KEY: "{{ mailjet_api_key }}"
       MAILJET_SECRET_KEY: "{{ mailjet_secret_key }}"
       JWT_SECRET: "{{ jwt_secret }}"
-      JWT_SECRET: "{{ jwt_secret_h76 }}"
       JWT_SECRET_DEMO: "{{ jwt_secret_demo }}"
       ORIGIN_URL_H76: "{{ origin_url_h76 }}"
       SERVER_URL_H76: "{{ server_url_h76 }}"
