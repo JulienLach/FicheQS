@@ -49,3 +49,8 @@ jobs:
                     -e "server_url_h76=${{ secrets.SERVER_URL_H76 }}" \
                     -e "origin_url_demo=${{ secrets.ORIGIN_URL_DEMO }}" \
                     -e "server_url_demo=${{ secrets.SERVER_URL_DEMO }}"
+
+            # Step 5: Vérifier le déploiement
+            - name: Vérifier le déploiement
+              run: |
+                  ansible-playbook -i ansible/inventory.ini ansible/verify-deployment.yml -u ${{ secrets.VPS_USER }} --private-key=ssh_key
