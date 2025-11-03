@@ -55,7 +55,6 @@
       delay: 10
       timeout: 120
   loop:
-      - 5432 # PostgreSQL
       - 3001 # Backend H76
       - 3002 # Backend Demo
       - 8080 # Frontend H76
