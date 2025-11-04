@@ -6,11 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 1.0.86 (2025-11-04)
+
+### Changes
+
+-   Add verify deployment step in CI/CD pipeline
+
 ## 1.0.85 (2025-11-03)
 
 ### Fixes
 
--   Fix ansible deployment to create only one database container, separate release and client deployment workflows in CI/CD pipeline
+-   Fix ansible deployment script to correctly set up the application on the server
 
 ## 1.0.78 (2025-10-27)
 
