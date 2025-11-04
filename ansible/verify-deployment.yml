@@ -3,7 +3,7 @@
   become: true
   tasks:
       - name: Vérifier les conteneurs en cours d'exécution
-        command: docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+        command: 'docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
         register: docker_status
 
       - name: Afficher le statut des conteneurs
@@ -11,14 +11,12 @@
             var: docker_status.stdout_lines
 
       - name: Vérifier la connectivité des bases de données
-        command: >
-            docker exec ficheqs-db-1 psql -U {{ db_user }} -d {{ item }} -c "SELECT 1"
+        command: 'docker exec ficheqs-db-1 psql -U postgres -d {{ item }} -c "SELECT 1"'
+        register: db_connectivity
         loop:
             - ficheqs_h76
             - ficheqs_demo
-        ignore_errors: yes
-        register: db_connectivity
 
       - name: Afficher la connectivité des bases de données
         debug:
-            var: db_connectivity
+            var: db_connectivity.results
