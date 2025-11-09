@@ -59,6 +59,7 @@ FicheQS is a fullstack PWA for digitizing forms used to verify the safety and qu
     ```
     cd frontend
     npm install
+    npm audit fix
     npm run dev
     ```
 
@@ -134,17 +135,16 @@ PORT_FRONTEND=3000
 
 # Database
 DB_USER=postgres
-# DB_HOST=********
 DB_HOST=localhost
-DB_NAME=FichesQS
-DB_PASSWORD==********
+DB_NAME=ficheqs
+DB_PASSWORD==**************************************
 DB_PORT=5432
 
 # Authentication
 JWT_SECRET=*****************************************
 
 # Email SMTP
-EMAIL=random@mail.com
+EMAIL=no_reply@ficheqs.ovh
 MAILJET_API_KEY=************************************
 MAILJET_SECRET_KEY=*********************************
 
