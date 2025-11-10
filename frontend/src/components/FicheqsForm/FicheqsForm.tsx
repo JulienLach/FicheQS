@@ -1210,7 +1210,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                     <button type="submit" className="buttonLogin" disabled={isSubmitting}>
                         {isSubmitting ? (
                             <>
-                                <i className="fas fa-circle-notch fa-spin"></i>
+                                <div className="custom-spinner"></div>
                                 Chargement...
                             </>
                         ) : (
