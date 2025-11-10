@@ -201,10 +201,11 @@
 }
 
 .sendEmailContainer {
-    position: -webkit-sticky;
-    position: sticky;
-    width: 100%;
+    position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     padding: 0.3em 0;
     border-top: 1px solid var(--border-grey);
     background-color: #fff;
@@ -235,7 +236,7 @@
 .ficheValidatedMessage,
 .ficheDeletedMessage {
     position: fixed;
-    top: 20px;
+    top: max(20px, env(safe-area-inset-top, 20px));
     left: 20px;
     padding: 11px;
     border-radius: 0.45em;
@@ -347,4 +348,20 @@ small {
 
 .deleteButton i {
     margin-right: 0.4em;
+}
+
+.custom-spinner {
+    width: 15px;
+    height: 15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #00C472;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

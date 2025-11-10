@@ -15,7 +15,7 @@ export async function runMigrations(): Promise<void> {
         // Liste des migrations à appliquer
         const migrations: { version: string; updateDatabase: () => Promise<void> }[] = [
             // {
-            //     version: "1.0.87",
+            //     version: "1.0.88",
             //     updateDatabase: async () => {
             //         // Insérer les migrations ici
             //     },

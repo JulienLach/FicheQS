@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 1.0.88 (2025-11-10)
+
+### Fixes
+
+-   Fix notification message position on iOS devices with safe area insets
+-   Fix loader spiner
+
 ## 1.0.87 (2025-11-05)
 
 ## 1.0.86 (2025-11-04)
