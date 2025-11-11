@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 1.0.88 (2025-11-11)
+
+### Fixes
+
+-   Add postgresql healthcheck in docker-compose to ensure database is ready before backend starts to avoid getaddrinfo EAI_AGAIN db errors
+
 ## 1.0.88 (2025-11-10)
 
 ### Fixes
