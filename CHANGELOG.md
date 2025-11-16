@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.90] - 2025-11-16
+
 ### Added
 
 -   Add createFicheQS unit test
@@ -15,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Update CI.yml file to optimize test runs and add code coverage report generation
 -   Update cd.yml to optimize release creation speed with shallow clone (light Git clone), modern actions, and automatic release notes generation
+
+## [1.0.89] - 2025-11-13
 
 ## [1.0.88] - 2025-11-11
 
