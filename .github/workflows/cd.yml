@@ -8,36 +8,46 @@ on:
 jobs:
     release:
         runs-on: ubuntu-latest
+        # Timeout pour éviter les runs qui n'aboutissent pas
+        timeout-minutes: 5
 
         steps:
-            # Step 1: Checkout code
+            # Step 1: Checkout code (shallow clone for speed)
             - name: Checkout code
               uses: actions/checkout@v4
+              # Télécharge seulement le commit du tag au lieu de tout l'historique Git
+              with:
+                  fetch-depth: 1
 
             # Step 2: Verify commit is on main branch
             - name: Verify commit is on main
               run: |
-                  git fetch origin main
-                  if ! git merge-base --is-ancestor $(git rev-parse HEAD) origin/main; then
-                    echo "Commit is not on main branch, exiting."
+                  # Récupère la branche main pour vérification
+                  git fetch origin main --depth=1
+                  # Vérifie que le commit du tag est sur main
+                  if ! git merge-base --is-ancestor ${{ github.sha }} origin/main; then
+                    echo "Tag commit is not on main branch"
                     exit 1
                   fi
 
             # Step 3: Create a GitHub release with the release notes
             - name: Create GitHub Release
-              id: create_release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              # Action moderne pour créer les releases
+              uses: softprops/action-gh-release@v1
               with:
-                  tag_name: ${{ github.ref }}
-                  release_name: ${{ github.ref }}
+                  tag_name: ${{ github.ref_name }}
+                  name: Release ${{ github.ref_name }}
                   draft: false
                   prerelease: false
+                  # Génère automatiquement les notes de release
+                  generate_release_notes: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             # Step 4: Trigger deployment workflow
             - name: Déclencher le déploiement
-              uses: peter-evans/repository-dispatch@v2
+              # Version mise à jour pour déclencher le déploiement
+              uses: peter-evans/repository-dispatch@v3
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   event-type: deploy-release
