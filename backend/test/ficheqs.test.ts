@@ -33,4 +33,34 @@ describe("FicheQS Service", () => {
             expect(Ficheqs.deleteFicheqs).toHaveBeenCalledWith(1);
         });
     });
+
+    describe("Create FicheQS", () => {
+        it("should create a new FicheQS", async () => {
+            const ficheData = {
+                status: 1,
+                visiteDate: "2025-11-16",
+                logement: "330976.123.54.032",
+                idUser: 1,
+            };
+            const fields: { idField: number; valeur: boolean | null; description?: string }[] = [];
+            const createdFiche = { idFiche: 2, ...ficheData };
+            vi.mocked(Ficheqs.createFicheQS).mockResolvedValue(createdFiche);
+
+            const result = await ficheqsService.createFicheQS(
+                ficheData.status,
+                ficheData.visiteDate,
+                ficheData.logement,
+                ficheData.idUser,
+                fields
+            );
+            expect(result).toEqual(createdFiche);
+            expect(Ficheqs.createFicheQS).toHaveBeenCalledWith(
+                ficheData.status,
+                ficheData.visiteDate,
+                ficheData.logement,
+                ficheData.idUser,
+                fields
+            );
+        });
+    });
 });

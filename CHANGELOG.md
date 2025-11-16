@@ -2,156 +2,170 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## 1.0.88 (2025-11-11)
+### Added
 
-### Fixes
+-   Add createFicheQS unit test
 
--   Add postgresql healthcheck in docker-compose to ensure database is ready before backend starts to avoid getaddrinfo EAI_AGAIN db errors
+### Changed
 
-## 1.0.88 (2025-11-10)
+-   Update CI.yml file to optimize test runs and add code coverage report generation
+-   Update cd.yml to optimize release creation speed with shallow clone (light Git clone), modern actions, and automatic release notes generation
 
-### Fixes
+## [1.0.88] - 2025-11-11
+
+### Fixed
+
+-   Add PostgreSQL healthcheck in docker-compose to ensure database is ready before backend starts to avoid getaddrinfo EAI_AGAIN db errors
+
+## [1.0.87] - 2025-11-10
+
+### Fixed
 
 -   Fix notification message position on iOS devices with safe area insets
--   Fix loader spiner
+-   Fix loader spinner
 
-## 1.0.87 (2025-11-05)
+## [1.0.86] - 2025-11-05
 
-## 1.0.86 (2025-11-04)
+_No changes in this release_
 
-## 1.0.85 (2025-11-03)
+## [1.0.85] - 2025-11-04
 
-### Fixes
+_No changes in this release_
 
--   Fix ansible deployment script to correctly set up the application on the server
+## [1.0.84] - 2025-11-03
 
-## 1.0.78 (2025-10-27)
+### Fixed
 
-### Changes
+-   Fix Ansible deployment script to correctly set up the application on the server
+
+## [1.0.78] - 2025-10-27
+
+### Changed
 
 -   Refactor FicheqsForm with React memo and useCallback to optimize rendering performance
--   Fix ansible deployment to create only one database container, separate release and client deployment workflows in CI/CD pipeline
+-   Fix Ansible deployment to create only one database container, separate release and client deployment workflows in CI/CD pipeline
 
-## 1.0.77 (2025-10-27)
+## [1.0.77] - 2025-10-27
 
-### Fixes
+### Fixed
 
 -   Remove hardcoded EXPOSE port in backend Dockerfile to allow dynamic port assignment with docker-compose environment variables
 
-## 1.0.75 (2025-10-23)
+## [1.0.76] - 2025-10-23
 
-### Fixes
+### Fixed
 
--   Fix ansible playbook to deploy multiple clients with one subfolder for each
+-   Fix Ansible playbook to deploy multiple clients with one subfolder for each
 
-## 1.0.74 (2025-10-23)
+## [1.0.75] - 2025-10-23
 
-### Changes
+### Changed
 
 -   Update cd.yml to deploy on demo.ficheqs.ovh
 
-## 1.0.73 (2025-10-23)
+## [1.0.74] - 2025-10-23
 
-### Changes
+### Changed
 
 -   Add loader to submit button in FicheQS form
 
-## 1.0.72 (2025-10-21)
+## [1.0.73] - 2025-10-21
 
-### Fixes
+### Fixed
 
--   Fix sendmail container for IOS devices
+-   Fix sendmail container for iOS devices
 
-## 1.0.71 (2025-10-19)
+## [1.0.72] - 2025-10-19
 
-### Changes
+### Changed
 
 -   Add auto fill visite date with current date
 
-## 1.0.70 (2025-10-19)
+## [1.0.71] - 2025-10-19
 
-### Fixes
+### Fixed
 
--   Fix date input field appearance on Safari IOS
+-   Fix date input field appearance on Safari iOS
 
-### Changes
+### Changed
 
--   Optimize img sizes
+-   Optimize image sizes
 -   UI/UX updates
 
-## 1.0.69 (2025-10-19)
+## [1.0.70] - 2025-10-19
 
-### Changes
+### Changed
 
 -   Improve email validation in login form with regex
 -   Add server headers for security
 -   Add global error handling middleware in Express
 -   Add uncaught exception handler in server.ts
 
-## 1.0.68 (2025-10-12)
+## [1.0.69] - 2025-10-12
 
-### Changes
+### Changed
 
 -   Cleanup code
 -   Optimize styles
 -   Add more unit tests
 
-## 1.0.67 (2025-09-21)
+## [1.0.68] - 2025-09-21
 
-### Changes
+### Changed
 
 -   Add delete FicheQS feature
 
-## 1.0.62 (2025-09-17)
+## [1.0.62] - 2025-09-17
 
-### Changes
+### Changed
 
 -   Remove database exposed port in docker-compose
 
-## 1.0.61 (2025-09-14)
+## [1.0.61] - 2025-09-14
 
-### Changes
+### Changed
 
 -   Add legal mentions page for GDPR compliance
 
-## 1.0.6 (2025-09-13)
+## [1.0.60] - 2025-09-13
 
-### Changes
+### Changed
 
 -   UI/UX updates
 
-## 1.0.59 (2025-09-13)
+## [1.0.59] - 2025-09-13
 
-### Changes
+### Changed
 
 -   Add validated alert message when user validate a FicheQS
 
-### Fixes
+### Fixed
 
 -   Fix CI/CD pipeline
 
-## 1.0.2 (2025-09-07)
+## [1.0.58] - 2025-09-07
 
-### Fixes
+### Fixed
 
--   Fix ansible playbook and inventory paths from cd.yml
+-   Fix Ansible playbook and inventory paths from cd.yml
 
-## 1.0.1 (2025-09-06)
+## [1.0.57] - 2025-09-06
 
-### Changes
+### Changed
 
 -   Add toggle switch to show/hide balcon section in FicheQS form
 
-## 1.0.0 (2025-09-05)
+## [1.0.0] - 2025-09-05
 
-### Changes
+### Added
 
 -   Add user authentication system
--   Creation of FicheQS
+-   Add FicheQS creation functionality
 -   Add validated FicheQS history
--   Add send FicheQS PDF by email
--   Update user account information
+-   Add send FicheQS PDF by email feature
+-   Add user account information update functionality
