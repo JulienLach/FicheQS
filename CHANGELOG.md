@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.91] - 2025-11-29
+
+### Changed
+
+-   Removed jsPDF and html2canvas from frontend dependencies
+-   Removed blobToBase64.ts and FicheqsPDF.tsx files
+-   Migrated PDF generation from frontend to backend using pdfkit for better performance and reduced frontend build size (~641 kB to ~250 kB)
+
 ## [1.0.90] - 2025-11-16
 
 ### Added

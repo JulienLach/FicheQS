@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.routes";
 import ficheqsRoutes from "./routes/ficheqs.routes";
 import accountRoutes from "./routes/account.routes";
 import emailRoutes from "./routes/email.routes";
+import pdfRoutes from "./routes/pdf.routes";
 
 dotenv.config();
 
@@ -64,6 +65,7 @@ app.use("/login", authRoutes);
 app.use("/ficheqs", authenticateToken, sanitizeInputs, ficheqsRoutes);
 app.use("/account", authenticateToken, sanitizeInputs, accountRoutes);
 app.use("/email", authenticateToken, emailRoutes);
+app.use("/pdf", authenticateToken, pdfRoutes);
 
 // Middleware global de gestion centralisée des erreurs
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
