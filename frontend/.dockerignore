@@ -1,0 +1,3 @@
+# Évite de copier les fichiers inutiles dans le build Docker
+node_modules
+dist

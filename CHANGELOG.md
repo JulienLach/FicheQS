@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.93] - 2025-11-29
+
+### Added
+
+-   Add .dockerignore files to frontend and backend folders to optimize Docker build context and reduce image size
+
+### Changed
+
+-   Switched backend and frontend folder copy to Ansible rsync synchronization for faster deployment, reliable file updates, and exclusion of unnecessary files.
+
 ## [1.0.92] - 2025-11-29
 
 ### Changed
