@@ -1,6 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for deploy - Simple et efficace
+
 - name: Créer le répertoire de l'application
   ansible.builtin.file:
       path: "/opt/ficheqs"
@@ -16,13 +17,31 @@
       - { src: "../../../../database_script.sql", dest: "/opt/ficheqs/database_script.sql" }
       - { src: "../../../../init-databases.sql", dest: "/opt/ficheqs/init-databases.sql" }
 
-- name: Copier les répertoires backend et frontend
-  copy:
-      src: "{{ item }}"
-      dest: "/opt/ficheqs/"
-  loop:
-      - "../../../../backend"
-      - "../../../../frontend"
+- name: Synchroniser le dossier backend
+  synchronize:
+      src: "../../../../backend/"
+      dest: "/opt/ficheqs/backend"
+      compress: yes
+      delete: yes
+      rsync_opts:
+          - "--exclude=node_modules"
+          - "--exclude=dist"
+          - "--exclude=.git"
+          - "--exclude=coverage"
+          - "--exclude=*.log"
+
+- name: Synchroniser le dossier frontend
+  synchronize:
+      src: "../../../../frontend/"
+      dest: "/opt/ficheqs/frontend"
+      compress: yes
+      delete: yes
+      rsync_opts:
+          - "--exclude=node_modules"
+          - "--exclude=dist"
+          - "--exclude=.git"
+          - "--exclude=coverage"
+          - "--exclude=*.log"
 
 - name: Arrêter tous les conteneurs existants
   command: docker compose down
