@@ -6,6 +6,7 @@ import { formatStatusTag } from "../../utils/status";
 import FieldSection from "./FieldSection";
 import { createFicheqs, deleteFicheqs } from "../../services/api";
 import { sendPDF } from "../../services/api";
+import { generatePDF } from "../../services/api";
 import "./FicheqsForm.css";
 
 interface FicheField {
@@ -985,16 +986,7 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
             };
 
             // Génération du PDF côté serveur
-            const response = await fetch("http://localhost:3001/pdf/generate", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(pdfData),
-                credentials: "include",
-            });
-            if (!response.ok) {
-                throw new Error("Erreur lors de la génération du PDF");
-            }
-            const data = await response.json();
+            const data = await generatePDF(pdfData);
             const attachmentBase64 = data.pdfBase64;
 
             // Création de l'objet pour l'API selon le format attendu dans email.routes.ts

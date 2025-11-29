@@ -69,6 +69,19 @@ export async function sendPDF(formData: formData) {
     return response.json();
 }
 
+export async function generatePDF(pdfData: any) {
+    const response = await fetch(`${API_URL}/pdf/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pdfData),
+        credentials: "include",
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la génération du PDF");
+    }
+    return response.json();
+}
+
 export async function updateAccount(userId: number, email: string, password: string) {
     const response = await fetch(`${API_URL}/account`, {
         method: "POST",
