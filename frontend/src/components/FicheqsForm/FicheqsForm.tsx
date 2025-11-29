@@ -4,10 +4,9 @@ import { toInputDateValue } from "../../utils/date";
 import { getCookie } from "../../utils/cookie";
 import { formatStatusTag } from "../../utils/status";
 import FieldSection from "./FieldSection";
-import { blobToBase64 } from "../../utils/blobToBase64";
 import { createFicheqs, deleteFicheqs } from "../../services/api";
 import { sendPDF } from "../../services/api";
-import { generatePDF } from "../FicheqsPDF/FicheqsPDF";
+import { generatePDF } from "../../services/api";
 import "./FicheqsForm.css";
 
 interface FicheField {
@@ -986,11 +985,9 @@ const FicheqsForm: React.FC<FicheqsFormProps> = ({
                 fields: allFields,
             };
 
-            // Génération du PDF
-            const pdfBlob = generatePDF(pdfData);
-
-            // Conversion du blob PDF en base64
-            const attachmentBase64 = await blobToBase64(pdfBlob);
+            // Génération du PDF côté serveur
+            const data = await generatePDF(pdfData);
+            const attachmentBase64 = data.pdfBase64;
 
             // Création de l'objet pour l'API selon le format attendu dans email.routes.ts
             const emailData = {
