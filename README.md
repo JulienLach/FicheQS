@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/JulienLach/FicheQS/releases">
-    <img src="https://img.shields.io/badge/Release-1.0.91-00DD80?logo=github" alt="Release" />
+    <img src="https://img.shields.io/badge/Release-1.0.92-00DD80?logo=github" alt="Release" />
   </a>
 </p>
 
