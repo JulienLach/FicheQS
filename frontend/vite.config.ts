@@ -50,6 +50,11 @@ export default defineConfig(({ mode }) => {
             host: "0.0.0.0",
             proxy: {
                 "/api": "http://localhost:3001",
+                // A utiliser pour tester sur un ip local
+                // "/api": {
+                //     target: "http://localhost:3001",
+                //     rewrite: (path) => path.replace(/^\/api/, ""),
+                // },
             },
         },
     };
