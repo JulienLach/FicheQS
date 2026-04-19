@@ -14,44 +14,43 @@ export async function authenticateUser(email: string, password: string) {
         throw new Error("Identifiants invalides");
     }
     const data = await response.json();
-    // cookie dans le localstorage après login pour la redirection
     localStorage.setItem("token", data.token);
     return data;
 }
 
-export async function createFicheqs(ficheData: any) {
-    const response = await fetch(`${API_URL}/ficheqs`, {
+export async function createAudit(auditData: any) {
+    const response = await fetch(`${API_URL}/audits`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(ficheData),
+        body: JSON.stringify(auditData),
         credentials: "include",
     });
     if (!response.ok) {
-        throw new Error("Erreur lors de la création de la fiche");
+        throw new Error("Erreur lors de la création de l'audit");
     }
     return response.json();
 }
 
-export async function getAllFicheqs() {
-    const response = await fetch(`${API_URL}/ficheqs`, {
+export async function getAllAudits() {
+    const response = await fetch(`${API_URL}/audits`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
     });
     if (!response.ok) {
-        throw new Error("Erreur lors de la récupération des fichesqs");
+        throw new Error("Erreur lors de la récupération des audits");
     }
     return response.json();
 }
 
-export async function getFicheQSById(idFiche: number) {
-    const response = await fetch(`${API_URL}/ficheqs/${idFiche}`, {
+export async function getAuditById(idAudit: number) {
+    const response = await fetch(`${API_URL}/audits/${idAudit}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
     });
     if (!response.ok) {
-        throw new Error("Erreur lors de la récupération de la ficheqs");
+        throw new Error("Erreur lors de la récupération de l'audit");
     }
     return response.json();
 }
@@ -95,14 +94,54 @@ export async function updateAccount(userId: number, email: string, password: str
     return response.json();
 }
 
-export async function deleteFicheqs(idFiche: number) {
-    const response = await fetch(`${API_URL}/ficheqs/${idFiche}`, {
+export async function getAdminUsers() {
+    const response = await fetch(`${API_URL}/admin/users`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la récupération des utilisateurs");
+    }
+    return response.json();
+}
+
+export async function updateAdminUser(idUser: number, email?: string, password?: string, firstname?: string, lastname?: string) {
+    const response = await fetch(`${API_URL}/admin/users/${idUser}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, firstname, lastname }),
+        credentials: "include",
+    });
+    if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || "Erreur lors de la mise à jour");
+    }
+    return response.json();
+}
+
+export async function createAdminUser(email: string, password: string, firstname?: string, lastname?: string) {
+    const response = await fetch(`${API_URL}/admin/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, firstname, lastname }),
+        credentials: "include",
+    });
+    if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || "Erreur lors de la création de l'utilisateur");
+    }
+    return response.json();
+}
+
+export async function deleteAudit(idAudit: number) {
+    const response = await fetch(`${API_URL}/audits/${idAudit}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
     });
     if (!response.ok) {
-        throw new Error("Erreur lors de la suppression de la ficheqs");
+        throw new Error("Erreur lors de la suppression de l'audit");
     }
     return response.json();
 }

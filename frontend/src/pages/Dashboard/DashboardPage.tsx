@@ -9,11 +9,11 @@ const DashboardPage: React.FC = () => {
         <div>
             <Menu />
             <div className="container">
-                <button className="buttonDashboard" onClick={() => navigate("/ficheqs")}>
-                    <i className="far fa-file"></i>Nouvelle fiche qualité sécurité
+                <button className="buttonDashboard" onClick={() => navigate("/audit")}>
+                    <i className="far fa-file-lines"></i>Créer un audit sécurité
                 </button>
-                <button className="buttonDashboard" onClick={() => navigate("/all-fichesqs")}>
-                    <i className="far fa-circle-check"></i>Fiches qualité sécurité validées
+                <button className="buttonDashboard" onClick={() => navigate("/all-audits")}>
+                    <i className="fas fa-bars"></i>Audits sécurité validés
                 </button>
             </div>
         </div>

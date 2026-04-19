@@ -35,3 +35,12 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
         res.status(401).json({ message: "Token invalide" });
     }
 }
+
+export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+    const user = (req as any).user;
+    if (!user || user.role !== 2) {
+        res.status(403).json({ message: "Accès refusé" });
+        return;
+    }
+    next();
+}

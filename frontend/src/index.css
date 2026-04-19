@@ -1,11 +1,11 @@
 :root {
-    --primary-color: #00c472;
+    --primary-color: #2665ae;
     --border-grey: #ccc;
     --border-light-grey: rgb(199, 199, 199);
     --notification-success-bg: #e6ffed;
     --notification-success-border: #74cb8d;
     --notification-success-text: #1a7f37;
-    --notification-warning-bg: #fff2de;
+    --notification-warning-bg: #fff5e7;
     --notification-warning-border: #f5ce94;
     --notification-warning-text: #b36b00;
 }
@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: start;
     height: 100vh;
-    width: 91vw;
+    width: 96vw;
     margin: 0 auto;
 }
 
@@ -75,15 +75,40 @@
     background-color: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: 2em;
+    border-radius: 0.5em;
     font-weight: 500;
     cursor: pointer;
 }
 
 .buttonLogin {
     margin: 1.8em auto;
-    padding: 0.7em 1.6em;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    transition:
+        padding 0.2s ease,
+        font-size 0.2s ease;
+}
+
+.buttonLogin:disabled {
+    opacity: 1;
+    cursor: wait;
+    padding: 0.75em 1.6em;
     font-size: 1.05em;
+    animation: buttonPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(38, 101, 174, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(38, 101, 174, 0);
+    }
+}
+
+.buttonLogin i {
+    font-size: 0.9em;
 }
 
 .buttonDashboard,
@@ -102,19 +127,27 @@
 }
 
 .headerTitle {
-    margin-right: auto;
-    font-size: 1.3em;
-    margin-bottom: 0.5em;
+    align-self: flex-start;
+    font-size: 1.6em;
     font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid #ededed;
+    letter-spacing: -0.02em;
+    width: 100%;
 }
 
 .headerTitle i {
-    margin-right: 0.3em;
+    margin-right: 0.4em;
+    color: var(--primary-color);
+    opacity: 0.85;
 }
 
 .fieldButtons {
     display: flex;
-    gap: 1.15em;
+    gap: 0.5em;
+    flex-wrap: wrap;
 }
 
 .fieldButtons .switch {
@@ -129,54 +162,139 @@
     margin-right: 0.5em;
 }
 
-.ficheqsCard {
+.auditCard {
     display: flex;
     flex-direction: row;
-    gap: 0.3em;
+    gap: 5em;
+    justify-content: space-between;
     align-self: center;
-    margin: 1.5em 0;
-    padding: 0.8em 1em;
+    margin: 0.3em 0;
+    padding: 1em 1em;
     border-radius: 0.65em;
     border: 1px solid var(--border-light-grey);
     width: 100%;
-    background-color: #e1ebf0;
+    background-color: #eaf2f6;
     cursor: pointer;
 }
 
-.ficheqsDetails {
+.auditDetails {
     display: flex;
     flex-direction: column;
     gap: 0.6em;
     font-weight: 500;
+    width: fit-content;
 }
 
-.ficheqsDetails i {
+.auditDetails i {
     margin-right: 0.5em;
 }
 
-.ficheStatus {
+.auditStatus {
     display: flex;
     align-items: end;
     font-size: 1.25em;
 }
 
+/* Audit cards */
+.auditList {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    margin: 0.5em 0;
+}
+
+.auditCard {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1em;
+    padding: 1.1em 1.2em;
+    border-radius: 0.65em;
+    border: 1px solid var(--border-light-grey);
+    background: #eaf2f6;
+    cursor: pointer;
+    width: 100%;
+    transition:
+        box-shadow 0.15s,
+        background 0.12s;
+}
+
+.auditCard:hover {
+    background: #dceef7;
+    box-shadow: 0 2px 10px rgba(38, 101, 174, 0.08);
+}
+
+.auditCard .auditDetails p {
+    font-size: 1.05em;
+}
+
+.auditCardFooter {
+    flex-shrink: 0;
+}
+
+.auditCardCta {
+    background: #2665ae;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0.45em 1em;
+    border-radius: 0.4em;
+    transition: background 0.12s;
+    white-space: nowrap;
+}
+
+.auditCard:hover .auditCardCta {
+    background: #1a4f8a;
+}
+
 .pagination {
     display: flex;
-    gap: 1em;
-    margin: 1em 0;
+    gap: 1.2em;
+    margin: 1.5em 0;
     justify-content: center;
+    align-items: center;
 }
 
 .pagination .fas {
+    width: 2.4em;
+    height: 2.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eaf2f6;
+    border: 1.5px solid #d1dde8;
+    border-radius: 0.4em;
     cursor: pointer;
-    font-size: 1.3em;
-    transition: color 0.2s;
+    font-size: 0.95em;
+    color: #2665ae;
+    transition:
+        background 0.12s,
+        border-color 0.12s;
+}
+
+.pagination .fas:hover:not(.disabled) {
+    background: #2665ae;
+    border-color: #2665ae;
+    color: #fff;
 }
 
 .pagination .disabled {
     color: #bbb;
+    background: #f5f5f5;
+    border-color: #e5e7eb;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+.pagination span {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #374151;
+    min-width: 4em;
+    text-align: center;
 }
 
 .statusField {
@@ -193,9 +311,10 @@
 
 .statusTag {
     background-color: #d4fcec;
-    padding: 0.2em 0.45em;
+    padding: 0.3em 0.8em;
     font-size: 1em;
-    border-radius: 0.35em;
+    font-weight: 400;
+    border-radius: 2em;
     color: rgb(9, 65, 9);
     border: 1px solid #b3e1c0;
 }
@@ -206,19 +325,25 @@
     left: 0;
     right: 0;
     width: 100%;
-    padding: 0.3em 0;
+    padding: 0.5em 1em;
     border-top: 1px solid var(--border-grey);
     background-color: #fff;
     z-index: 100;
 }
 
+.auditqsForm {
+    padding-bottom: 8em;
+
+    width: 100%;
+}
+
 .loader {
-    border: 0.6875rem solid #f3f3f3;
-    border-top: 0.6875rem solid var(--primary-color);
+    border: 0.4rem solid #f3f3f3;
+    border-top: 0.4rem solid var(--primary-color);
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    margin: 2em auto;
+    width: 50px;
+    height: 50px;
+    margin: 1.4em auto;
     animation: spin 2s linear infinite;
 }
 
@@ -233,39 +358,45 @@
 
 /* Notifications */
 .emailSentMessage,
-.ficheValidatedMessage,
-.ficheDeletedMessage {
+.auditValidatedMessage,
+.auditDeletedMessage {
     position: fixed;
     top: max(20px, env(safe-area-inset-top, 20px));
-    left: 20px;
-    padding: 11px;
-    border-radius: 0.45em;
-    font-size: 0.9em;
-    font-weight: 400;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    border-radius: 0.5em;
+    font-size: 1.1em;
+    font-weight: 500;
     z-index: 1000;
-    animation: slideInLeft 0.08s ease-out;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    animation: slideDown 0.2s ease-out;
+    white-space: nowrap;
 }
 
 .emailSentMessage,
-.ficheValidatedMessage {
+.auditValidatedMessage {
     background-color: var(--notification-success-bg);
     border: 1px solid var(--notification-success-border);
     color: var(--notification-success-text);
 }
 
-.ficheDeletedMessage {
+.auditDeletedMessage {
     background-color: var(--notification-warning-bg);
     border: 1px solid var(--notification-warning-border);
     color: var(--notification-warning-text);
 }
 
-@keyframes slideInLeft {
+@keyframes slideDown {
     from {
-        transform: translateX(-120%);
+        transform: translateX(-50%) translateY(-120%);
         opacity: 0;
     }
     to {
-        transform: translateX(0);
+        transform: translateX(-50%) translateY(0);
         opacity: 1;
     }
 }
@@ -340,10 +471,18 @@ small {
     background-color: var(--notification-warning-bg);
     border: 1px solid var(--notification-warning-border);
     border-radius: 0.35em;
-    padding: 0.2em 0.5em;
+    padding: 0.5em 1em;
     color: var(--notification-warning-text);
     font-size: 1rem;
     cursor: pointer;
+}
+
+.deleteContainer {
+    margin: 2em 0 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
 }
 
 .deleteButton i {
@@ -351,17 +490,477 @@ small {
 }
 
 .custom-spinner {
-    width: 15px;
-    height: 15px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #00C472;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top: 2px solid #ffffff;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
     display: inline-block;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5em;
+    font-size: 0.95em;
+}
+
+.adminTable th,
+.adminTable td {
+    text-align: left;
+    padding: 0.65em 0.8em;
+    border-bottom: 1px solid var(--border-light-grey);
+}
+
+.adminTable th {
+    font-weight: 600;
+    background-color: #f0f4f8;
+}
+
+.adminForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    width: 100%;
+    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid var(--border-light-grey);
+    border-radius: 0.5em;
+    background-color: #f8fafc;
+}
+
+.adminForm input {
+    padding: 0.6em 0.8em;
+    border: 1px solid var(--border-grey);
+    border-radius: 0.4em;
+    font-size: 1em;
+    width: 100%;
+}
+
+.errorMessage {
+    color: #c0392b;
+    font-size: 0.9em;
+}
+
+.successMessage {
+    color: var(--notification-success-text);
+    font-size: 0.9em;
+}
+
+.adminEditBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-color);
+    font-size: 0.95em;
+    padding: 0.3em 0.5em;
+}
+
+.adminTable tr:hover {
+    background-color: #f6faff;
+}
+
+/* ── Menu ── */
+.menu {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 1.5em;
+}
+
+.menuButton {
+    background-color: #2665ae;
+    border: none;
+    color: white;
+    padding: 0.25em 0.25em;
+    border-radius: 0.35em;
+    cursor: pointer;
+    font-size: 1.4em;
+}
+
+.menuItems {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 60vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.08);
+    padding: 1em;
+}
+
+.closeButton {
+    background-color: #2665ae;
+    border: none;
+    color: white;
+    padding: 0.36em 0.26em;
+    border-radius: 0.35em;
+    cursor: pointer;
+    font-size: 1.4em;
+    align-self: flex-end;
+    margin: 0.7em 0.2em 1em 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.version-tag {
+    position: absolute;
+    bottom: 19px;
+    right: 27px;
+    font-size: 16px;
+    color: #888;
+}
+
+.gdpr {
+    position: absolute;
+    cursor: pointer;
+    bottom: 19px;
+    left: 15px;
+    font-size: 16px;
+    color: #888;
+}
+
+/* ── LoginForm ── */
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 78%;
+}
+
+.loginForm input {
+    padding-left: 0.75em;
+}
+
+.error {
+    color: rgb(196, 46, 46);
+    background-color: rgb(255, 248, 248);
+    border: 1px solid rgb(235, 184, 184);
+    padding: 0.4em;
+    border-radius: 0.3em;
+}
+
+/* ── ScrollToTopButton ── */
+.scrollToTopBtn {
+    position: fixed;
+    bottom: 1.2em;
+    right: 1.2em;
+    width: 2.6em;
+    height: 2.6em;
+    background: #2665ae;
+    color: #fff;
+    border: none;
+    border-radius: 0.4em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    z-index: 200;
+    box-shadow: 0 2px 8px rgba(38, 101, 174, 0.3);
+    transition: background 0.15s;
+}
+
+.scrollToTopBtn:hover {
+    background: #1a4f8a;
+}
+
+/* ── AuditForm ── */
+.formHeader {
+    margin: 1em 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8em;
+}
+
+@media (min-width: 700px) {
+    .formHeader {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8em 1.5em;
+    }
+    .formHeader .formButtons {
+        grid-column: 1 / -1;
+    }
+}
+
+.formHeader label {
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.formHeader input {
+    padding: 0.65em 0.75em;
+    border: 1px solid #ccc;
+    border-radius: 0.35em;
+    width: 100%;
+    margin-top: 0.45em;
+    font-size: 1em;
+    min-height: 2.5em;
+}
+
+.switch {
+    background: #e1ebf0;
+    border: 1px solid #e1ebf0;
+    border-radius: 0.35em;
+    padding: 0.3em 1em;
+    cursor: pointer;
+    margin-right: 0.5em;
+    transition:
+        background 0.02s,
+        border-color 0.02s,
+        color 0.02s;
+}
+
+.switch.active {
+    background: #2665ae;
+    color: #fff;
+    border-color: #2665ae;
+}
+
+.switch.descActive {
+    background: #ff955c;
+    color: #fff;
+    border-color: #ff955c;
+}
+
+.fieldTitle {
+    font-size: 1.35em;
+    font-weight: 600;
+    margin: 1.38em 0 0.8em 0;
+}
+
+.sectionBanner {
+    background: #2665ae;
+    color: #fff;
+    padding: 0.6em 1em;
+    border-radius: 0.4em;
+    margin: 2em 0 0 0;
+    font-size: 1.05em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.field {
+    padding: 0.9em 0.8em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.field:last-child {
+    border-bottom: none;
+}
+
+.fieldSubtitle {
+    font-size: 0.97em;
+    font-weight: 500;
+    color: #1f2937;
+    line-height: 1.45;
+}
+
+.questionNumber {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #949ba6;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.description {
+    margin-top: 1em;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    min-height: 4em;
+    resize: vertical;
+    width: 100%;
+    font-size: 1em;
+}
+
+.ratingBtn {
+    flex: 1;
+    background: #e7f0f5;
+    border: 1.5px solid #d1dde8;
+    border-radius: 0.4em;
+    padding: 0.65em 0.5em;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    min-height: 2.75em;
+    transition:
+        background 0.05s,
+        border-color 0.05s,
+        color 0.05s;
+}
+
+.ratingBtn.jActive {
+    background: #2665ae;
+    color: #fff;
+    border-color: #2665ae;
+}
+
+.ratingBtn.lActive {
+    background: #ff955c;
+    color: #fff;
+    border-color: #ff955c;
+}
+
+.ratingBtn.ncActive {
+    background: #9ca3af;
+    color: #fff;
+    border-color: #9ca3af;
+}
+
+.observation {
+    padding: 0.5em 0.7em;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.3em;
+    min-height: 2.4em;
+    resize: vertical;
+    width: 100%;
+    font-size: 0.9em;
+    background: #fafbfc;
+    color: #374151;
+}
+
+.actionsCorrectives {
+    margin-top: 1.5em;
+}
+
+.actionsCorrectives table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.8em;
+}
+
+.actionsCorrectives th,
+.actionsCorrectives td {
+    text-align: left;
+    padding: 0.4em 0.6em;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.actionsCorrectives th {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #374151;
+}
+
+.actionsCorrectives td input {
+    width: 100%;
+    padding: 0.35em;
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    font-size: 0.9em;
+}
+
+.addActionBtn {
+    background: #e1ebf0;
+    border: 1px solid #e1ebf0;
+    border-radius: 0.35em;
+    padding: 0.55em 1.4em;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.removeActionBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9ca3af;
+    font-size: 1em;
+    padding: 0.2em 0.4em;
+}
+
+.removeActionBtn:hover {
+    color: #ef4444;
+}
+
+.observationGenerale {
+    margin-top: 1.5em;
+}
+
+.observationGenerale textarea {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 0.3em;
+    min-height: 5em;
+    resize: vertical;
+    width: 100%;
+    font-size: 1em;
+    margin-top: 0.5em;
+}
+
+.signatureSection {
+    margin-top: 1.5em;
+}
+
+.signatureLabel {
+    font-size: 0.9em;
+    color: #6b7280;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+.signatureWrapper {
+    border: 1px solid #ccc;
+    border-radius: 0.35em;
+    display: inline-block;
+    width: 100%;
+    background: #fafafa;
+}
+
+.signatureCanvas {
+    display: block;
+    width: 100%;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.signatureCanvas.readOnly {
+    cursor: default;
+    background: #f9fafb;
+}
+
+.clearSignatureBtn {
+    background: none;
+    border: 1px solid #d1d5db;
+    border-radius: 0.35em;
+    padding: 0.55em 1.4em;
+    cursor: pointer;
+    font-size: 1em;
+    color: #6b7280;
+    margin-top: 0.6em;
+}
+
+.clearSignatureBtn:hover {
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+small {
+    font-style: italic;
+    color: #7c7c7c;
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
 }

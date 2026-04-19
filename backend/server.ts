@@ -2,14 +2,17 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import { runMigrations } from "./updates/migration";
-import { authenticateToken } from "./middleware/auth.middleware";
+import { authenticateToken, requireAdmin } from "./middleware/auth.middleware";
 import { sanitizeInputs } from "./middleware/sanitize.middleware";
 import { rateLimit } from "express-rate-limit";
 import authRoutes from "./routes/auth.routes";
-import ficheqsRoutes from "./routes/ficheqs.routes";
+import auditRoutes from "./routes/audit.routes";
 import accountRoutes from "./routes/account.routes";
 import emailRoutes from "./routes/email.routes";
 import pdfRoutes from "./routes/pdf.routes";
+import usersAdminRoutes from "./routes/users.routes";
+import { updateUser } from "./services/users.services";
+import { validatePassword } from "./utils/password";
 
 dotenv.config();
 
@@ -62,10 +65,36 @@ app.use(
 // Route publique
 app.use("/login", authRoutes);
 // Routes avec auth
-app.use("/ficheqs", authenticateToken, sanitizeInputs, ficheqsRoutes);
+app.use("/audits", authenticateToken, sanitizeInputs, auditRoutes);
 app.use("/account", authenticateToken, sanitizeInputs, accountRoutes);
 app.use("/email", authenticateToken, emailRoutes);
 app.use("/pdf", authenticateToken, pdfRoutes);
+app.use("/admin/users", authenticateToken, requireAdmin, sanitizeInputs, usersAdminRoutes);
+app.put("/admin/users/:id", authenticateToken, requireAdmin, sanitizeInputs, async (req, res, next) => {
+    try {
+        const idUser = parseInt(req.params.id);
+        const { email, password, firstname, lastname } = req.body;
+        if (!email && !password && firstname === undefined && lastname === undefined) {
+            res.status(400).json({ message: "Au moins un champ requis" });
+            return;
+        }
+        if (password) {
+            const passwordError = validatePassword(password);
+            if (passwordError) {
+                res.status(400).json({ message: passwordError });
+                return;
+            }
+        }
+        await updateUser(idUser, email || undefined, password || undefined, firstname, lastname);
+        res.status(200).json({ message: "Utilisateur mis à jour" });
+    } catch (error: any) {
+        if (error.code === "23505") {
+            res.status(409).json({ message: "Email déjà utilisé" });
+            return;
+        }
+        next(error);
+    }
+});
 
 // Middleware global de gestion centralisée des erreurs
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

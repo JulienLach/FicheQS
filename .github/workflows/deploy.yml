@@ -1,4 +1,4 @@
-name: Deploy Application
+name: Deploy
 
 on:
     repository_dispatch:
@@ -13,39 +13,45 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        timeout-minutes: 15
 
         steps:
-            # Step 1: Checkout code
-            - name: Checkout code
+            - name: "[Git] Checkout code"
               uses: actions/checkout@v4
               with:
                   ref: ${{ github.event.client_payload.tag || github.event.inputs.tag }}
 
-            # Step 2: Generate Ansible inventory
-            - name: Générer le fichier de l'inventaire Ansible
-              run: |
-                  echo "[vps]" > ansible/inventory.ini
-                  echo "${{ secrets.VPS_IP }} ansible_user=${{ secrets.VPS_USER }} ansible_port=${{ secrets.VPS_SSH_PORT }} ansible_ssh_common_args='-o StrictHostKeyChecking=no'" >> ansible/inventory.ini
-
-            # Step 3: Setup SSH key
-            - name: Setup SSH key
+            - name: "[SSH] Setup key"
               run: |
                   echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
                   chmod 600 ssh_key
 
-            # Step 4: Deploy application
-            - name: Déployer l'application
+            - name: "[Sync] Transfer files to server"
               run: |
-                  ansible-playbook -i ansible/inventory.ini ansible/playbook.yml -u ${{ secrets.VPS_USER }} --private-key=ssh_key \
-                    -e "node_env=${{ secrets.NODE_ENV }}" \
-                    -e "db_user=${{ secrets.DB_USER }}" \
-                    -e "db_password=${{ secrets.DB_PASSWORD }}" \
-                    -e "email=${{ secrets.EMAIL }}" \
-                    -e "mailjet_api_key=${{ secrets.MAILJET_API_KEY }}" \
-                    -e "mailjet_secret_key=${{ secrets.MAILJET_SECRET_KEY }}" \
-                    -e "jwt_secret=${{ secrets.JWT_SECRET }}" \
-                    -e "jwt_secret_demo=${{ secrets.JWT_SECRET_DEMO }}" \
-                    -e "origin_url_h76=${{ secrets.ORIGIN_URL_H76 }}" \
-                    -e "server_url_h76=${{ secrets.SERVER_URL_H76 }}" \
-                    -e "origin_url_demo=${{ secrets.ORIGIN_URL_DEMO }}" \
-                    -e "server_url_demo=${{ secrets.SERVER_URL_DEMO }}"
+                  rsync -avz --delete \
+                    -e "ssh -i ssh_key -p ${{ secrets.VPS_SSH_PORT }} -o StrictHostKeyChecking=no" \
+                    --exclude='.git' \
+                    --exclude='node_modules' \
+                    --exclude='.env' \
+                    ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:/opt/auditqs/
+
+            - name: "[Docker] Build and restart containers"
+              run: |
+                  ssh -i ssh_key -p ${{ secrets.VPS_SSH_PORT }} -o StrictHostKeyChecking=no \
+                    ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << 'EOF'
+                    cd /opt/auditqs
+
+                    cat > .env << ENVEOF
+                  NODE_ENV=${{ secrets.NODE_ENV }}
+                  DB_USER=${{ secrets.DB_USER }}
+                  DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                  EMAIL=${{ secrets.EMAIL }}
+                  MAILJET_API_KEY=${{ secrets.MAILJET_API_KEY }}
+                  MAILJET_SECRET_KEY=${{ secrets.MAILJET_SECRET_KEY }}
+                  JWT_SECRET=${{ secrets.JWT_SECRET }}
+                  ORIGIN_URL=${{ secrets.ORIGIN_URL }}
+                  SERVER_URL=${{ secrets.SERVER_URL }}
+                  ENVEOF
+
+                    docker compose up --build -d
+                  EOF

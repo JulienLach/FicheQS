@@ -4,24 +4,42 @@ export interface UserData {
     lastname: string;
     password: string;
     email: string;
+    role: number;
 }
 
-export interface FicheqsData {
-    idFiche: number;
+export type Rating = 'J' | 'L' | 'NC' | null;
+
+export interface AuditData {
+    idAudit: number;
     status: number;
-    visiteDate: string;
-    logement: string;
+    auditDate: string;
+    site: string;
+    auditeur: string;
+    natureAudit: string;
+    audites: string;
+    observationGenerale: string | null;
+    signature: string | null;
+    signatureTimestamp: string | null;
     idUser: number;
 }
 
-export interface FieldData {
-    idField: number;
+export interface QuestionData {
+    idQuestion: number;
     name: string;
+    section: string;
 }
 
-export interface FicheqsHasFieldData {
-    idFiche: number;
-    idField: number;
-    valeur: boolean | null;
-    description: string | null;
+export interface AuditHasQuestionData {
+    idAudit: number;
+    idQuestion: number;
+    valeur: Rating;
+    observation: string | null;
+}
+
+export interface ActionCorrectiveData {
+    idAction?: number;
+    idAudit?: number;
+    nature: string;
+    delai: string;
+    responsable: string;
 }
