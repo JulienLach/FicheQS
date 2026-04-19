@@ -272,7 +272,6 @@ const AuditForm: React.FC<AuditFormProps> = ({
         setUserEmail(email);
         const userId = decodeURIComponent(getCookie("userId"));
         setIdUser(Number(userId));
-        // Pré-remplir l'auditeur avec le nom de la personne connectée
         if (!auditData.auditeur) {
             const firstname = decodeURIComponent(getCookie("firstname"));
             const lastname = decodeURIComponent(getCookie("lastname"));

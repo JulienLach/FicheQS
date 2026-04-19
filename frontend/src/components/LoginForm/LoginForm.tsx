@@ -21,7 +21,6 @@ const LoginForm: React.FC = () => {
 
         try {
             const response = await authenticateUser(email, password);
-            console.log("Connexion réussie :", response);
             navigate("/dashboard");
         } catch (err: any) {
             setError(err.message);
