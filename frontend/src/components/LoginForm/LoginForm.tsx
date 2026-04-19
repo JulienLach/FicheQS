@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
         }
 
         try {
-            const response = await authenticateUser(email, password);
+            await authenticateUser(email, password);
             navigate("/dashboard");
         } catch (err: any) {
             setError(err.message);

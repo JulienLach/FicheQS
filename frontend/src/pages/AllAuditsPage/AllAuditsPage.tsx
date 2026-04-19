@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Menu from "../../components/Menu/Menu";
 import { formatDate } from "../../utils/date";
-import { formatStatus } from "../../utils/status";
 import { getAllAudits } from "../../services/api";
 import { usePagination } from "../../hooks/usePagination";
 

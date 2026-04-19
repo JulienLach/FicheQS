@@ -28,7 +28,7 @@ const AccountForm: React.FC = () => {
             await updateAccount(parseInt(userId), email, password);
             document.cookie = `email=${encodeURIComponent(email)};path=/;max-age=${2 * 60 * 60}`;
             setTimeout(() => navigate("/dashboard"));
-        } catch (error: any) {
+        } catch {
             console.log("Erreur lors de la mise à jour du compte");
         }
     }
