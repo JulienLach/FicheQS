@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/JulienLach/Audit/releases">
-    <img src="https://img.shields.io/badge/Release-2.0.0-424242?logo=github" alt="Release" />
+    <img src="https://img.shields.io/badge/Release-2.1.0-424242?logo=github" alt="Release" />
   </a>
 </p>
 

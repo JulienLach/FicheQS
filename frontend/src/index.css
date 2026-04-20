@@ -35,6 +35,14 @@
     border-radius: 0.3em;
 }
 
+.alert-error {
+    color: rgb(196, 46, 46);
+    background-color: rgb(255, 248, 248);
+    border: 1px solid rgb(235, 184, 184);
+    padding: 0.4em;
+    border-radius: 0.3em;
+}
+
 .logoMobile {
     width: 250px;
     display: block;
@@ -359,6 +367,7 @@
 /* Notifications */
 .emailSentMessage,
 .auditValidatedMessage,
+.auditSavedOfflineMessage,
 .auditDeletedMessage {
     position: fixed;
     top: max(20px, env(safe-area-inset-top, 20px));
@@ -384,10 +393,30 @@
     color: var(--notification-success-text);
 }
 
+.auditSavedOfflineMessage,
 .auditDeletedMessage {
     background-color: var(--notification-warning-bg);
     border: 1px solid var(--notification-warning-border);
     color: var(--notification-warning-text);
+}
+
+.offlineSyncBanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--notification-warning-bg);
+    border-bottom: 1px solid var(--notification-warning-border);
+    color: var(--notification-warning-text);
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.9em;
+    font-weight: 500;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 @keyframes slideDown {

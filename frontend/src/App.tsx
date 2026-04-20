@@ -9,10 +9,19 @@ import AuditDetailsPage from "./pages/AuditDetailsPage/AuditDetailsPage";
 import AccountPage from "./pages/AccountPage/AccountPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
+import { useOfflineSync } from "./hooks/useOfflineSync";
 
 const App: React.FC = () => {
+    const { pendingCount } = useOfflineSync();
+
     return (
         <Router>
+            {pendingCount > 0 && (
+                <div className="offlineSyncBanner">
+                    <i className="fa-solid fa-clock-rotate-left"></i>{" "}
+                    {pendingCount} audit{pendingCount > 1 ? "s" : ""} en attente de synchronisation
+                </div>
+            )}
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/login" element={<LoginPage />} />
