@@ -15,5 +15,7 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("fetch", (e) => {
     if (e.request.url.includes("/api/")) return;
+    // Ne pas intercepter les requêtes cross-origin (CDN, fonts) — le browser les gère nativement
+    if (!e.request.url.startsWith(self.location.origin)) return;
     e.respondWith(caches.match(e.request).then((cached) => cached || fetch(e.request)));
 });
