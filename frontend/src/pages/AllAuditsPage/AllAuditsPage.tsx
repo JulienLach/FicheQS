@@ -28,7 +28,7 @@ const AllAuditsPage: React.FC = () => {
                 <h2 className="headerTitle">
                     <i className="fas fa-bars"></i>Audits sécurité validés
                 </h2>
-                {error && <div className="empty">{error}</div>}
+                {error && <div className="alert-error">{error}</div>}
                 <ul className="auditList">
                     {auditsToShow.map((audit) => (
                         <div
@@ -37,11 +37,23 @@ const AllAuditsPage: React.FC = () => {
                             onClick={() => navigate(`/audit-details/${audit.idAudit}`)}
                         >
                             <div className="auditDetails">
-                                <p><i className="fas fa-location-dot"></i><span>Site :</span> {audit.site}</p>
-                                <p><i className="fas fa-calendar"></i><span>Date :</span> {formatDate(audit.auditDate)}</p>
-                                <p><i className="fas fa-user"></i><span>Auditeur :</span> {audit.auditeur}</p>
+                                <p>
+                                    <i className="fas fa-location-dot"></i>
+                                    <span>Site :</span> {audit.site}
+                                </p>
+                                <p>
+                                    <i className="fas fa-calendar"></i>
+                                    <span>Date :</span> {formatDate(audit.auditDate)}
+                                </p>
+                                <p>
+                                    <i className="fas fa-user"></i>
+                                    <span>Auditeur :</span> {audit.auditeur}
+                                </p>
                                 {audit.audites && (
-                                    <p><i className="fas fa-user-group"></i><span>Audités :</span> {audit.audites}</p>
+                                    <p>
+                                        <i className="fas fa-user-group"></i>
+                                        <span>Audités :</span> {audit.audites}
+                                    </p>
                                 )}
                             </div>
                             <div className="auditCardFooter">
@@ -56,7 +68,9 @@ const AllAuditsPage: React.FC = () => {
                         onClick={() => page > 1 && setPage(page - 1)}
                         aria-label="Page précédente"
                     ></i>
-                    <span>{page} / {totalPages || 1}</span>
+                    <span>
+                        {page} / {totalPages || 1}
+                    </span>
                     <i
                         className={`fas fa-chevron-right${page === totalPages ? " disabled" : ""}`}
                         onClick={() => page < totalPages && setPage(page + 1)}

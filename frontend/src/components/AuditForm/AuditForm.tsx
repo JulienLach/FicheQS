@@ -7,6 +7,7 @@ import QuestionSection from "./QuestionSection";
 import SignatureCanvas, { SignatureCanvasHandle } from "./SignatureCanvas";
 import { createAudit, deleteAudit } from "../../services/api";
 import { sendPDF, generatePDF } from "../../services/api";
+import { queueAudit } from "../../utils/offlineQueue";
 import { AuditQuestion, ActionCorrective, Rating } from "../../interfaces/interfaces";
 
 type AuditFormProps = {
@@ -209,6 +210,7 @@ const AuditForm: React.FC<AuditFormProps> = ({
 
     const [emailSent, setEmailSent] = useState(false);
     const [auditValidated, setAuditValidated] = useState(false);
+    const [auditSavedOffline, setAuditSavedOffline] = useState(false);
     const [auditDeleted, setAuditDeleted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSendingEmail, setIsSendingEmail] = useState(false);
@@ -281,30 +283,6 @@ const AuditForm: React.FC<AuditFormProps> = ({
         }
     }, []);
 
-    useEffect(() => {
-        if (emailSent) {
-            const timer = setTimeout(() => setEmailSent(false), 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [emailSent]);
-
-    useEffect(() => {
-        if (auditValidated) {
-            const timer = setTimeout(() => setAuditValidated(false), 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [auditValidated]);
-
-    useEffect(() => {
-        if (auditDeleted) {
-            const timer = setTimeout(() => {
-                setAuditDeleted(false);
-                navigate("/dashboard");
-                window.scrollTo(0, 0);
-            }, 1500);
-            return () => clearTimeout(timer);
-        }
-    }, [auditDeleted, navigate]);
 
     const addAction = () => {
         setActions((prev) => [...prev, { nature: "", delai: "", responsable: "" }]);
@@ -347,10 +325,23 @@ const AuditForm: React.FC<AuditFormProps> = ({
             actions,
         };
 
+        if (!navigator.onLine) {
+            queueAudit(payload);
+            setAuditSavedOffline(true);
+            setTimeout(() => {
+                setAuditSavedOffline(false);
+                navigate("/dashboard");
+                window.scrollTo(0, 0);
+                setIsSubmitting(false);
+            }, 3000);
+            return;
+        }
+
         try {
             await createAudit(payload);
             setAuditValidated(true);
             setTimeout(() => {
+                setAuditValidated(false);
                 navigate("/dashboard");
                 window.scrollTo(0, 0);
                 setIsSubmitting(false);
@@ -400,6 +391,7 @@ const AuditForm: React.FC<AuditFormProps> = ({
 
             if (result.success) {
                 setEmailSent(true);
+                setTimeout(() => setEmailSent(false), 3000);
             } else {
                 throw new Error(result.message || "Erreur lors de l'envoi de l'email");
             }
@@ -415,6 +407,11 @@ const AuditForm: React.FC<AuditFormProps> = ({
         try {
             await deleteAudit(idAudit);
             setAuditDeleted(true);
+            setTimeout(() => {
+                setAuditDeleted(false);
+                navigate("/dashboard");
+                window.scrollTo(0, 0);
+            }, 1500);
         } catch (error) {
             console.error("Erreur lors de la suppression :", error);
         }
@@ -632,6 +629,11 @@ const AuditForm: React.FC<AuditFormProps> = ({
                     {auditValidated && (
                         <div className="auditValidatedMessage">
                             <i className="fa-solid fa-check"></i> Audit validé
+                        </div>
+                    )}
+                    {auditSavedOffline && (
+                        <div className="auditSavedOfflineMessage">
+                            <i className="fa-solid fa-clock-rotate-left"></i> Audit sauvegardé — envoi automatique dès que vous êtes en ligne
                         </div>
                     )}
                 </div>

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-04-20
+
+### Added
+
+- Added offline support with service workers to record audits without internet connection and sync them when back online
+
 ## [2.0.0] - 2026-04-19
 
 ### Changed

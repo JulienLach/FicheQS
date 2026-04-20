@@ -39,6 +39,12 @@ export interface UserAdmin {
     role: number;
 }
 
+export interface PendingAudit {
+    localId: string;
+    payload: any;
+    savedAt: string;
+}
+
 export interface AuditMeta {
     idAudit: number;
     status: number;
