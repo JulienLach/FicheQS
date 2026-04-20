@@ -1,45 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createAudit } from "../services/api";
 import { getQueue, removeFromQueue } from "../utils/offlineQueue";
 
 export function useOfflineSync() {
     const [pendingCount, setPendingCount] = useState(getQueue().length);
+    const [isSyncing, setIsSyncing] = useState(false);
+    const syncing = useRef(false);
 
-    const syncQueue = async () => {
+    async function syncQueue() {
+        if (syncing.current) return;
         const queue = getQueue();
-        if (queue.length === 0) return;
+        if (!queue.length) return;
 
+        syncing.current = true;
+        setIsSyncing(true);
         for (const item of queue) {
             try {
                 await createAudit(item.payload);
                 removeFromQueue(item.localId);
-            } catch {
-                // Laisse l'audit dans la queue pour la prochaine tentative
-            }
+            } catch {}
         }
+        syncing.current = false;
+        setIsSyncing(false);
         setPendingCount(getQueue().length);
-    };
+    }
 
     useEffect(() => {
-        if (navigator.onLine) {
-            syncQueue();
-        }
+        if (navigator.onLine) syncQueue();
 
-        const handleOnline = () => syncQueue();
-        window.addEventListener("online", handleOnline);
-        return () => window.removeEventListener("online", handleOnline);
-    }, []);
-
-    // Rafraîchit le compteur quand localStorage change (autre onglet ou même onglet)
-    useEffect(() => {
-        const handleUpdate = () => setPendingCount(getQueue().length);
-        window.addEventListener("storage", handleUpdate);
-        window.addEventListener("offlineQueueUpdated", handleUpdate);
+        const refreshCount = () => setPendingCount(getQueue().length);
+        window.addEventListener("online", syncQueue);
+        window.addEventListener("storage", refreshCount);
+        window.addEventListener("offlineQueueUpdated", refreshCount);
         return () => {
-            window.removeEventListener("storage", handleUpdate);
-            window.removeEventListener("offlineQueueUpdated", handleUpdate);
+            window.removeEventListener("online", syncQueue);
+            window.removeEventListener("storage", refreshCount);
+            window.removeEventListener("offlineQueueUpdated", refreshCount);
         };
     }, []);
 
-    return { pendingCount };
+    // iOS Safari fallback : retry toutes les 30s tant que des audits sont en attente
+    useEffect(() => {
+        if (!pendingCount) return;
+        const id = setInterval(() => { if (navigator.onLine) syncQueue(); }, 30000);
+        return () => clearInterval(id);
+    }, [pendingCount]);
+
+    return { pendingCount, isSyncing, syncQueue };
 }

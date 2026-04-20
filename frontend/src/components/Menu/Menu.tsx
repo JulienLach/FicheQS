@@ -43,7 +43,7 @@ const Menu: React.FC = () => {
                     <button className="buttonMenu" onClick={() => handleNavigation("/login")}>
                         <i className="fas fa-arrow-right-from-bracket"></i>Déconnexion
                     </button>
-                    <div className="version-tag">ET2I — Audit sécurité v{appVersion}</div>
+                    <div className="version-tag">{appVersion}</div>
                 </div>
             )}
         </div>

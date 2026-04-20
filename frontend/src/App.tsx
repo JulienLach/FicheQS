@@ -12,14 +12,23 @@ import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton"
 import { useOfflineSync } from "./hooks/useOfflineSync";
 
 const App: React.FC = () => {
-    const { pendingCount } = useOfflineSync();
+    const { pendingCount, isSyncing, syncQueue } = useOfflineSync();
 
     return (
         <Router>
             {pendingCount > 0 && (
                 <div className="offlineSyncBanner">
-                    <i className="fa-solid fa-clock-rotate-left"></i>{" "}
-                    {pendingCount} audit{pendingCount > 1 ? "s" : ""} en attente de synchronisation
+                    <i className={`fa-solid ${isSyncing ? "fa-spinner fa-spin" : "fa-clock-rotate-left"}`}></i>
+                    <span>
+                        {pendingCount} audit{pendingCount > 1 ? "s" : ""} en attente de synchronisation
+                    </span>
+                    <button
+                        className="offlineSyncBannerBtn"
+                        onClick={syncQueue}
+                        disabled={isSyncing}
+                    >
+                        {isSyncing ? "Sync…" : "Synchroniser"}
+                    </button>
                 </div>
             )}
             <Routes>
