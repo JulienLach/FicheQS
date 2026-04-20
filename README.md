@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="frontend/src/assets/images/logo-mobile.png" alt="AuditQS Logo" width="150" height="38">
+  <img src="frontend/src/assets/images/logo-mobile.png" alt="Audit Logo" width="150" height="38">
 </p>
 
 <p align="center">
-  <a href="https://github.com/JulienLach/FicheQS/releases">
+  <a href="https://github.com/JulienLach/Audit/releases">
     <img src="https://img.shields.io/badge/Release-2.0.0-424242?logo=github" alt="Release" />
   </a>
 </p>
@@ -23,7 +23,7 @@
 
 ### Overview
 
-AuditQS is a fullstack PWA for security audits (J/L/NC rating system) covering SSE, EPI, Santé, Culture Sécurité and Environnement sections.
+Audit is a fullstack PWA for security audits
 
 ### Features
 
@@ -36,13 +36,13 @@ AuditQS is a fullstack PWA for security audits (J/L/NC rating system) covering S
 
 ### Requirements
 
-- Node.js v20+
+- Node.js v22+
 - npm
 - React v19+
-- Vite
-- Express
-- TypeScript
-- PostgreSQL
+- Vite v7+
+- Express v5+
+- TypeScript v5+
+- PostgreSQL v14+
 - Docker
 
 ### Acces app on local network

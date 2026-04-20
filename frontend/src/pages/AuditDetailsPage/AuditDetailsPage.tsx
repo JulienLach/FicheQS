@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import AuditDetailsForm from "../../components/AuditDetailsForm/AuditDetailsForm";
 
 const AuditDetailsPage: React.FC = () => {
-    const { idFiche } = useParams();
+    const { idAudit } = useParams();
 
     return (
         <div>
@@ -13,7 +13,7 @@ const AuditDetailsPage: React.FC = () => {
                 <h2 className="headerTitle">
                     <i className="fas fa-bars"></i>Audit sécurité validé
                 </h2>
-                <AuditDetailsForm idFiche={Number(idFiche)} />
+                <AuditDetailsForm idAudit={Number(idAudit)} />
             </div>
         </div>
     );

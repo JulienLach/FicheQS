@@ -3,15 +3,15 @@ import { getAuditById } from "../../services/api";
 import AuditForm from "../AuditForm/AuditForm";
 
 type AuditDetailsFormProps = {
-    idFiche: number;
+    idAudit: number;
 };
 
-const AuditDetailsForm: React.FC<AuditDetailsFormProps> = ({ idFiche }) => {
+const AuditDetailsForm: React.FC<AuditDetailsFormProps> = ({ idAudit }) => {
     const [auditData, setAuditData] = useState<any>(null);
 
     useEffect(() => {
-        getAuditById(idFiche).then(setAuditData);
-    }, [idFiche]);
+        getAuditById(idAudit).then(setAuditData);
+    }, [idAudit]);
 
     if (!auditData) return <div className="loader"></div>;
 
