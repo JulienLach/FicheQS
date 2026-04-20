@@ -2,42 +2,44 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../utils/cookie";
 import { updateAccount } from "../../services/api";
+import { validatePassword } from "../../utils/password";
 
 const AccountForm: React.FC = () => {
     const [userId, setUserId] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordError, setPasswordError] = useState<string | null>(null);
 
     const navigate = useNavigate();
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
+        if (password) {
+            const error = validatePassword(password);
+            if (error) {
+                setPasswordError(error);
+                return;
+            }
+        }
+        setPasswordError(null);
+
         try {
             await updateAccount(parseInt(userId), email, password);
-
-            console.warn("Compte mis à jour avec succès");
-
-            // Mise à jour du cookie email si l'email a été modifié
             document.cookie = `email=${encodeURIComponent(email)};path=/;max-age=${2 * 60 * 60}`;
-
-            setTimeout(() => {
-                navigate("/dashboard");
-            });
-        } catch (error: any) {
+            setTimeout(() => navigate("/dashboard"));
+        } catch {
             console.log("Erreur lors de la mise à jour du compte");
         }
     }
 
     useEffect(() => {
-        const email = decodeURIComponent(getCookie("email"));
-        setEmail(email);
-        const userId = decodeURIComponent(getCookie("userId"));
-        setUserId(userId);
+        setEmail(decodeURIComponent(getCookie("email")));
+        setUserId(decodeURIComponent(getCookie("userId")));
     }, []);
 
     return (
-        <form className="ficheqsForm" onSubmit={handleSubmit}>
+        <form className="auditqsForm" onSubmit={handleSubmit}>
             <div className="formHeader">
                 <div>
                     <label>Email :</label>
@@ -45,14 +47,23 @@ const AccountForm: React.FC = () => {
                 </div>
                 <div>
                     <label>Mot de passe :</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    <small>Modifier le mot de passe</small>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setPasswordError(null);
+                        }}
+                    />
+                    <small>
+                        Laisser vide pour ne pas changer — 12 caractères minimum, 1 majuscule, 1 chiffre, 1 caractère
+                        spécial
+                    </small>
+                    {passwordError && <p className="errorMessage">{passwordError}</p>}
                 </div>
             </div>
-            <hr />
             <button type="submit" className="buttonLogin">
-                <i className="far fa-bookmark"></i>
-                Enregister
+                Enregistrer
             </button>
         </form>
     );

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoMobile from "../../assets/images/logo-mobile.png";
-import "./Menu.css";
 
 const Menu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const appVersion = import.meta.env.PACKAGE_VERSION;
     const navigate = useNavigate();
+    const roleCookie = document.cookie
+        .split(";")
+        .find((c) => c.trim().startsWith("role="))
+        ?.split("=")[1];
+    const isAdmin = roleCookie === "2";
 
     const toggleMenu = () => setIsOpen(isOpen == false);
 
@@ -28,16 +32,18 @@ const Menu: React.FC = () => {
                     <button className="closeButton" onClick={toggleMenu}>
                         <i className="fas fa-xmark"></i>
                     </button>
+                    {isAdmin && (
+                        <button className="buttonMenu" onClick={() => handleNavigation("/admin")}>
+                            <i className="fa fa-wrench"></i>Administration
+                        </button>
+                    )}
                     <button className="buttonMenu" onClick={() => handleNavigation("/account")}>
-                        <i className="far fa-user"></i>Mon compte
+                        <i className="fas fa-user"></i>Mon compte
                     </button>
                     <button className="buttonMenu" onClick={() => handleNavigation("/login")}>
-                        <i className="fa-solid fa-arrow-right-from-bracket"></i>Déconnexion
+                        <i className="fas fa-arrow-right-from-bracket"></i>Déconnexion
                     </button>
-                    <a className="gdpr" onClick={() => handleNavigation("/mentions-legales")}>
-                        Mentions légales
-                    </a>
-                    <div className="version-tag">{appVersion}</div>
+                    <div className="version-tag">ET2I — Audit sécurité v{appVersion}</div>
                 </div>
             )}
         </div>

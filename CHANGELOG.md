@@ -7,34 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-04-19
+
+### Changed
+
+- Full revamp of the application with new UI/UX design, improved performance, and enhanced features
+
 ## [1.0.93] - 2025-11-29
 
 ### Added
 
--   Add .dockerignore files to frontend and backend folders to optimize Docker build context and reduce image size
+- Add .dockerignore files to frontend and backend folders to optimize Docker build context and reduce image size
 
 ### Changed
 
--   Switched backend and frontend folder copy to Ansible rsync synchronization for faster deployment, reliable file updates, and exclusion of unnecessary files.
+- Switched backend and frontend folder copy to Ansible rsync synchronization for faster deployment, reliable file updates, and exclusion of unnecessary files.
 
 ## [1.0.92] - 2025-11-29
 
 ### Changed
 
--   Removed jsPDF and html2canvas from frontend dependencies
--   Removed blobToBase64.ts and FicheqsPDF.tsx files
--   Migrated PDF generation from frontend to backend using pdfkit for better performance and reduced frontend build size (~641 kB to ~250 kB)
+- Removed jsPDF and html2canvas from frontend dependencies
+- Removed blobToBase64.ts and FicheqsPDF.tsx files
+- Migrated PDF generation from frontend to backend using pdfkit for better performance and reduced frontend build size (~641 kB to ~250 kB)
 
 ## [1.0.90] - 2025-11-16
 
 ### Added
 
--   Add createFicheQS unit test
+- Add createFicheQS unit test
 
 ### Changed
 
--   Update CI.yml file to optimize test runs and add code coverage report generation
--   Update cd.yml to optimize release creation speed with shallow clone (light Git clone), modern actions, and automatic release notes generation
+- Update CI.yml file to optimize test runs and add code coverage report generation
+- Update cd.yml to optimize release creation speed with shallow clone (light Git clone), modern actions, and automatic release notes generation
 
 ## [1.0.89] - 2025-11-13
 
@@ -42,14 +48,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
--   Add PostgreSQL healthcheck in docker-compose to ensure database is ready before backend starts to avoid getaddrinfo EAI_AGAIN db errors
+- Add PostgreSQL healthcheck in docker-compose to ensure database is ready before backend starts to avoid getaddrinfo EAI_AGAIN db errors
 
 ## [1.0.87] - 2025-11-10
 
 ### Fixed
 
--   Fix notification message position on iOS devices with safe area insets
--   Fix loader spinner
+- Fix notification message position on iOS devices with safe area insets
+- Fix loader spinner
 
 ## [1.0.86] - 2025-11-05
 
@@ -63,131 +69,131 @@ _No changes in this release_
 
 ### Fixed
 
--   Fix Ansible deployment script to correctly set up the application on the server
+- Fix Ansible deployment script to correctly set up the application on the server
 
 ## [1.0.78] - 2025-10-27
 
 ### Changed
 
--   Refactor FicheqsForm with React memo and useCallback to optimize rendering performance
--   Fix Ansible deployment to create only one database container, separate release and client deployment workflows in CI/CD pipeline
+- Refactor FicheqsForm with React memo and useCallback to optimize rendering performance
+- Fix Ansible deployment to create only one database container, separate release and client deployment workflows in CI/CD pipeline
 
 ## [1.0.77] - 2025-10-27
 
 ### Fixed
 
--   Remove hardcoded EXPOSE port in backend Dockerfile to allow dynamic port assignment with docker-compose environment variables
+- Remove hardcoded EXPOSE port in backend Dockerfile to allow dynamic port assignment with docker-compose environment variables
 
 ## [1.0.76] - 2025-10-23
 
 ### Fixed
 
--   Fix Ansible playbook to deploy multiple clients with one subfolder for each
+- Fix Ansible playbook to deploy multiple clients with one subfolder for each
 
 ## [1.0.75] - 2025-10-23
 
 ### Changed
 
--   Update cd.yml to deploy on demo.ficheqs.ovh
+- Update cd.yml to deploy on demo.ficheqs.ovh
 
 ## [1.0.74] - 2025-10-23
 
 ### Changed
 
--   Add loader to submit button in FicheQS form
+- Add loader to submit button in FicheQS form
 
 ## [1.0.73] - 2025-10-21
 
 ### Fixed
 
--   Fix sendmail container for iOS devices
+- Fix sendmail container for iOS devices
 
 ## [1.0.72] - 2025-10-19
 
 ### Changed
 
--   Add auto fill visite date with current date
+- Add auto fill visite date with current date
 
 ## [1.0.71] - 2025-10-19
 
 ### Fixed
 
--   Fix date input field appearance on Safari iOS
+- Fix date input field appearance on Safari iOS
 
 ### Changed
 
--   Optimize image sizes
--   UI/UX updates
+- Optimize image sizes
+- UI/UX updates
 
 ## [1.0.70] - 2025-10-19
 
 ### Changed
 
--   Improve email validation in login form with regex
--   Add server headers for security
--   Add global error handling middleware in Express
--   Add uncaught exception handler in server.ts
+- Improve email validation in login form with regex
+- Add server headers for security
+- Add global error handling middleware in Express
+- Add uncaught exception handler in server.ts
 
 ## [1.0.69] - 2025-10-12
 
 ### Changed
 
--   Cleanup code
--   Optimize styles
--   Add more unit tests
+- Cleanup code
+- Optimize styles
+- Add more unit tests
 
 ## [1.0.68] - 2025-09-21
 
 ### Changed
 
--   Add delete FicheQS feature
+- Add delete FicheQS feature
 
 ## [1.0.62] - 2025-09-17
 
 ### Changed
 
--   Remove database exposed port in docker-compose
+- Remove database exposed port in docker-compose
 
 ## [1.0.61] - 2025-09-14
 
 ### Changed
 
--   Add legal mentions page for GDPR compliance
+- Add legal mentions page for GDPR compliance
 
 ## [1.0.60] - 2025-09-13
 
 ### Changed
 
--   UI/UX updates
+- UI/UX updates
 
 ## [1.0.59] - 2025-09-13
 
 ### Changed
 
--   Add validated alert message when user validate a FicheQS
+- Add validated alert message when user validate a FicheQS
 
 ### Fixed
 
--   Fix CI/CD pipeline
+- Fix CI/CD pipeline
 
 ## [1.0.58] - 2025-09-07
 
 ### Fixed
 
--   Fix Ansible playbook and inventory paths from cd.yml
+- Fix Ansible playbook and inventory paths from cd.yml
 
 ## [1.0.57] - 2025-09-06
 
 ### Changed
 
--   Add toggle switch to show/hide balcon section in FicheQS form
+- Add toggle switch to show/hide balcon section in FicheQS form
 
 ## [1.0.0] - 2025-09-05
 
 ### Added
 
--   Add user authentication system
--   Add FicheQS creation functionality
--   Add validated FicheQS history
--   Add send FicheQS PDF by email feature
--   Add user account information update functionality
+- Add user authentication system
+- Add FicheQS creation functionality
+- Add validated FicheQS history
+- Add send FicheQS PDF by email feature
+- Add user account information update functionality

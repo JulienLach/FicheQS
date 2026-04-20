@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./LoginForm.css";
 import { authenticateUser } from "../../services/api";
 
 const LoginForm: React.FC = () => {
@@ -21,8 +20,7 @@ const LoginForm: React.FC = () => {
         }
 
         try {
-            const response = await authenticateUser(email, password);
-            console.log("Connexion réussie :", response);
+            await authenticateUser(email, password);
             navigate("/dashboard");
         } catch (err: any) {
             setError(err.message);
@@ -32,11 +30,12 @@ const LoginForm: React.FC = () => {
     return (
         <form className="loginForm" onSubmit={handleSubmit}>
             <div className="formGroup">
-                <label htmlFor="email">Identifiant</label>
+                <label htmlFor="email">Email</label>
                 <input
                     type="text"
                     id="email"
                     name="email"
+                    placeholder="mail@exemple.com"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -55,7 +54,7 @@ const LoginForm: React.FC = () => {
             </div>
             {error && <div className="error">{error}</div>}
             <button type="submit" className="buttonLogin">
-                <i className="far fa-user"></i>Connexion
+                Connexion
             </button>
         </form>
     );

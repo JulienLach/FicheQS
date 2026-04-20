@@ -1,155 +1,126 @@
 CREATE TABLE users (
     id_user SERIAL PRIMARY KEY,
     email VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(128) NOT NULL,
+    password VARCHAR(200) NOT NULL,
     firstname VARCHAR(100),
-    lastname VARCHAR(100)
+    lastname VARCHAR(100),
+    role INTEGER NOT NULL DEFAULT 1
 );
 
-CREATE TABLE fields (
-    id_field SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE
+CREATE TABLE questions (
+    id_question SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    section VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE ficheqs (
-    id_fiche SERIAL PRIMARY KEY,
+CREATE TABLE audits (
+    id_audit SERIAL PRIMARY KEY,
     status INTEGER,
-    visite_date DATE NOT NULL,
-    logement VARCHAR(100) NOT NULL,
+    audit_date DATE NOT NULL,
+    site VARCHAR(100) NOT NULL,
+    auditeur VARCHAR(100) NOT NULL,
+    nature_audit VARCHAR(100),
+    audites VARCHAR(255),
+    observation_generale TEXT,
+    signature TEXT,
+    signature_timestamp TIMESTAMPTZ,
     id_user INTEGER NOT NULL,
     FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE RESTRICT
 );
 
-CREATE TABLE ficheqs_has_field (
-    id_fiche INTEGER,
-    id_field INTEGER,
-    valeur BOOLEAN, -- true=OK, false=pas opérationnel, null=non concerné
-    description VARCHAR(255), -- Optionnel si valeur = false
-    PRIMARY KEY (id_fiche, id_field),
-    FOREIGN KEY (id_fiche) REFERENCES ficheqs(id_fiche) ON DELETE CASCADE,
-    FOREIGN KEY (id_field) REFERENCES fields(id_field) ON DELETE RESTRICT,
-    CHECK (description IS NULL OR valeur = false) -- Contrainte : description seulement si valeur = false
+CREATE TABLE audits_has_question (
+    id_audit INTEGER,
+    id_question INTEGER,
+    valeur VARCHAR(2),
+    observation VARCHAR(255),
+    PRIMARY KEY (id_audit, id_question),
+    FOREIGN KEY (id_audit) REFERENCES audits(id_audit) ON DELETE CASCADE,
+    FOREIGN KEY (id_question) REFERENCES questions(id_question) ON DELETE RESTRICT
 );
 
-INSERT INTO users (email, password, firstname, lastname)
-VALUES ('test@gmail.com', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'Jean', 'Dupont');
+CREATE TABLE actions_correctives (
+    id_action SERIAL PRIMARY KEY,
+    id_audit INTEGER NOT NULL,
+    nature VARCHAR(255),
+    delai DATE,
+    responsable VARCHAR(100),
+    FOREIGN KEY (id_audit) REFERENCES audits(id_audit) ON DELETE CASCADE
+);
 
--- Insertion des champs prédéfinis dans fields
-INSERT INTO fields (name) VALUES
-    ('daaf_presence'),
-    ('daaf_etat_proprete'),
-    ('daaf_fonctionnement'),
-    ('gaz_roai'),
-    ('gaz_chaudiere'),
-    ('gaz_canalisations'),
-    ('electrique_cables'),
-    ('electrique_prises_interrupteurs'),
-    ('electrique_convecteur'),
-    ('electrique_tableau'),
-    ('risque_chute_sols'),
-    ('risque_chute_marches'),
-    ('risque_chute_gardes_corps'),
-    ('balcon_fissure'),
-    ('balcon_infiltration'),
-    ('evier_douche_casse'),
-    ('evier_douche_joints'),
-    ('faience_casse'),
-    ('faience_joints'),
-    ('meuble_ouverture_fermeture'),
-    ('meuble_ventilation_gaz'),
-    ('meuble_ventilation_sanitaire'),
-    ('meuble_fixation'),
-    ('canalisation_fuyante'),
-    ('canalisation_inodore'),
-    ('menuiserie_ouverture_fermeture'),
-    ('menuiserie_exterieure_etanche'),
-    ('menuiserie_detalonnage_porte'),
-    ('menuiserie_quincaillerie'),
-    ('ventilation_sanitaire_fonctionnement'),
-    ('embelissement_propre'),
-    ('embelissement_plinthe'),
-    ('embelissement_barre_seuil'),
-    ('espace_exterieur_vegetation'),
-    ('equipement_ext_fixation'),
-    ('equipement_ext_cloture'),
-    ('equipement_ext_portillon'),
-    ('equipement_div_hotte'),
-    ('equipement_div_fixation'),
-    ('equipement_div_wc'),
-    ('equipement_div_porte_douche'),
-    ('equipement_div_brise_vue'),
-    ('equipement_div_store'),
-    ('proprete_toilette'),
-    ('proprete_sdb'),
-    ('proprete_cuisine'),
-    ('proprete_grille'),
-    ('proprete_calandre'),
-    ('proprete_tuyauterie'),
-    ('proprete_menuiserie'),
-    ('proprete_vitrage'),
-    ('proprete_chambranles'),
-    ('proprete_interrupteur'),
-    ('proprete_sol'),
-    ('proprete_joint');
+INSERT INTO users (email, password, firstname, lastname, role)
+VALUES ('test@gmail.com', 'bc94077a47a4f4aceaf7d69686efa25a:46be8651aafe73b8060c2ffcaa7b1be6aeaca46a6a6b793388298380c5fca099fc18b99afdcf640b1e57b7e222dfbaf2faf4c857cf0018c51af1ecc1fcd2ef8a', 'Jean', 'Dupont', 2);
 
--- FicheQS démo
-INSERT INTO ficheqs (status, visite_date, logement, id_user)
-VALUES (2, '2025-08-20', '3510702.02.01.00.007', 1);
+INSERT INTO questions (name, section) VALUES
+    ('sse_ordre_rangement', 'SSE'),
+    ('sse_conditions_travail', 'SSE'),
+    ('sse_acces', 'SSE'),
+    ('sse_conformite_materiel', 'SSE'),
+    ('sse_pdp', 'SSE'),
+    ('sse_habilitations', 'SSE'),
+    ('sse_causerie', 'SSE'),
+    ('sse_confinement', 'SSE'),
+    ('sse_permis_conduire', 'SSE'),
+    ('sse_classeur_sse', 'SSE'),
+    ('sse_premier_secours', 'SSE'),
+    ('sse_cpshe', 'SSE'),
+    ('sse_consignes_alertes', 'SSE'),
+    ('sse_lancement_travail', 'SSE'),
+    ('sse_lsa', 'SSE'),
+    ('sse_lps', 'SSE'),
+    ('sse_mpp', 'SSE'),
+    ('sse_regles_vie', 'SSE'),
+    ('sse_duree_travail', 'SSE'),
+    ('sse_numero_urgence', 'SSE'),
+    ('epi_chaussures', 'EPI'),
+    ('epi_vetement', 'EPI'),
+    ('epi_gants', 'EPI'),
+    ('epi_lunettes', 'EPI'),
+    ('epi_casque', 'EPI'),
+    ('epi_protections_auditives', 'EPI'),
+    ('sante_aptitude_medicale', 'SANTE'),
+    ('sante_politique_alcool', 'SANTE'),
+    ('culture_lancement_travail', 'CULTURE_SECURITE'),
+    ('env_empreinte_carbone', 'ENVIRONNEMENT'),
+    ('env_tri_dechets', 'ENVIRONNEMENT'),
+    ('env_ecoconduite', 'ENVIRONNEMENT');
 
--- Associer tous les champs à cette ficheqs (id_fiche = 1)
-INSERT INTO ficheqs_has_field (id_fiche, id_field, valeur, description) VALUES
-    (1, 1, true, NULL),
-    (1, 2, false, 'À nettoyer'),
-    (1, 3, NULL, NULL),
-    (1, 4, true, NULL),
-    (1, 5, true, NULL),
-    (1, 6, false, 'Remplacement semaine 25'),
-    (1, 7, true, NULL),
-    (1, 8, true, NULL),
-    (1, 9, NULL, NULL),
-    (1, 10, true, NULL),
-    (1, 11, true, NULL),
-    (1, 12, false, 'À réparer'),
-    (1, 13, true, NULL),
-    (1, 14, true, NULL),
-    (1, 15, NULL, NULL),
-    (1, 16, true, NULL),
-    (1, 17, true, NULL),
-    (1, 18, false, 'Cassée'),
-    (1, 19, true, NULL),
-    (1, 20, true, NULL),
-    (1, 21, NULL, NULL),
-    (1, 22, true, NULL),
-    (1, 23, true, NULL),
-    (1, 24, false, 'Bon de commande envoyé'),
-    (1, 25, true, NULL),
-    (1, 26, true, NULL),
-    (1, 27, true, NULL),
-    (1, 28, NULL, NULL),
-    (1, 29, true, NULL),
-    (1, 30, true, NULL),
-    (1, 31, true, NULL),
-    (1, 32, false, 'Plinthe manquante'),
-    (1, 33, true, NULL),
-    (1, 34, true, NULL),
-    (1, 35, true, NULL),
-    (1, 36, true, NULL),
-    (1, 37, false, 'Portillon bloqué'),
-    (1, 38, true, NULL),
-    (1, 39, true, NULL),
-    (1, 40, true, NULL),
-    (1, 41, true, NULL),
-    (1, 42, true, NULL),
-    (1, 43, true, NULL),
-    (1, 44, true, NULL),
-    (1, 45, true, NULL),
-    (1, 46, true, NULL),
-    (1, 47, true, NULL),
-    (1, 48, true, NULL),
-    (1, 49, true, NULL),
-    (1, 50, true, NULL),
-    (1, 51, true, NULL),
-    (1, 52, true, NULL),
-    (1, 53, true, NULL),
-    (1, 54, true, NULL),
-    (1, 55, true, NULL);
+-- Audit démo
+INSERT INTO audits (status, audit_date, site, auditeur, nature_audit, audites, id_user)
+VALUES (2, '2025-08-20', 'Site A', 'Jean Dupont', 'Audit terrain', 'Martin Pierre, Dubois Marie', 1);
+
+INSERT INTO audits_has_question (id_audit, id_question, valeur, observation) VALUES
+    (1, 1, 'J', NULL),
+    (1, 2, 'J', NULL),
+    (1, 3, 'L', 'Couloir partiellement encombré'),
+    (1, 4, 'J', NULL),
+    (1, 5, 'J', NULL),
+    (1, 6, 'J', NULL),
+    (1, 7, 'J', NULL),
+    (1, 8, 'J', NULL),
+    (1, 9, 'NC', NULL),
+    (1, 10, 'J', NULL),
+    (1, 11, 'J', NULL),
+    (1, 12, 'J', NULL),
+    (1, 13, 'J', NULL),
+    (1, 14, 'J', NULL),
+    (1, 15, 'J', NULL),
+    (1, 16, 'J', NULL),
+    (1, 17, 'J', NULL),
+    (1, 18, 'J', NULL),
+    (1, 19, 'J', NULL),
+    (1, 20, 'J', NULL),
+    (1, 21, 'J', NULL),
+    (1, 22, 'J', NULL),
+    (1, 23, 'NC', NULL),
+    (1, 24, 'J', NULL),
+    (1, 25, 'J', NULL),
+    (1, 26, 'NC', NULL),
+    (1, 27, 'J', NULL),
+    (1, 28, 'J', NULL),
+    (1, 29, 'J', NULL),
+    (1, 30, 'J', NULL),
+    (1, 31, 'J', NULL),
+    (1, 32, 'J', NULL);
+
+INSERT INTO actions_correctives (id_audit, nature, delai, responsable) VALUES
+    (1, 'Dégager le couloir d''accès', '2025-09-01', 'Martin Pierre');
