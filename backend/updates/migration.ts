@@ -1,11 +1,12 @@
 import pool from "../config/db.config";
+import path from "path";
 
 export async function runMigrations(): Promise<void> {
     const client = await pool.connect();
 
     try {
         // Version cible depuis les variables d'environnement
-        const { version: targetVersion } = require("../package.json");
+        const { version: targetVersion } = require(path.join(process.cwd(), "package.json"));
         console.log(`Target application version: ${targetVersion}`);
 
         if (!targetVersion) {
