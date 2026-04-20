@@ -1,14 +1,17 @@
 services:
     db:
         image: postgres:14-alpine
+        container_name: audit-db
         environment:
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
             - POSTGRES_DB=postgres
         volumes:
-            - pgdata:/var/lib/postgresql/data
+            - audit_pgdata:/var/lib/postgresql/data
             - ./init-databases.sql:/docker-entrypoint-initdb.d/01-init-databases.sql
             - ./database_script.sql:/docker-entrypoint-initdb.d/02-database_script.sql
+        networks:
+            - audit-network
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d postgres"]
             interval: 10s
@@ -20,8 +23,9 @@ services:
         build:
             context: ./backend
             dockerfile: dockerfile.backend
+        container_name: audit-backend
         ports:
-            - "127.0.0.1:3001:3001"
+            - "127.0.0.1:3002:3001"
         environment:
             - NODE_ENV=${NODE_ENV}
             - DB_USER=${DB_USER}
@@ -39,17 +43,28 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+        networks:
+            - audit-network
         restart: unless-stopped
 
     frontend:
         build:
             context: ./frontend
             dockerfile: dockerfile.frontend
+        container_name: audit-frontend
+        ports:
+            - "127.0.0.1:8081:80"
         environment:
             - NODE_ENV=${NODE_ENV}
         depends_on:
             - backend
+        networks:
+            - audit-network
         restart: unless-stopped
 
 volumes:
-    pgdata:
+    audit_pgdata:
+
+networks:
+    audit-network:
+        driver: bridge
