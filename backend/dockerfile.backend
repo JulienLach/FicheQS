@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build && cp -r fonts dist/fonts
+RUN npm run build && cp -r fonts dist/fonts && cp -r images dist/images
 
 RUN npm prune --omit=dev
 
