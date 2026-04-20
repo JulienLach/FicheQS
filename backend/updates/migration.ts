@@ -9,7 +9,7 @@ export async function runMigrations(): Promise<void> {
         console.log(`Target application version: ${targetVersion}`);
 
         if (!targetVersion) {
-            throw new Error("VITE_APP_VERSION must be set in environment variables");
+            throw new Error("version must be set in package.json");
         }
 
         // Liste des migrations à appliquer
