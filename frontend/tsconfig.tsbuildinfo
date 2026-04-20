@@ -1,1 +1,32 @@
-{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/AccountForm/AccountForm.tsx","./src/components/AuditDetailsForm/AuditDetailsForm.tsx","./src/components/AuditForm/AuditForm.tsx","./src/components/AuditForm/QuestionSection.tsx","./src/components/AuditForm/SignatureCanvas.tsx","./src/components/LoginForm/LoginForm.tsx","./src/components/Menu/Menu.tsx","./src/components/ScrollToTopButton/ScrollToTopButton.tsx","./src/hooks/usePagination.ts","./src/interfaces/interfaces.ts","./src/pages/AccountPage/AccountPage.tsx","./src/pages/AdminPage/AdminPage.tsx","./src/pages/AllAuditsPage/AllAuditsPage.tsx","./src/pages/AuditDetailsPage/AuditDetailsPage.tsx","./src/pages/AuditPage/AuditPage.tsx","./src/pages/Dashboard/DashboardPage.tsx","./src/pages/FicheqsDetails/FicheqsDetailsPage.tsx","./src/pages/Login/LoginPage.tsx","./src/services/api.ts","./src/utils/PrivateRoute.tsx","./src/utils/cookie.ts","./src/utils/date.ts","./src/utils/password.ts","./src/utils/status.tsx"],"version":"5.9.3"}
+{
+    "root": [
+        "./src/App.tsx",
+        "./src/main.tsx",
+        "./src/vite-env.d.ts",
+        "./src/components/AccountForm/AccountForm.tsx",
+        "./src/components/AuditDetailsForm/AuditDetailsForm.tsx",
+        "./src/components/AuditForm/AuditForm.tsx",
+        "./src/components/AuditForm/QuestionSection.tsx",
+        "./src/components/AuditForm/SignatureCanvas.tsx",
+        "./src/components/LoginForm/LoginForm.tsx",
+        "./src/components/Menu/Menu.tsx",
+        "./src/components/ScrollToTopButton/ScrollToTopButton.tsx",
+        "./src/hooks/usePagination.ts",
+        "./src/interfaces/interfaces.ts",
+        "./src/pages/AccountPage/AccountPage.tsx",
+        "./src/pages/AdminPage/AdminPage.tsx",
+        "./src/pages/AllAuditsPage/AllAuditsPage.tsx",
+        "./src/pages/AuditDetailsPage/AuditDetailsPage.tsx",
+        "./src/pages/AuditPage/AuditPage.tsx",
+        "./src/pages/Dashboard/DashboardPage.tsx",
+        "./src/pages/FicheqsDetails/FicheqsDetailsPage.tsx",
+        "./src/pages/Login/LoginPage.tsx",
+        "./src/services/api.ts",
+        "./src/utils/PrivateRoute.tsx",
+        "./src/utils/cookie.ts",
+        "./src/utils/date.ts",
+        "./src/utils/password.ts",
+        "./src/utils/status.tsx"
+    ],
+    "version": "5.9.3"
+}
