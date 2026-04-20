@@ -18,7 +18,7 @@ export function useOfflineSync() {
             try {
                 await createAudit(item.payload);
                 removeFromQueue(item.localId);
-            } catch {}
+            } catch { /* laisse l'audit en queue pour la prochaine tentative */ }
         }
         syncing.current = false;
         setIsSyncing(false);
